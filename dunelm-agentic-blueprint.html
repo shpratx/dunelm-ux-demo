@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Agentic Blueprint — Dunelm Demo</title>
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --bg:            #f0f2f5;
+  --surface:       #ffffff;
+  --surface-alt:   #f8f8f9;
+  --border:        #e2e2e6;
+  --border-strong: #c8c8d0;
+  --text:          #1a1a1f;
+  --text-muted:    #55555e;
+  --text-dim:      #9898b0;
+
+  --wf1:  #3b6fd4; --wf1-pastel: #eef3fd;
+  --wf2:  #7048d4; --wf2-pastel: #f2eefb;
+  --wf3:  #0f9587; --wf3-pastel: #e8f9f7;
+  --wf4:  #c0534a; --wf4-pastel: #fdf0ef;
+  --wf5:  #3b6fd4; --wf5-pastel: #eef3fd;
+  --wf6:  #2e8b57; --wf6-pastel: #eaf7f0;
+
+  --c-kb:       #1d7faa; --c-kb-bg:      #e4f5fb;
+  --c-llm:      #6b3ecf; --c-llm-bg:     #f0eafa;
+  --c-in:       #3d4a5c; --c-in-bg:      #eef0f3;
+  --c-out:      #7a4a10; --c-out-bg:     #fdf1e0;
+  --c-na:       #888;    --c-na-bg:      #f4f4f5;
+  --c-in-tool:  #2e6da4; --c-in-tool-bg: #e8f0fa;
+  --c-out-tool: #5a3d96; --c-out-tool-bg:#f0ebfb;
+
+  --card-w: 260px;
+  --r: 10px;
+  --shadow: 0 2px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-h: 0 6px 24px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.08);
+
+  /* connector colour */
+  --conn: #94a3b8;
+  --conn-par: #64748b;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+html,body { background:var(--bg); color:var(--text); font-family:Calibri,'Segoe UI',sans-serif; font-size:14px; line-height:1.5; }
+body { padding:36px 32px 80px; }
+.page { max-width:2600px; margin:0 auto; }
+
+/* ── HEADER ── */
+.header { display:flex; justify-content:space-between; align-items:center; padding-bottom:20px; border-bottom:2px solid var(--text); margin-bottom:48px; }
+.header h1 { font-size:28px; font-weight:700; letter-spacing:-0.01em; }
+.header-sub { font-size:13px; color:var(--text-muted); margin-top:3px; }
+.header-meta { text-align:right; font-size:12px; color:var(--text-muted); line-height:1.8; }
+
+/* ═══════════════════════════════════════════
+   FLOW CANVAS  –  horizontal scroll wrapper
+═══════════════════════════════════════════ */
+.flow-outer {
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+/* The real layout container — position:relative so the SVG overlay can be absolute */
+.flow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;   /* cards top-align; connectors drawn by JS */
+  gap: 0;
+  position: relative;
+  /* min-width prevents collapse during layout measurement */
+  min-width: max-content;
+  padding: 16px 0 40px;      /* top padding = room for "PARALLEL" label; bottom = connector tails */
+}
+
+/* SVG connector overlay – drawn after layout */
+#conn-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION WRAPPERS
+   series-col   = single WF column
+   par-group    = shaded panel holding two stacked WF columns
+   gap-col      = spacing column between sections
+═══════════════════════════════════════════ */
+
+.series-col {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Spacing between sections — the JS draws connector lines through this space */
+.gap-col {
+  flex-shrink: 0;
+  width: 72px;   /* enough width for arrowhead + breathing room */
+}
+
+/* Parallel group: soft panel with label */
+.par-group {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: rgba(100,116,139,0.07);
+  border: 1.5px dashed rgba(100,116,139,0.30);
+  border-radius: 14px;
+  padding: 14px 16px 18px;
+  gap: 16px;
+  position: relative;
+}
+
+.par-group-label {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0 10px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--conn-par);
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
+/* Each row inside a parallel group */
+.par-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════
+   WF CARD
+═══════════════════════════════════════════ */
+.wf-card {
+  background: var(--surface);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+  width: var(--card-w);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+.wf-card:hover { box-shadow: var(--shadow-h); }
+
+.wf-stripe { height: 5px; border-radius: var(--r) var(--r) 0 0; }
+
+/* per-wf colours */
+.wf-c1 .wf-stripe, .wf-c1 .wf-badge { --wfc:var(--wf1); --wfp:var(--wf1-pastel); }
+.wf-c2 .wf-stripe, .wf-c2 .wf-badge { --wfc:var(--wf2); --wfp:var(--wf2-pastel); }
+.wf-c3 .wf-stripe, .wf-c3 .wf-badge { --wfc:var(--wf3); --wfp:var(--wf3-pastel); }
+.wf-c4 .wf-stripe, .wf-c4 .wf-badge { --wfc:var(--wf4); --wfp:var(--wf4-pastel); }
+.wf-c5 .wf-stripe, .wf-c5 .wf-badge { --wfc:var(--wf5); --wfp:var(--wf5-pastel); }
+.wf-c6 .wf-stripe, .wf-c6 .wf-badge { --wfc:var(--wf6); --wfp:var(--wf6-pastel); }
+
+.wf-stripe { background: var(--wfc); }
+
+.wf-card-header { padding:14px 14px 12px; border-bottom:1px solid var(--border); }
+.wf-badge {
+  display:inline-block; font-size:10px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+  padding:2px 8px; border-radius:8px; border:1px solid;
+  margin-bottom:7px; white-space:nowrap;
+  color:var(--wfc); border-color:var(--wfc); background:var(--wfp);
+}
+.wf-name { font-size:11px; font-weight:700; margin-bottom:5px; line-height:1.35; word-break:break-word; }
+.wf-desc { font-size:10px; color:var(--text-muted); font-style:italic; line-height:1.4; }
+
+/* ═══════════════════════════════════════════
+   AGENTS
+═══════════════════════════════════════════ */
+.agents-list { padding:8px 0 4px; display:flex; flex-direction:column; }
+.agent { border-bottom:1px solid var(--border); }
+.agent:last-child { border-bottom:none; }
+
+.agent-arrow { display:flex; align-items:center; justify-content:center; height:16px; background:var(--surface-alt); }
+.aa-line { width:1px; height:9px; background:var(--border-strong); }
+.aa-arrowhead { width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:5px solid var(--border-strong); }
+
+.agent-toggle { width:100%; display:flex; align-items:center; gap:7px; padding:8px 12px; background:none; border:none; cursor:pointer; text-align:left; font-family:Calibri,'Segoe UI',sans-serif; font-size:11px; color:var(--text); transition:background .1s; }
+.agent-toggle:hover { background:var(--surface-alt); }
+.agent-num { font-size:9px; font-weight:700; color:var(--text-dim); letter-spacing:.05em; flex-shrink:0; min-width:16px; }
+.agent-label { flex:1; font-weight:600; font-size:11px; line-height:1.3; }
+.agent-chevron { font-size:8px; color:var(--text-dim); transition:transform .18s; flex-shrink:0; }
+.agent.open .agent-chevron { transform:rotate(180deg); }
+
+.agent-params { display:none; padding:0 12px 10px; border-top:1px dashed var(--border); background:var(--surface-alt); }
+.agent.open .agent-params { display:block; }
+
+.desc-text { font-size:10px; color:var(--text-muted); font-style:italic; padding:7px 0 9px; border-bottom:1px solid var(--border); margin-bottom:9px; line-height:1.45; }
+.param-grid { display:flex; flex-direction:column; gap:7px; }
+.param-row { display:flex; flex-direction:column; gap:3px; }
+.param-label { font-size:8px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); }
+.chips { display:flex; flex-wrap:wrap; gap:3px; }
+.chip { display:inline-flex; align-items:center; gap:4px; font-size:9px; font-family:Calibri,'Segoe UI',sans-serif; padding:2px 6px; border-radius:8px; border:1px solid; white-space:nowrap; line-height:1.4; }
+.chip img { width:10px; height:10px; object-fit:contain; }
+.chip.kb       { color:var(--c-kb);       background:var(--c-kb-bg);       border-color:var(--c-kb); }
+.chip.llm      { color:var(--c-llm);      background:var(--c-llm-bg);      border-color:var(--c-llm); }
+.chip.in       { color:var(--c-in);       background:var(--c-in-bg);       border-color:var(--border-strong); }
+.chip.out      { color:var(--c-out);      background:var(--c-out-bg);      border-color:#c87d30; }
+.chip.na       { color:var(--c-na);       background:var(--c-na-bg);       border-color:var(--border); font-style:italic; }
+.chip.in-tool  { color:var(--c-in-tool);  background:var(--c-in-tool-bg);  border-color:var(--c-in-tool); }
+.chip.out-tool { color:var(--c-out-tool); background:var(--c-out-tool-bg); border-color:var(--c-out-tool); }
+.param-na { font-size:10px; color:var(--text-dim); font-style:italic; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header class="header">
+  <div>
+    <h1>Agentic Blueprint</h1>
+    <div class="header-sub">Dunelm Demo</div>
+  </div>
+  <div class="header-meta">
+    <div><img src="Ascendion_logo.png" alt="Ascendion AAVA" style="height:60px;vertical-align:middle;display:block;margin-left:auto;margin-bottom:4px;"></div>
+    <div>Agentic Platform</div>
+  </div>
+  <div class="header-meta">
+    <div><img src="dunelm.png" alt="Dunelm Logo" style="height:30px;vertical-align:middle;display:block;margin-left:auto;margin-bottom:4px;"></div>
+  </div>
+</header>
+
+<!-- FLOW -->
+<div class="flow-outer">
+<div class="flow" id="flow">
+
+  <!-- SVG overlay – filled by JS -->
+  <svg id="conn-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  <!-- ══ SECTION 1: WF1 (series) ══ -->
+  <div class="series-col" id="sec-wf1">
+    <div class="wf-card wf-c1" id="wf1">
+      <div class="wf-stripe"></div>
+      <div class="wf-card-header">
+        <div class="wf-badge">WF 1</div>
+        <div class="wf-name">L1-WF-inception-idea-epics-creator</div>
+        <div class="wf-desc">Workflow to create idea or a product vision into epics</div>
+      </div>
+      <div class="agents-list">
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 inception requirements extractor</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Transform an idea ('use-case') or a product vision document into a comprehensive, categorized list of actionable requirements with traceability and compliance alignment.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">SOURCE_DOCUMENT – idea / product vision</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Requirements Traceability Matrix</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 inception requirements to epics generator</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Transform input requirements into comprehensive, actionable epics with clear objectives, acceptance criteria, and traceability.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Requirements Traceability Matrix</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span><span class="chip out">Features (Child work items of Epics)</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L0-epics-best-practices</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /sec-wf1 -->
+
+  <div class="gap-col" id="gap1"></div>
+
+  <!-- ══ SECTION 2: WF2 + WF3 (parallel) ══ -->
+  <div class="par-group" id="par1">
+    <div class="par-group-label">Parallel</div>
+
+    <!-- WF2 row -->
+    <div class="par-row">
+      <div class="wf-card wf-c2" id="wf2">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 2 *To be filled by Kalyan*</div>
+          <div class="wf-name">L1-WF-uiux-workflows</div>
+          <div class="wf-desc">Deep-dive UI/UX design workflows — agents to be configured</div>
+        </div>
+        <div class="agents-list">
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A4</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+        </div>
+      </div>
+    </div><!-- /WF2 row -->
+
+    <!-- WF3 row -->
+    <div class="par-row">
+      <div class="wf-card wf-c3" id="wf3">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 3</div>
+          <div class="wf-name">L1-WF-inception-epics-to-story-decomposer</div>
+          <div class="wf-desc">Workflow to decompose epics to stories</div>
+        </div>
+        <div class="agents-list">
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 inception epics validator</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Reviews and validates epic requirements for completeness, clarity, business alignment, and compliance, providing actionable reports and audit traceability.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs + Features</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Validation report for each epic</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 inception epics to story decomposer</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Transform validated epics into actionable, testable user stories with full traceability and compliance alignment.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input 1</span><div class="chips"><span class="chip in">EPICs + Features</span></div></div>
+                <div class="param-row"><span class="param-label">Input 1 Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+                <div class="param-row"><span class="param-label">Input 2</span><div class="chips"><span class="chip in">Validation report for each epic</span></div></div>
+                <div class="param-row"><span class="param-label">Input 2 Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">User Stories (linked to EPIC)</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-story-best-practices</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">L1 inception test creation agent</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Generate comprehensive test scenarios, manual test cases, and automation-ready scripts from requirements or feature descriptions.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs, Features, Stories, Validation report</span><span class="chip in">Optional – Discovery Reports</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github (optional)</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Test Scenarios</span><span class="chip out">Manual Test Cases</span><span class="chip out">Automated Test Cases</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip out-tool"><img src="xray_icon.png" alt="Xray">Xray</span><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-test-scenario-standards</span><span class="chip kb">kb-L0-manual-testcase-standards</span><span class="chip kb">kb-L0-automated-testcase-standards</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /WF3 row -->
+
+  </div><!-- /par1 -->
+
+  <div class="gap-col" id="gap2"></div>
+
+  <!-- ══ SECTION 3: WF4 (series) ══ -->
+  <div class="series-col" id="sec-wf4">
+    <div class="wf-card wf-c4" id="wf4">
+      <div class="wf-stripe"></div>
+      <div class="wf-card-header">
+        <div class="wf-badge">WF 4</div>
+        <div class="wf-name">L1-WF-inception-design-architecture-generator</div>
+        <div class="wf-desc">Ingests epics and stories to create or update design and architecture docs</div>
+      </div>
+      <div class="agents-list">
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 epic and story readiness review agent</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Validate epics and user stories for completeness, clarity, and readiness, ensuring all required details are present for effective design and architecture handoff.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics + Features + User Stories</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Validation Report</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 system discovery and assessment agent</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Conduct comprehensive discovery and assessment of existing technical systems and all related documentation, providing a clear, actionable report.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Existing Codebases (UI, API)</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Discovery Reports – 1. Executive Summary</span><span class="chip out">2. System Inventory</span><span class="chip out">3. Architecture Map</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">L1 inception technical architecture creation agent</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Create or modify comprehensive technical, solution, and integration architecture documentation for a specified epic, ensuring alignment with enterprise standards and regulatory requirements.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs, Features, Stories, Validation report</span><span class="chip in">Optional – Discovery Reports</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github (optional)</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Technical Architecture</span><span class="chip out">Solution Architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-openapi-3.0-standards</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">L1 inception LLD generator agent</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Generate a complete, validated High Level and Low-Level Design documents, ensuring all enterprise and compliance requirements are met.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs, Features, Stories, Validation report</span><span class="chip in">OpenAPI Specs</span><span class="chip in">Optional – Discovery Reports</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">LLD</span><span class="chip out">HLD</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L0-openapi-3.0-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /sec-wf4 -->
+
+  <div class="gap-col" id="gap3"></div>
+
+  <!-- ══ SECTION 4: WF5 + WF6 (parallel) ══ -->
+  <div class="par-group" id="par2">
+    <div class="par-group-label">Parallel</div>
+
+    <!-- WF5 row -->
+    <div class="par-row">
+      <div class="wf-card wf-c5" id="wf5">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 5</div>
+          <div class="wf-name">L1-WF-construction-frontend-code-generator</div>
+          <div class="wf-desc">Generate production-ready frontend code from UI-UX documents, wireframes, HLD, and LLD</div>
+        </div>
+        <div class="agents-list">
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 construction frontend tech stack discovery agent</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Automatically discover and report all technologies, frameworks, and tools used in a frontend project by analysing codebases and technical documentation.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Wireframes, HLD, LLD</span><span class="chip in">Optional – Validation Report</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">UI Tech Stack Summary</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 construction frontend code generator agent</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Generate secure, production-ready frontend application code from specifications, with documentation and compliance features.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">UI Tech Stack Summary</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">UI Front End Code (React, for this demo)</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /WF5 row -->
+
+    <!-- WF6 row -->
+    <div class="par-row">
+      <div class="wf-card wf-c6" id="wf6">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 6</div>
+          <div class="wf-name">L1-WF-construction-api-code-generator</div>
+          <div class="wf-desc">Generate API backend code from provided specifications</div>
+        </div>
+        <div class="agents-list">
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 construction tech stack discovery agent</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Automatically discover, analyse, and document the technical architecture and technology stack of a given codebase to support code generation and modernisation.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">OpenAPI Specs, HLD, LLD</span><span class="chip in">Optional – Validation Report</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Technical Architecture Discovery</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 construction api code generator agent</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Automatically generate secure, production-ready API code and documentation from provided specifications, supporting multiple languages and frameworks.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Technical Architecture Discovery</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">API Code (in Python for this demo)</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-openapi-3.0-standards</span><span class="chip kb">kb-L0-api-coding-standards</span><span class="chip kb">kb-L1-microservices-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /WF6 row -->
+
+  </div><!-- /par2 -->
+
+</div><!-- /flow -->
+</div><!-- /flow-outer -->
+
+</div><!-- /page -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   AGENT TOGGLE
+═══════════════════════════════════════════════════════════════ */
+function toggleAgent(btn) {
+  btn.parentElement.classList.toggle('open');
+  // redraw connectors after content expands / collapses
+  setTimeout(drawConnectors, 50);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   JS-DRAWN CONNECTORS
+
+   Strategy:
+   All coordinates are measured relative to #flow (position:relative).
+   
+   We draw:
+   ① WF1 right-edge  → fork →  WF2 left-edge (top branch)
+                      fork →  WF3 left-edge (bottom branch)
+   ② WF2 right-edge  → join →  WF4 left-edge
+      WF3 right-edge  → join →  WF4 left-edge
+   ③ WF4 right-edge  → fork →  WF5 left-edge
+                              →  WF6 left-edge
+   (no join after WF5/WF6 — they are terminal)
+
+   The fork/join column (gap-col) is the horizontal space where
+   the branching lines live.  We compute:
+     forkX  = midpoint of the gap column
+     joinX  = midpoint of the gap column
+═══════════════════════════════════════════════════════════════ */
+
+const ARROWHEAD = 7;
+const STROKE    = 2;
+const SERIES_C  = '#94a3b8';   // single-path arrows
+const PAR_C     = '#64748b';   // parallel branch lines
+
+function getRect(el) {
+  const flowRect = document.getElementById('flow').getBoundingClientRect();
+  const r = el.getBoundingClientRect();
+  return {
+    top:    r.top    - flowRect.top,
+    bottom: r.bottom - flowRect.top,
+    left:   r.left   - flowRect.left,
+    right:  r.right  - flowRect.left,
+    midY:   (r.top + r.bottom) / 2 - flowRect.top,
+    midX:   (r.left + r.right) / 2 - flowRect.left,
+  };
+}
+
+function arrow(svg, x1, y1, x2, y2, color, dashed) {
+  // horizontal line with arrowhead
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+  line.setAttribute('x2', x2 - ARROWHEAD + 1); line.setAttribute('y2', y2);
+  line.setAttribute('stroke', color);
+  line.setAttribute('stroke-width', STROKE);
+  if (dashed) line.setAttribute('stroke-dasharray','5,3');
+  svg.appendChild(line);
+
+  const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  poly.setAttribute('points',
+    `${x2-ARROWHEAD},${y2-ARROWHEAD/1.4} ${x2},${y2} ${x2-ARROWHEAD},${y2+ARROWHEAD/1.4}`
+  );
+  poly.setAttribute('fill', color);
+  svg.appendChild(poly);
+}
+
+function elbow(svg, x1, y1, x2, y2, color) {
+  // right-angle elbow: horizontal then vertical then horizontal (S-bend isn't needed;
+  // we use: from (x1,y1) go right to midX, then vertical to y2, then right to (x2,y2))
+  const midX = (x1 + x2) / 2;
+  const path = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+  path.setAttribute('points', `${x1},${y1} ${midX},${y1} ${midX},${y2} ${x2-ARROWHEAD+1},${y2}`);
+  path.setAttribute('stroke', color);
+  path.setAttribute('stroke-width', STROKE);
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke-linejoin','round');
+  svg.appendChild(path);
+
+  const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  poly.setAttribute('points',
+    `${x2-ARROWHEAD},${y2-ARROWHEAD/1.4} ${x2},${y2} ${x2-ARROWHEAD},${y2+ARROWHEAD/1.4}`
+  );
+  poly.setAttribute('fill', color);
+  svg.appendChild(poly);
+}
+
+function dot(svg, cx, cy, color) {
+  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx', cx); c.setAttribute('cy', cy);
+  c.setAttribute('r', 4);
+  c.setAttribute('fill', color);
+  svg.appendChild(c);
+}
+
+function vline(svg, x, y1, y2, color) {
+  const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+  l.setAttribute('x1',x); l.setAttribute('y1',y1);
+  l.setAttribute('x2',x); l.setAttribute('y2',y2);
+  l.setAttribute('stroke', color);
+  l.setAttribute('stroke-width', STROKE);
+  svg.appendChild(l);
+}
+function hline(svg, x1, y, x2, color) {
+  const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+  l.setAttribute('x1',x1); l.setAttribute('y1',y);
+  l.setAttribute('x2',x2); l.setAttribute('y2',y);
+  l.setAttribute('stroke', color);
+  l.setAttribute('stroke-width', STROKE);
+  svg.appendChild(l);
+}
+
+function drawConnectors() {
+  const svg = document.getElementById('conn-svg');
+  // Clear existing drawings
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+  const flow  = document.getElementById('flow');
+  // Resize SVG to match flow
+  svg.setAttribute('width',  flow.scrollWidth);
+  svg.setAttribute('height', flow.scrollHeight);
+
+  const wf1 = getRect(document.getElementById('wf1'));
+  const wf2 = getRect(document.getElementById('wf2'));
+  const wf3 = getRect(document.getElementById('wf3'));
+  const wf4 = getRect(document.getElementById('wf4'));
+  const wf5 = getRect(document.getElementById('wf5'));
+  const wf6 = getRect(document.getElementById('wf6'));
+  const par1 = getRect(document.getElementById('par1'));
+  const par2 = getRect(document.getElementById('par2'));
+  const g1   = getRect(document.getElementById('gap1'));
+  const g2   = getRect(document.getElementById('gap2'));
+  const g3   = getRect(document.getElementById('gap3'));
+
+  // ─── CONNECTOR 1: WF1 → fork → WF2 and WF3 ───────────────────
+  // fork stem starts at WF1 right edge, at WF1 vertical midpoint
+  const fk1X = g1.midX;          // fork node x (centre of gap1)
+  const fk1Y = wf1.midY;         // at WF1's vertical midpoint
+
+  // stem: WF1 right → fork node
+  hline(svg, wf1.right, fk1Y, fk1X, PAR_C);
+  dot(svg, fk1X, fk1Y, PAR_C);
+
+  // upper branch: fork node → WF2 left
+  vline(svg, fk1X, fk1Y, wf2.midY, PAR_C);
+  arrow(svg, fk1X, wf2.midY, wf2.left, wf2.midY, PAR_C);
+
+  // lower branch: fork node → WF3 left
+  vline(svg, fk1X, fk1Y, wf3.midY, PAR_C);
+  arrow(svg, fk1X, wf3.midY, wf3.left, wf3.midY, PAR_C);
+
+  // ─── CONNECTOR 2: WF2 and WF3 → join → WF4 ───────────────────
+  const jn1X = g2.midX;
+
+  // WF2 right → join node
+  hline(svg, wf2.right, wf2.midY, jn1X, PAR_C);
+  // WF3 right → join node
+  hline(svg, wf3.right, wf3.midY, jn1X, PAR_C);
+
+  // vertical spine connecting two incoming lines
+  vline(svg, jn1X, wf2.midY, wf3.midY, PAR_C);
+
+  // join node → WF4 (exit at vertical midpoint between WF2 and WF3)
+  const jn1Y = (wf2.midY + wf3.midY) / 2;
+  dot(svg, jn1X, jn1Y, PAR_C);
+  arrow(svg, jn1X, jn1Y, wf4.left, jn1Y, PAR_C);
+
+  // If WF4 midY differs from jn1Y, add a short elbow to WF4 actual midY
+  // (WF4 is a series card centred at its own midY; entry is left-centre)
+  // WF4 left edge is at wf4.left, WF4 vertical mid is wf4.midY
+  // We already arrow to wf4.left at jn1Y — that's fine (hits the card left side)
+
+  // ─── CONNECTOR 3: WF4 → fork → WF5 and WF6 ───────────────────
+  const fk2X = g3.midX;
+  const fk2Y = wf4.midY;
+
+  hline(svg, wf4.right, fk2Y, fk2X, PAR_C);
+  dot(svg, fk2X, fk2Y, PAR_C);
+
+  vline(svg, fk2X, fk2Y, wf5.midY, PAR_C);
+  arrow(svg, fk2X, wf5.midY, wf5.left, wf5.midY, PAR_C);
+
+  vline(svg, fk2X, fk2Y, wf6.midY, PAR_C);
+  arrow(svg, fk2X, wf6.midY, wf6.left, wf6.midY, PAR_C);
+}
+
+// Draw on load and on any resize
+window.addEventListener('load', () => setTimeout(drawConnectors, 120));
+window.addEventListener('resize', () => setTimeout(drawConnectors, 60));
+</script>
+</body>
+</html>
