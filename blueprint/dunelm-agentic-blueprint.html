@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Agentic Blueprint — Dunelm Demo</title>
 <style>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
 :root {
   --bg:            #f0f2f5;
   --surface:       #ffffff;
@@ -37,137 +34,74 @@
   --r: 10px;
   --shadow: 0 2px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.06);
   --shadow-h: 0 6px 24px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.08);
-
-  /* connector colour */
   --conn: #94a3b8;
   --conn-par: #64748b;
 }
 
-* { box-sizing: border-box; margin:0; padding:0; }
+* { box-sizing:border-box; margin:0; padding:0; }
 html,body { background:var(--bg); color:var(--text); font-family:Calibri,'Segoe UI',sans-serif; font-size:14px; line-height:1.5; }
 body { padding:36px 32px 80px; }
-.page { max-width:2600px; margin:0 auto; }
+.page { max-width:3200px; margin:0 auto; }
 
-/* ── HEADER ── */
+/* HEADER */
 .header { display:flex; justify-content:space-between; align-items:center; padding-bottom:20px; border-bottom:2px solid var(--text); margin-bottom:48px; }
 .header h1 { font-size:28px; font-weight:700; letter-spacing:-0.01em; }
 .header-sub { font-size:13px; color:var(--text-muted); margin-top:3px; }
 .header-meta { text-align:right; font-size:12px; color:var(--text-muted); line-height:1.8; }
 
-/* ═══════════════════════════════════════════
-   FLOW CANVAS  –  horizontal scroll wrapper
-═══════════════════════════════════════════ */
-.flow-outer {
-  overflow-x: auto;
-  padding-bottom: 20px;
-}
-
-/* The real layout container — position:relative so the SVG overlay can be absolute */
+/* FLOW */
+.flow-outer { overflow-x:auto; padding-bottom:20px; }
 .flow {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;   /* cards top-align; connectors drawn by JS */
-  gap: 0;
-  position: relative;
-  /* min-width prevents collapse during layout measurement */
-  min-width: max-content;
-  padding: 16px 0 40px;      /* top padding = room for "PARALLEL" label; bottom = connector tails */
+  display:flex; flex-direction:row; align-items:flex-start;
+  gap:0; position:relative; min-width:max-content;
+  padding:20px 0 40px;
 }
+#conn-svg { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
 
-/* SVG connector overlay – drawn after layout */
-#conn-svg {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  overflow: visible;
-}
+/* LAYOUT PRIMITIVES */
+.series-col { flex-shrink:0; display:flex; flex-direction:column; align-items:center; }
+.gap-col { flex-shrink:0; width:72px; }
 
-/* ═══════════════════════════════════════════
-   SECTION WRAPPERS
-   series-col   = single WF column
-   par-group    = shaded panel holding two stacked WF columns
-   gap-col      = spacing column between sections
-═══════════════════════════════════════════ */
-
-.series-col {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Spacing between sections — the JS draws connector lines through this space */
-.gap-col {
-  flex-shrink: 0;
-  width: 72px;   /* enough width for arrowhead + breathing room */
-}
-
-/* Parallel group: soft panel with label */
+/* Parallel group panel */
 .par-group {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  background: rgba(100,116,139,0.07);
-  border: 1.5px dashed rgba(100,116,139,0.30);
-  border-radius: 14px;
-  padding: 14px 16px 18px;
-  gap: 16px;
-  position: relative;
+  flex-shrink:0; display:flex; flex-direction:column; align-items:stretch;
+  background:rgba(100,116,139,0.07); border:1.5px dashed rgba(100,116,139,0.30);
+  border-radius:14px; padding:14px 16px 18px; gap:16px; position:relative;
 }
-
 .par-group-label {
-  position: absolute;
-  top: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg);
-  padding: 0 10px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--conn-par);
-  white-space: nowrap;
-  border-radius: 4px;
+  position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+  background:var(--bg); padding:0 10px;
+  font-size:9px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--conn-par); white-space:nowrap; border-radius:4px;
 }
 
 /* Each row inside a parallel group */
-.par-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 0;
-}
+.par-row { display:flex; flex-direction:row; align-items:flex-start; gap:0; }
 
-/* ═══════════════════════════════════════════
-   WF CARD
-═══════════════════════════════════════════ */
+/* Mini series arrow between cards within a par-row */
+.mini-series-gap {
+  flex-shrink:0; width:28px;
+  display:flex; align-items:flex-start; padding-top:48px; /* ~card header height so arrow sits at mid-header */
+  justify-content:center;
+}
+.mini-series-gap svg { width:28px; height:16px; overflow:visible; }
+
+/* WF CARD */
 .wf-card {
-  background: var(--surface);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-  flex-shrink: 0;
-  width: var(--card-w);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: box-shadow .2s;
+  background:var(--surface); border-radius:var(--r); box-shadow:var(--shadow);
+  flex-shrink:0; width:var(--card-w); display:flex; flex-direction:column;
+  overflow:hidden; transition:box-shadow .2s;
 }
-.wf-card:hover { box-shadow: var(--shadow-h); }
+.wf-card:hover { box-shadow:var(--shadow-h); }
+.wf-stripe { height:5px; border-radius:var(--r) var(--r) 0 0; }
 
-.wf-stripe { height: 5px; border-radius: var(--r) var(--r) 0 0; }
-
-/* per-wf colours */
-.wf-c1 .wf-stripe, .wf-c1 .wf-badge { --wfc:var(--wf1); --wfp:var(--wf1-pastel); }
-.wf-c2 .wf-stripe, .wf-c2 .wf-badge { --wfc:var(--wf2); --wfp:var(--wf2-pastel); }
-.wf-c3 .wf-stripe, .wf-c3 .wf-badge { --wfc:var(--wf3); --wfp:var(--wf3-pastel); }
-.wf-c4 .wf-stripe, .wf-c4 .wf-badge { --wfc:var(--wf4); --wfp:var(--wf4-pastel); }
-.wf-c5 .wf-stripe, .wf-c5 .wf-badge { --wfc:var(--wf5); --wfp:var(--wf5-pastel); }
-.wf-c6 .wf-stripe, .wf-c6 .wf-badge { --wfc:var(--wf6); --wfp:var(--wf6-pastel); }
-
-.wf-stripe { background: var(--wfc); }
+.wf-c1 .wf-stripe,.wf-c1 .wf-badge { --wfc:var(--wf1); --wfp:var(--wf1-pastel); }
+.wf-c2 .wf-stripe,.wf-c2 .wf-badge { --wfc:var(--wf2); --wfp:var(--wf2-pastel); }
+.wf-c3 .wf-stripe,.wf-c3 .wf-badge { --wfc:var(--wf3); --wfp:var(--wf3-pastel); }
+.wf-c4 .wf-stripe,.wf-c4 .wf-badge { --wfc:var(--wf4); --wfp:var(--wf4-pastel); }
+.wf-c5 .wf-stripe,.wf-c5 .wf-badge { --wfc:var(--wf5); --wfp:var(--wf5-pastel); }
+.wf-c6 .wf-stripe,.wf-c6 .wf-badge { --wfc:var(--wf6); --wfp:var(--wf6-pastel); }
+.wf-stripe { background:var(--wfc); }
 
 .wf-card-header { padding:14px 14px 12px; border-bottom:1px solid var(--border); }
 .wf-badge {
@@ -180,27 +114,21 @@ body { padding:36px 32px 80px; }
 .wf-name { font-size:11px; font-weight:700; margin-bottom:5px; line-height:1.35; word-break:break-word; }
 .wf-desc { font-size:10px; color:var(--text-muted); font-style:italic; line-height:1.4; }
 
-/* ═══════════════════════════════════════════
-   AGENTS
-═══════════════════════════════════════════ */
+/* AGENTS */
 .agents-list { padding:8px 0 4px; display:flex; flex-direction:column; }
 .agent { border-bottom:1px solid var(--border); }
 .agent:last-child { border-bottom:none; }
-
 .agent-arrow { display:flex; align-items:center; justify-content:center; height:16px; background:var(--surface-alt); }
 .aa-line { width:1px; height:9px; background:var(--border-strong); }
 .aa-arrowhead { width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:5px solid var(--border-strong); }
-
 .agent-toggle { width:100%; display:flex; align-items:center; gap:7px; padding:8px 12px; background:none; border:none; cursor:pointer; text-align:left; font-family:Calibri,'Segoe UI',sans-serif; font-size:11px; color:var(--text); transition:background .1s; }
 .agent-toggle:hover { background:var(--surface-alt); }
 .agent-num { font-size:9px; font-weight:700; color:var(--text-dim); letter-spacing:.05em; flex-shrink:0; min-width:16px; }
 .agent-label { flex:1; font-weight:600; font-size:11px; line-height:1.3; }
 .agent-chevron { font-size:8px; color:var(--text-dim); transition:transform .18s; flex-shrink:0; }
 .agent.open .agent-chevron { transform:rotate(180deg); }
-
 .agent-params { display:none; padding:0 12px 10px; border-top:1px dashed var(--border); background:var(--surface-alt); }
 .agent.open .agent-params { display:block; }
-
 .desc-text { font-size:10px; color:var(--text-muted); font-style:italic; padding:7px 0 9px; border-bottom:1px solid var(--border); margin-bottom:9px; line-height:1.45; }
 .param-grid { display:flex; flex-direction:column; gap:7px; }
 .param-row { display:flex; flex-direction:column; gap:3px; }
@@ -236,14 +164,11 @@ body { padding:36px 32px 80px; }
   </div>
 </header>
 
-<!-- FLOW -->
 <div class="flow-outer">
 <div class="flow" id="flow">
-
-  <!-- SVG overlay – filled by JS -->
   <svg id="conn-svg" xmlns="http://www.w3.org/2000/svg"></svg>
 
-  <!-- ══ SECTION 1: WF1 (series) ══ -->
+  <!-- ══ WF1 (series) ══ -->
   <div class="series-col" id="sec-wf1">
     <div class="wf-card wf-c1" id="wf1">
       <div class="wf-stripe"></div>
@@ -286,20 +211,75 @@ body { padding:36px 32px 80px; }
         </div>
       </div>
     </div>
-  </div><!-- /sec-wf1 -->
+  </div>
 
   <div class="gap-col" id="gap1"></div>
 
-  <!-- ══ SECTION 2: WF2 + WF3 (parallel) ══ -->
+  <!-- ══ PARALLEL GROUP: WF2a→WF2b→WF2c (series, top lane) + WF3 (bottom lane) ══ -->
   <div class="par-group" id="par1">
-    <div class="par-group-label">Parallel</div>
+    <div class="par-group-label"></div>
 
-    <!-- WF2 row -->
-    <div class="par-row">
-      <div class="wf-card wf-c2" id="wf2">
+    <!-- TOP LANE: WF2a → WF2b → WF2c in series -->
+    <div class="par-row" id="wf2-row">
+
+      <!-- WF2a -->
+      <div class="wf-card wf-c2" id="wf2a">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 2 *To be filled by Kalyan*</div>
+          <div class="wf-badge">WF 2</div>
+          <div class="wf-name">L1-WF-UX-Discover</div>
+          <div class="wf-desc">WF Description: Short summary of what WF does</div>
+        </div>
+        <div class="agents-list">
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 ux requirements agent</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Agent Desc</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Client Requirements</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span><span class="chip out">Structured UX Requirements</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L1-ux-requirements</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Opus 4.6</span></div></div>
+            </div>
+          </div>
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 experience ecosystem generator</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Agent Desc</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Client Requirements</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span><span class="chip out">Structured UX Requirements</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L1-ux-requirements</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Opus 4.6</span></div></div>
+            </div>
+          </div>  
+          </div>
+        
+        </div>  
+        </div>
+       
+      </div>
+
+      <!-- series mini-arrow WF2a → WF2b -->
+      <div class="mini-series-gap" id="msg-2a2b">
+        <svg viewBox="0 0 28 16" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <line x1="0" y1="8" x2="20" y2="8" stroke="#64748b" stroke-width="2"/>
+          <polygon points="14,4 22,8 14,12" fill="#64748b"/>
+        </svg>
+      </div>
+
+      <!-- WF2b -->
+      <div class="wf-card wf-c2" id="wf2b">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 3 *To be filled by Kalyan*</div>
           <div class="wf-name">L1-WF-uiux-workflows</div>
           <div class="wf-desc">Deep-dive UI/UX design workflows — agents to be configured</div>
         </div>
@@ -315,14 +295,44 @@ body { padding:36px 32px 80px; }
           <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
         </div>
       </div>
-    </div><!-- /WF2 row -->
 
-    <!-- WF3 row -->
-    <div class="par-row">
+      <!-- series mini-arrow WF2b → WF2c -->
+      <div class="mini-series-gap" id="msg-2b2c">
+        <svg viewBox="0 0 28 16" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <line x1="0" y1="8" x2="20" y2="8" stroke="#64748b" stroke-width="2"/>
+          <polygon points="14,4 22,8 14,12" fill="#64748b"/>
+        </svg>
+      </div>
+
+      <!-- WF2c -->
+      <div class="wf-card wf-c2" id="wf2c">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 4 *To be filled by Kalyan*</div>
+          <div class="wf-name">L1-WF-uiux-workflows</div>
+          <div class="wf-desc">Deep-dive UI/UX design workflows — agents to be configured</div>
+        </div>
+        <div class="agents-list">
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A4</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
+        </div>
+      </div>
+
+    </div><!-- /WF2 series row -->
+
+    <!-- BOTTOM LANE: WF3 -->
+    <div class="par-row" id="wf3-row">
       <div class="wf-card wf-c3" id="wf3">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 3</div>
+          <div class="wf-badge">WF 5</div>
           <div class="wf-name">L1-WF-inception-epics-to-story-decomposer</div>
           <div class="wf-desc">Workflow to decompose epics to stories</div>
         </div>
@@ -384,12 +394,12 @@ body { padding:36px 32px 80px; }
 
   <div class="gap-col" id="gap2"></div>
 
-  <!-- ══ SECTION 3: WF4 (series) ══ -->
+  <!-- ══ WF4 (series) ══ -->
   <div class="series-col" id="sec-wf4">
     <div class="wf-card wf-c4" id="wf4">
       <div class="wf-stripe"></div>
       <div class="wf-card-header">
-        <div class="wf-badge">WF 4</div>
+        <div class="wf-badge">WF 6</div>
         <div class="wf-name">L1-WF-inception-design-architecture-generator</div>
         <div class="wf-desc">Ingests epics and stories to create or update design and architecture docs</div>
       </div>
@@ -459,20 +469,19 @@ body { padding:36px 32px 80px; }
         </div>
       </div>
     </div>
-  </div><!-- /sec-wf4 -->
+  </div>
 
   <div class="gap-col" id="gap3"></div>
 
-  <!-- ══ SECTION 4: WF5 + WF6 (parallel) ══ -->
+  <!-- ══ PARALLEL GROUP 2: WF5 + WF6 ══ -->
   <div class="par-group" id="par2">
-    <div class="par-group-label">Parallel</div>
+    <div class="par-group-label"></div>
 
-    <!-- WF5 row -->
     <div class="par-row">
       <div class="wf-card wf-c5" id="wf5">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 5</div>
+          <div class="wf-badge">WF 7</div>
           <div class="wf-name">L1-WF-construction-frontend-code-generator</div>
           <div class="wf-desc">Generate production-ready frontend code from UI-UX documents, wireframes, HLD, and LLD</div>
         </div>
@@ -510,14 +519,13 @@ body { padding:36px 32px 80px; }
           </div>
         </div>
       </div>
-    </div><!-- /WF5 row -->
+    </div>
 
-    <!-- WF6 row -->
     <div class="par-row">
       <div class="wf-card wf-c6" id="wf6">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 6</div>
+          <div class="wf-badge">WF 8</div>
           <div class="wf-name">L1-WF-construction-api-code-generator</div>
           <div class="wf-desc">Generate API backend code from provided specifications</div>
         </div>
@@ -555,204 +563,139 @@ body { padding:36px 32px 80px; }
           </div>
         </div>
       </div>
-    </div><!-- /WF6 row -->
+    </div>
 
   </div><!-- /par2 -->
 
 </div><!-- /flow -->
 </div><!-- /flow-outer -->
-
 </div><!-- /page -->
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   AGENT TOGGLE
-═══════════════════════════════════════════════════════════════ */
 function toggleAgent(btn) {
   btn.parentElement.classList.toggle('open');
-  // redraw connectors after content expands / collapses
   setTimeout(drawConnectors, 50);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   JS-DRAWN CONNECTORS
-
-   Strategy:
-   All coordinates are measured relative to #flow (position:relative).
-   
-   We draw:
-   ① WF1 right-edge  → fork →  WF2 left-edge (top branch)
-                      fork →  WF3 left-edge (bottom branch)
-   ② WF2 right-edge  → join →  WF4 left-edge
-      WF3 right-edge  → join →  WF4 left-edge
-   ③ WF4 right-edge  → fork →  WF5 left-edge
-                              →  WF6 left-edge
-   (no join after WF5/WF6 — they are terminal)
-
-   The fork/join column (gap-col) is the horizontal space where
-   the branching lines live.  We compute:
-     forkX  = midpoint of the gap column
-     joinX  = midpoint of the gap column
-═══════════════════════════════════════════════════════════════ */
-
 const ARROWHEAD = 7;
 const STROKE    = 2;
-const SERIES_C  = '#94a3b8';   // single-path arrows
-const PAR_C     = '#64748b';   // parallel branch lines
+const PAR_C     = '#64748b';
 
 function getRect(el) {
-  const flowRect = document.getElementById('flow').getBoundingClientRect();
-  const r = el.getBoundingClientRect();
+  const fr = document.getElementById('flow').getBoundingClientRect();
+  const r  = el.getBoundingClientRect();
   return {
-    top:    r.top    - flowRect.top,
-    bottom: r.bottom - flowRect.top,
-    left:   r.left   - flowRect.left,
-    right:  r.right  - flowRect.left,
-    midY:   (r.top + r.bottom) / 2 - flowRect.top,
-    midX:   (r.left + r.right) / 2 - flowRect.left,
+    top:    r.top    - fr.top,
+    bottom: r.bottom - fr.top,
+    left:   r.left   - fr.left,
+    right:  r.right  - fr.left,
+    midY:   (r.top + r.bottom) / 2 - fr.top,
+    midX:   (r.left + r.right) / 2 - fr.left,
   };
 }
 
-function arrow(svg, x1, y1, x2, y2, color, dashed) {
-  // horizontal line with arrowhead
-  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
-  line.setAttribute('x2', x2 - ARROWHEAD + 1); line.setAttribute('y2', y2);
-  line.setAttribute('stroke', color);
-  line.setAttribute('stroke-width', STROKE);
-  if (dashed) line.setAttribute('stroke-dasharray','5,3');
-  svg.appendChild(line);
-
-  const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-  poly.setAttribute('points',
-    `${x2-ARROWHEAD},${y2-ARROWHEAD/1.4} ${x2},${y2} ${x2-ARROWHEAD},${y2+ARROWHEAD/1.4}`
-  );
-  poly.setAttribute('fill', color);
-  svg.appendChild(poly);
+function mkLine(svg, x1,y1,x2,y2,color,dasharray) {
+  const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+  l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+  l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+  l.setAttribute('stroke',color); l.setAttribute('stroke-width',STROKE);
+  if(dasharray) l.setAttribute('stroke-dasharray',dasharray);
+  svg.appendChild(l);
 }
 
-function elbow(svg, x1, y1, x2, y2, color) {
-  // right-angle elbow: horizontal then vertical then horizontal (S-bend isn't needed;
-  // we use: from (x1,y1) go right to midX, then vertical to y2, then right to (x2,y2))
-  const midX = (x1 + x2) / 2;
-  const path = document.createElementNS('http://www.w3.org/2000/svg','polyline');
-  path.setAttribute('points', `${x1},${y1} ${midX},${y1} ${midX},${y2} ${x2-ARROWHEAD+1},${y2}`);
-  path.setAttribute('stroke', color);
-  path.setAttribute('stroke-width', STROKE);
-  path.setAttribute('fill', 'none');
-  path.setAttribute('stroke-linejoin','round');
-  svg.appendChild(path);
-
-  const poly = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-  poly.setAttribute('points',
-    `${x2-ARROWHEAD},${y2-ARROWHEAD/1.4} ${x2},${y2} ${x2-ARROWHEAD},${y2+ARROWHEAD/1.4}`
-  );
-  poly.setAttribute('fill', color);
-  svg.appendChild(poly);
+function mkArrow(svg, x1,y1,x2,y2,color) {
+  // horizontal line + arrowhead pointing right
+  mkLine(svg, x1,y1, x2-ARROWHEAD+1,y2, color);
+  const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  p.setAttribute('points',`${x2-ARROWHEAD},${y2-ARROWHEAD/1.4} ${x2},${y2} ${x2-ARROWHEAD},${y2+ARROWHEAD/1.4}`);
+  p.setAttribute('fill',color);
+  svg.appendChild(p);
 }
 
-function dot(svg, cx, cy, color) {
+function mkDot(svg,cx,cy,color) {
   const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-  c.setAttribute('cx', cx); c.setAttribute('cy', cy);
-  c.setAttribute('r', 4);
-  c.setAttribute('fill', color);
+  c.setAttribute('cx',cx); c.setAttribute('cy',cy);
+  c.setAttribute('r',4.5); c.setAttribute('fill',color);
   svg.appendChild(c);
 }
 
-function vline(svg, x, y1, y2, color) {
-  const l = document.createElementNS('http://www.w3.org/2000/svg','line');
-  l.setAttribute('x1',x); l.setAttribute('y1',y1);
-  l.setAttribute('x2',x); l.setAttribute('y2',y2);
-  l.setAttribute('stroke', color);
-  l.setAttribute('stroke-width', STROKE);
-  svg.appendChild(l);
-}
-function hline(svg, x1, y, x2, color) {
-  const l = document.createElementNS('http://www.w3.org/2000/svg','line');
-  l.setAttribute('x1',x1); l.setAttribute('y1',y);
-  l.setAttribute('x2',x2); l.setAttribute('y2',y);
-  l.setAttribute('stroke', color);
-  l.setAttribute('stroke-width', STROKE);
-  svg.appendChild(l);
-}
-
 function drawConnectors() {
-  const svg = document.getElementById('conn-svg');
-  // Clear existing drawings
-  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  const svg  = document.getElementById('conn-svg');
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
 
-  const flow  = document.getElementById('flow');
-  // Resize SVG to match flow
+  const flow = document.getElementById('flow');
   svg.setAttribute('width',  flow.scrollWidth);
   svg.setAttribute('height', flow.scrollHeight);
 
-  const wf1 = getRect(document.getElementById('wf1'));
-  const wf2 = getRect(document.getElementById('wf2'));
-  const wf3 = getRect(document.getElementById('wf3'));
-  const wf4 = getRect(document.getElementById('wf4'));
-  const wf5 = getRect(document.getElementById('wf5'));
-  const wf6 = getRect(document.getElementById('wf6'));
-  const par1 = getRect(document.getElementById('par1'));
-  const par2 = getRect(document.getElementById('par2'));
+  const wf1  = getRect(document.getElementById('wf1'));
+  const wf2a = getRect(document.getElementById('wf2a'));
+  const wf2b = getRect(document.getElementById('wf2b'));
+  const wf2c = getRect(document.getElementById('wf2c'));
+  const wf3  = getRect(document.getElementById('wf3'));
+  const wf4  = getRect(document.getElementById('wf4'));
+  const wf5  = getRect(document.getElementById('wf5'));
+  const wf6  = getRect(document.getElementById('wf6'));
   const g1   = getRect(document.getElementById('gap1'));
   const g2   = getRect(document.getElementById('gap2'));
   const g3   = getRect(document.getElementById('gap3'));
 
-  // ─── CONNECTOR 1: WF1 → fork → WF2 and WF3 ───────────────────
-  // fork stem starts at WF1 right edge, at WF1 vertical midpoint
-  const fk1X = g1.midX;          // fork node x (centre of gap1)
-  const fk1Y = wf1.midY;         // at WF1's vertical midpoint
+  // Y positions for the two parallel lanes (use WF2b midcard for the UX lane)
+  const wf2LaneY = wf2b.midY;
+  const wf3LaneY = wf3.midY;
 
-  // stem: WF1 right → fork node
-  hline(svg, wf1.right, fk1Y, fk1X, PAR_C);
-  dot(svg, fk1X, fk1Y, PAR_C);
+  // ── FORK 1: WF1 → WF2a (top lane) and WF3 (bottom lane) ───────
+  // The fork column X sits in the middle of gap1
+  const fk1X = g1.midX;
+  // The fork node Y sits halfway between the two lanes
+  const fk1Y = (wf2LaneY + wf3LaneY) / 2;
 
-  // upper branch: fork node → WF2 left
-  vline(svg, fk1X, fk1Y, wf2.midY, PAR_C);
-  arrow(svg, fk1X, wf2.midY, wf2.left, wf2.midY, PAR_C);
+  // 1a. Horizontal stem from WF1 right edge at its own midY → fk1X
+  mkLine(svg, wf1.right, wf1.midY, fk1X, wf1.midY, PAR_C);
+  // 1b. Vertical bridge from wf1.midY down/up to fk1Y (the fork node)
+  mkLine(svg, fk1X, wf1.midY, fk1X, fk1Y, PAR_C);
+  // 1c. Vertical spine spanning both lanes
+  mkLine(svg, fk1X, wf2LaneY, fk1X, wf3LaneY, PAR_C);
+  // 1d. Fork dot at centre
+  mkDot(svg, fk1X, fk1Y, PAR_C);
+  // 1e. Arrows to each lane
+  mkArrow(svg, fk1X, wf2LaneY, wf2a.left, wf2LaneY, PAR_C);
+  mkArrow(svg, fk1X, wf3LaneY, wf3.left,  wf3LaneY, PAR_C);
 
-  // lower branch: fork node → WF3 left
-  vline(svg, fk1X, fk1Y, wf3.midY, PAR_C);
-  arrow(svg, fk1X, wf3.midY, wf3.left, wf3.midY, PAR_C);
-
-  // ─── CONNECTOR 2: WF2 and WF3 → join → WF4 ───────────────────
+  // ── JOIN 1: WF2c + WF3 → WF4 ───────────────────────────────────
   const jn1X = g2.midX;
+  const jn1Y = (wf2LaneY + wf3LaneY) / 2;
 
-  // WF2 right → join node
-  hline(svg, wf2.right, wf2.midY, jn1X, PAR_C);
-  // WF3 right → join node
-  hline(svg, wf3.right, wf3.midY, jn1X, PAR_C);
+  // Lines from each lane right-edge → join column
+  mkLine(svg, wf2c.right, wf2LaneY, jn1X, wf2LaneY, PAR_C);
+  mkLine(svg, wf3.right,  wf3LaneY, jn1X, wf3LaneY, PAR_C);
+  // Vertical spine connecting both incoming lines
+  mkLine(svg, jn1X, wf2LaneY, jn1X, wf3LaneY, PAR_C);
+  mkDot(svg, jn1X, jn1Y, PAR_C);
+  // Vertical bridge from join node to WF4's actual midY
+  mkLine(svg, jn1X, jn1Y, jn1X, wf4.midY, PAR_C);
+  // Arrow into WF4 left edge
+  mkArrow(svg, jn1X, wf4.midY, wf4.left, wf4.midY, PAR_C);
 
-  // vertical spine connecting two incoming lines
-  vline(svg, jn1X, wf2.midY, wf3.midY, PAR_C);
+  // ── FORK 2: WF4 → WF5 (top lane) and WF6 (bottom lane) ────────
+  const fk2X    = g3.midX;
+  const fk2topY = wf5.midY;
+  const fk2botY = wf6.midY;
+  const fk2Y    = (fk2topY + fk2botY) / 2;
 
-  // join node → WF4 (exit at vertical midpoint between WF2 and WF3)
-  const jn1Y = (wf2.midY + wf3.midY) / 2;
-  dot(svg, jn1X, jn1Y, PAR_C);
-  arrow(svg, jn1X, jn1Y, wf4.left, jn1Y, PAR_C);
-
-  // If WF4 midY differs from jn1Y, add a short elbow to WF4 actual midY
-  // (WF4 is a series card centred at its own midY; entry is left-centre)
-  // WF4 left edge is at wf4.left, WF4 vertical mid is wf4.midY
-  // We already arrow to wf4.left at jn1Y — that's fine (hits the card left side)
-
-  // ─── CONNECTOR 3: WF4 → fork → WF5 and WF6 ───────────────────
-  const fk2X = g3.midX;
-  const fk2Y = wf4.midY;
-
-  hline(svg, wf4.right, fk2Y, fk2X, PAR_C);
-  dot(svg, fk2X, fk2Y, PAR_C);
-
-  vline(svg, fk2X, fk2Y, wf5.midY, PAR_C);
-  arrow(svg, fk2X, wf5.midY, wf5.left, wf5.midY, PAR_C);
-
-  vline(svg, fk2X, fk2Y, wf6.midY, PAR_C);
-  arrow(svg, fk2X, wf6.midY, wf6.left, wf6.midY, PAR_C);
+  // Horizontal stem from WF4 right edge
+  mkLine(svg, wf4.right, wf4.midY, fk2X, wf4.midY, PAR_C);
+  // Vertical bridge from wf4.midY to fork node
+  mkLine(svg, fk2X, wf4.midY, fk2X, fk2Y, PAR_C);
+  // Vertical spine spanning both output lanes
+  mkLine(svg, fk2X, fk2topY, fk2X, fk2botY, PAR_C);
+  mkDot(svg, fk2X, fk2Y, PAR_C);
+  // Arrows to each lane
+  mkArrow(svg, fk2X, fk2topY, wf5.left, fk2topY, PAR_C);
+  mkArrow(svg, fk2X, fk2botY, wf6.left, fk2botY, PAR_C);
 }
 
-// Draw on load and on any resize
-window.addEventListener('load', () => setTimeout(drawConnectors, 120));
-window.addEventListener('resize', () => setTimeout(drawConnectors, 60));
+window.addEventListener('load',   () => setTimeout(drawConnectors, 150));
+window.addEventListener('resize', () => setTimeout(drawConnectors,  60));
 </script>
 </body>
 </html>
