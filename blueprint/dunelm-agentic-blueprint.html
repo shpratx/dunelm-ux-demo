@@ -130,6 +130,10 @@ body { padding:36px 32px 80px; }
 }
 .wf-name { font-size:11px; font-weight:700; margin-bottom:5px; line-height:1.35; word-break:break-word; }
 .wf-desc { font-size:10px; color:var(--text-muted); font-style:italic; line-height:1.4; }
+.wf-badge-row { display:flex; align-items:center; gap:8px; margin-bottom:7px; }
+.wf-badge-row .wf-badge { margin-bottom:0; }
+.wf-role { display:flex; align-items:center; gap:4px; font-size:9px; font-weight:600; color:var(--wfc); }
+.wf-role svg { flex-shrink:0; }
 
 /* AGENTS */
 .agents-list { padding:8px 0 4px; display:flex; flex-direction:column; }
@@ -203,7 +207,10 @@ body { padding:36px 32px 80px; }
       <div class="wf-card wf-c1" id="wf1">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 1</div>
+          <div class="wf-badge-row">
+            <div class="wf-badge">WF 1</div>
+            <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>UI/UX Designer</div>
+          </div>
           <div class="wf-name">L1-WF-inception-ux-discover</div>
           <div class="wf-desc">Research, synthesise and analyse user and market context to ground design decisions</div>
         </div>
@@ -316,7 +323,10 @@ body { padding:36px 32px 80px; }
       <div class="wf-card wf-c2" id="wf2">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 2</div>
+          <div class="wf-badge-row">
+            <div class="wf-badge">WF 2</div>
+            <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>UI/UX Designer</div>
+          </div>
           <div class="wf-name">L1-WF-inception-ux-define</div>
           <div class="wf-desc">Build user personas and experience roadmap from research synthesis to define the design direction</div>
         </div>
@@ -363,7 +373,10 @@ body { padding:36px 32px 80px; }
       <div class="wf-card wf-c4" id="wf4">
         <div class="wf-stripe"></div> 
         <div class="wf-card-header">
-          <div class="wf-badge">WF 3</div> 
+          <div class="wf-badge-row">
+            <div class="wf-badge">WF 3</div>
+            <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Product Owner</div>
+          </div>
           <div class="wf-name">L1-WF-inception-ideas-epics-creator</div>
           <div class="wf-desc">Transform ideas into a traceability matrix and decompose into JIRA epics</div>
         </div>
@@ -412,7 +425,10 @@ body { padding:36px 32px 80px; }
     <div class="wf-card wf-c5" id="wf5">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 4</div>
+          <div class="wf-badge-row">
+            <div class="wf-badge">WF 4</div>
+            <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Product Owner, QA Tester</div>
+          </div>
           <div class="wf-name">L1-WF-inception-epics-to-story-decomposer</div>
           <div class="wf-desc">Validate epics, decompose them into user stories and generate test artefacts</div>
         </div>
@@ -476,7 +492,10 @@ body { padding:36px 32px 80px; }
     <div class="wf-card wf-c3" id="wf3">
       <div class="wf-stripe"></div>
       <div class="wf-card-header">
-        <div class="wf-badge">WF 5</div>
+        <div class="wf-badge-row">
+          <div class="wf-badge">WF 5</div>
+          <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>UI/UX Designer</div>
+        </div>
         <div class="wf-name">L1-WF-inception-ux-design</div>
         <div class="wf-desc">Translate personas and scenarios into detailed user workflows, screen flows and wireframe prompts</div>
       </div>
@@ -523,7 +542,10 @@ body { padding:36px 32px 80px; }
     <div class="wf-card wf-c6" id="wf6">
       <div class="wf-stripe"></div>
       <div class="wf-card-header">
-        <div class="wf-badge">WF 6</div>
+        <div class="wf-badge-row">
+          <div class="wf-badge">WF 6</div>
+          <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Architect</div>
+        </div>
         <div class="wf-name">L1-WF-inception-design-architecture-generator</div>
         <div class="wf-desc">Ingest epics, stories and UX artefacts to produce discovery reports, architecture docs, HLD/LLD and OpenAPI specs</div>
       </div>
@@ -605,7 +627,10 @@ body { padding:36px 32px 80px; }
       <div class="wf-card wf-c7" id="wf7">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 7</div>
+          <div class="wf-badge-row">
+            <div class="wf-badge">WF 7</div>
+            <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Front End Developer</div>
+          </div>
           <div class="wf-name">L1-WF-construction-frontend-code-generator</div>
           <div class="wf-desc">Generate production-ready frontend code from UI-UX documents, wireframes, HLD and LLD</div>
         </div>
@@ -649,7 +674,10 @@ body { padding:36px 32px 80px; }
       <div class="wf-card wf-c8" id="wf8">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 8</div>
+          <div class="wf-badge-row">
+            <div class="wf-badge">WF 8</div>
+            <div class="wf-role"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Backend Developer</div>
+          </div>
           <div class="wf-name">L1-WF-construction-api-code-generator</div>
           <div class="wf-desc">Generate API backend code from provided technical architecture and specifications</div>
         </div>
