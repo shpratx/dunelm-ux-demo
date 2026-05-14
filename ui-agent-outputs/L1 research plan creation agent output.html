@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Research Plan — Next Loyalty Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1f3c;--navy-mid:#1a2e50;--navy-row:#1e3460;
+  --border:#dde4f0;--bg:#f0f4f9;--bg-white:#fff;--bg-alt:#f8fafc;
+  --text-dark:#0f172a;--text-mid:#334155;--text-soft:#64748b;
+  --text-white:#fff;--text-muted:rgba(255,255,255,0.6);
+  --indigo:#6c8eea;--green:#16a34a;--amber:#d97706;--red:#dc2626;--purple:#7c3aed;
+  --font-head:'DM Sans',sans-serif;--font-body:'Inter',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+.header-bar{background:var(--navy);padding:24px 40px 20px;}
+.header-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--navy-row);color:var(--indigo);border:1px solid rgba(108,142,234,0.3);padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.header-title{font-family:var(--font-head);font-size:26px;font-weight:700;color:#fff;margin-bottom:4px;}
+.header-sub{font-size:11px;color:var(--text-muted);}
+.header-meta{display:flex;gap:28px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;}
+.meta-item .lbl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);display:block;margin-bottom:3px;}
+.meta-item .val{font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);}
+.page{max-width:980px;margin:0 auto;padding:32px 40px 72px;display:flex;flex-direction:column;gap:28px;}
+/* SECTION */
+.section{background:var(--bg-white);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.section-header{background:var(--navy-mid);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.section-num{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--indigo);background:rgba(108,142,234,0.15);border:1px solid rgba(108,142,234,0.3);border-radius:3px;padding:2px 8px;}
+.section-title{font-family:var(--font-head);font-size:14px;font-weight:700;color:#fff;}
+.section-body{padding:20px;}
+.para{font-size:12.5px;color:var(--text-mid);line-height:1.75;margin-bottom:10px;}
+.para:last-child{margin-bottom:0;}
+/* GOAL STATEMENT */
+.goal-block{background:#f0f4f9;border-left:4px solid var(--indigo);border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:14px;}
+.goal-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:5px;}
+.goal-statement{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--navy);line-height:1.45;margin-bottom:8px;}
+.goal-rqs{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.rq-item{font-size:12px;color:var(--text-mid);line-height:1.6;padding-left:14px;position:relative;}
+.rq-item::before{content:'Q';position:absolute;left:0;font-size:9px;font-weight:700;color:var(--indigo);}
+/* SEGMENT BLOCK */
+.segment-block{margin-bottom:20px;}
+.segment-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--navy);color:var(--indigo);padding:4px 12px;border-radius:4px;display:inline-block;margin-bottom:12px;}
+.segment-summary-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px;}
+.segment-summary-table th{background:var(--bg-alt);font-weight:700;color:var(--navy);padding:7px 12px;text-align:left;border:1px solid var(--border);}
+.segment-summary-table td{padding:7px 12px;border:1px solid var(--border);color:var(--text-mid);vertical-align:top;}
+/* CRITERIA LIST */
+.criteria-list{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.criteria-item{font-size:12px;color:var(--text-mid);line-height:1.6;padding-left:18px;position:relative;}
+.criteria-item::before{content:'▸';position:absolute;left:0;color:var(--indigo);}
+/* SCREENER */
+.screener-block{background:#fafbff;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:14px;}
+.screener-header{background:var(--navy-row);padding:7px 14px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+.screener-q{padding:12px 14px;border-bottom:1px solid var(--border);}
+.screener-q:last-child{border-bottom:none;}
+.sq-num{font-size:9px;font-weight:700;color:var(--indigo);margin-bottom:4px;}
+.sq-text{font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:8px;line-height:1.5;}
+.sq-options{display:flex;flex-direction:column;gap:3px;}
+.sq-opt{font-size:11.5px;color:var(--text-mid);padding-left:14px;position:relative;line-height:1.5;}
+.sq-opt::before{content:'○';position:absolute;left:0;color:var(--text-soft);}
+.tag{display:inline-block;font-size:9px;font-weight:700;border-radius:3px;padding:1px 6px;margin-left:5px;}
+.tag-accept{background:#dcfce7;color:#166534;border:1px solid #bbf7d0;}
+.tag-may{background:#fef3c7;color:#92400e;border:1px solid #fde68a;}
+.tag-reject{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;}
+/* INCENTIVE */
+.incentive-box{background:#f0f4f9;border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
+.incentive-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:5px;}
+.incentive-text{font-size:12.5px;color:var(--text-mid);line-height:1.6;}
+/* DACSI */
+.dacsi-table{width:100%;border-collapse:collapse;font-size:12px;}
+.dacsi-table th{background:var(--navy);color:#fff;font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.5px;padding:8px 12px;text-align:left;border-right:1px solid rgba(255,255,255,0.1);}
+.dacsi-table td{padding:9px 12px;border:1px solid var(--border);color:var(--text-mid);vertical-align:top;line-height:1.55;}
+.dacsi-table tr:nth-child(even) td{background:var(--bg-alt);}
+/* LOGISTICS */
+.logistics-row{display:flex;gap:16px;margin-bottom:10px;}
+.logistics-key{font-size:11px;font-weight:700;color:var(--navy);min-width:180px;flex-shrink:0;}
+.logistics-val{font-size:12px;color:var(--text-mid);line-height:1.6;}
+.resp-tag{display:inline-block;font-size:9px;font-weight:700;border-radius:3px;padding:1px 7px;margin-left:5px;}
+.resp-asc{background:#eef2ff;color:#3730a3;border:1px solid #c7d7fa;}
+.resp-client{background:#fef3c7;color:#92400e;border:1px solid #fde68a;}
+.resp-both{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
+/* DELIVERABLES */
+.deliverable-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.deliverable-item{font-size:12.5px;color:var(--text-mid);padding-left:16px;position:relative;line-height:1.5;}
+.deliverable-item::before{content:'·';position:absolute;left:2px;color:var(--indigo);font-size:16px;line-height:1.1;}
+/* TIMELINE */
+.timeline-table{width:100%;border-collapse:collapse;font-size:12px;}
+.timeline-table th{background:var(--navy);color:#fff;font-family:var(--font-head);font-size:10px;font-weight:700;padding:8px 12px;text-align:left;border-right:1px solid rgba(255,255,255,0.1);}
+.timeline-table td{padding:8px 12px;border:1px solid var(--border);color:var(--text-mid);vertical-align:top;}
+.timeline-table tr:nth-child(even) td{background:var(--bg-alt);}
+/* CHECKLIST */
+.checklist-col{display:flex;flex-direction:column;gap:4px;}
+.checklist-col-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:6px;}
+.check-item{font-size:12px;color:var(--text-mid);padding-left:18px;position:relative;line-height:1.55;}
+.check-item::before{content:'☐';position:absolute;left:0;color:var(--text-soft);}
+.two-col-check{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.divider{height:1px;background:var(--border);margin:14px 0;}
+.guide-placeholder{background:#f8fafc;border:1px dashed var(--border);border-radius:6px;padding:14px;font-size:12px;color:var(--text-soft);font-style:italic;}
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-tag">Research Plan</div>
+  <div class="header-title">Next Loyalty Programme — UX Research Plan</div>
+  <div class="header-sub">UXReactors 5D Pragmatic UX Framework · Moderated User Interviews · 2 Segments</div>
+  <div class="header-meta">
+    <div class="meta-item"><span class="lbl">Client</span><span class="val">Next plc</span></div>
+    <div class="meta-item"><span class="lbl">Study Type</span><span class="val">Formative · Exploratory</span></div>
+    <div class="meta-item"><span class="lbl">Methodology</span><span class="val">Moderated Remote Interviews</span></div>
+    <div class="meta-item"><span class="lbl">Segments</span><span class="val">Customer · Store Associate</span></div>
+    <div class="meta-item"><span class="lbl">Participants</span><span class="val">7–8 per segment · 14–16 total</span></div>
+    <div class="meta-item"><span class="lbl">Session Duration</span><span class="val">60 min (Customer) · 45 min (Associate)</span></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══ SECTION 1 — BACKGROUND ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">01</span><span class="section-title">Background</span></div>
+  <div class="section-body">
+    <p class="para">Next plc is the UK's largest clothing retailer by sales, operating 500+ UK stores and a dominant online channel accounting for over 60% of group sales. Despite this scale, Next operates no formal loyalty programme for non-credit customers. The only existing customer reward mechanism — VIP Sale early access — is exclusively gated behind a nextpay or pay in 3 credit account, meaning the majority of Next's customer base receives no recognition, reward, or loyalty benefit for their purchasing behaviour, regardless of tenure or spend.</p>
+    <p class="para">Next is planning to launch a loyalty programme that enables all customers — not just credit holders — to earn points on purchases made online, in-store, and via Click &amp; Collect, and to redeem those points for discounts and early sale access. The business also wants to enable store associates to identify and acknowledge loyal customers at the point of sale, and to drive app adoption by making the loyalty programme the primary value proposition of the Next app. The current online and in-store systems do not share customer identity data, creating a technical dependency that will need to be resolved for any cross-channel loyalty experience to function.</p>
+    <p class="para">Secondary research confirms that Next's closest competitors — including M&amp;S, New Look, and H&amp;M — have active loyalty programmes that are being actively invested in and transformed. This study will establish the foundational user understanding required to design a Next loyalty experience that is grounded in real customer behaviour, mental models, and expectations — and that addresses the specific fears and anxieties (particularly around returns monitoring) that have the potential to block enrolment.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2 — RESEARCH GOALS ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">02</span><span class="section-title">Research Goals &amp; Collated Research Questions</span></div>
+  <div class="section-body">
+
+    <div class="goal-block">
+      <div class="goal-label">Goal A · Customer Segment</div>
+      <div class="goal-statement">Understand what drives repeat purchase behaviour and brand loyalty among long-tenure Next customers who shop without a nextpay credit account, so that the team can identify the motivations, habits, and relationship expectations the loyalty programme must address.</div>
+      <div class="goal-rqs">
+        <div class="rq-item">A1. What causes these customers to choose Next over a competitor for a specific purchase — and how consistent is that trigger across repeat visits?</div>
+        <div class="rq-item">A2. To what degree do these customers feel recognised or valued by Next as a brand, and what would "being recognised" look like to them?</div>
+        <div class="rq-item">A3. How do they currently experience loyalty at other retailers — which programmes have changed their behaviour, and why?</div>
+        <div class="rq-item">A4. What would need to be true about a Next loyalty programme for them to actively change their shopping behaviour to earn points?</div>
+      </div>
+    </div>
+
+    <div class="goal-block">
+      <div class="goal-label">Goal B · Customer Segment</div>
+      <div class="goal-statement">Understand how customers currently engage with loyalty programmes at other retailers — including their mental models of earn mechanics, redemption, and programme value — so that Next's programme can be designed to match or exceed the benchmarks customers already trust.</div>
+      <div class="goal-rqs">
+        <div class="rq-item">B1. Which loyalty programmes do these customers actively use — and what specifically makes them use one consistently versus letting another lapse?</div>
+        <div class="rq-item">B2. How do they understand and track their points balances — what makes a balance feel real and worth protecting?</div>
+        <div class="rq-item">B3. Do they prefer to accumulate points toward a larger reward, or receive an immediate discount — and what drives that preference?</div>
+        <div class="rq-item">B4. When do they choose to redeem — and what makes a redemption moment feel satisfying versus like a poor trade?</div>
+        <div class="rq-item">B5. How do they respond when a loyalty programme changes its terms — what makes the change feel acceptable versus a reason to disengage?</div>
+      </div>
+    </div>
+
+    <div class="goal-block">
+      <div class="goal-label">Goal C · Customer Segment</div>
+      <div class="goal-statement">Understand what would drive a long-tenure Next customer to enrol in the loyalty programme and sustain engagement over time, so that the design team can prioritise the features, benefits, and trust signals that convert intent into action.</div>
+      <div class="goal-rqs">
+        <div class="rq-item">C1. What is the single most compelling benefit that would cause these customers to sign up immediately — and what would cause them to hesitate or decline?</div>
+        <div class="rq-item">C2. What type of reward feels most valuable — discount, early access, experiential, or recognition — and does this vary by purchase type or context?</div>
+        <div class="rq-item">C3. How do concerns about data privacy — particularly returns monitoring — affect their willingness to share data with a retailer loyalty programme?</div>
+        <div class="rq-item">C4. What would need to be true about the mobile app experience for them to use it regularly to track and earn points?</div>
+        <div class="rq-item">C5. How important is a physical card option to them personally — and who in their network would they identify as excluded by an app-only programme?</div>
+      </div>
+    </div>
+
+    <div class="goal-block">
+      <div class="goal-label">Goal D · Customer Segment</div>
+      <div class="goal-statement">Understand customers' expectations and comfort thresholds for in-store loyalty recognition interactions, so that the design team can define the bounded data set and interaction design that feels like acknowledgement rather than surveillance.</div>
+      <div class="goal-rqs">
+        <div class="rq-item">D1. What does an ideal in-store recognition interaction look like — what should the associate know, say, and do?</div>
+        <div class="rq-item">D2. What information about themselves are customers comfortable with a store associate seeing at the point of sale — and where is the line between recognition and discomfort?</div>
+        <div class="rq-item">D3. How do they expect the in-store scan interaction to work — what is the acceptable time threshold, and what would cause them to stop using it?</div>
+      </div>
+    </div>
+
+    <div class="goal-block">
+      <div class="goal-label">Goal E · Store Associate Segment</div>
+      <div class="goal-statement">Understand how store associates currently manage customer interactions at the point of sale — including the tools, information, and time constraints they operate within — so that any loyalty indicator can be designed to fit the real operational rhythm of a till interaction.</div>
+      <div class="goal-rqs">
+        <div class="rq-item">E1. Walk us through what happens from the moment a customer approaches the till to the moment they leave — what is the associate managing, in what sequence?</div>
+        <div class="rq-item">E2. What information would change how they treat a customer — and what information would they never want to see at the till?</div>
+        <div class="rq-item">E3. What does a difficult customer interaction look like — and what system data, if available, would have made it easier to handle?</div>
+        <div class="rq-item">E4. How does queue pressure affect what they do and don't do during a transaction?</div>
+      </div>
+    </div>
+
+    <div class="goal-block">
+      <div class="goal-label">Goal F · Store Associate Segment</div>
+      <div class="goal-statement">Understand what store associates need from a loyalty programme tool to be able to introduce it confidently to customers and use it accurately from the first day of launch, so that training and rollout can be designed for real-world associate capability and time constraints.</div>
+      <div class="goal-rqs">
+        <div class="rq-item">F1. What has the experience of learning and using previous in-store system changes or promotions been like — what worked and what failed?</div>
+        <div class="rq-item">F2. What format and duration of training would make them feel confident introducing the loyalty programme to a customer at the till?</div>
+        <div class="rq-item">F3. What would their ideal POS loyalty display look like — what would be on screen, in what order, and what would be absent?</div>
+        <div class="rq-item">F4. What are the scenarios where introducing the loyalty programme would feel awkward or inappropriate — and how would they handle them?</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ SECTION 3 — METHODOLOGY ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">03</span><span class="section-title">Methodology</span></div>
+  <div class="section-body">
+    <p class="para"><strong>Method: Moderated Remote Interviews</strong></p>
+    <p class="para">Moderated remote interviews are the appropriate method for this study because the research goals require deep exploration of attitudes, mental models, past behaviour, and emotional responses — not just task completion or usability assessment. The goals span motivational drivers (Goals A, B, C), interaction expectations (Goal D), operational workflow understanding (Goal E), and training readiness (Goal F), all of which require the flexibility to probe, follow unexpected threads, and adapt to each participant's specific context. A remote format enables recruitment across the UK without geographic constraint, while moderated delivery ensures the research team can pursue meaningful depth on emerging themes.</p>
+    <p class="para"><strong>Session format:</strong> One researcher (moderator) + one note-taker per session. Sessions conducted via video call with screen-share capability for showing any stimulus materials if required. Sessions recorded (with participant consent) for review and synthesis.</p>
+    <p class="para"><strong>Session duration:</strong> 60 minutes for Customer segment (broader goal coverage across A–D); 45 minutes for Store Associate segment (focused goals E–F with operational workflow walkthrough).</p>
+    <p class="para"><strong>Team roles:</strong> Moderator (leads session, asks questions, probes); Note-taker (captures verbatim quotes, body language, timestamps for key moments); Observer (silent, Next stakeholder — optional, joins via muted video).</p>
+    <p class="para"><strong>Stimuli:</strong> No prototype or task flows are involved at this stage — this is a discovery study. Moderator may share a simple concept card (programme description) for reaction probing in the final 10 minutes of Customer sessions, but this is not a usability study. Required Stimuli: One-page loyalty programme concept summary (to be prepared by research team before fieldwork).</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4 — PARTICIPANTS ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">04</span><span class="section-title">Participants</span></div>
+  <div class="section-body">
+
+    <!-- Segment summary table -->
+    <table class="segment-summary-table">
+      <thead><tr><th>Segment</th><th>User Type</th><th>Count</th><th>Session Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Segment 1</strong></td><td>Next Customer (cash / debit — no nextpay)</td><td>7–8</td><td>60 minutes</td></tr>
+        <tr><td><strong>Segment 2</strong></td><td>Next Store Associate (full-time, POS role)</td><td>7–8</td><td>45 minutes</td></tr>
+      </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <!-- SEGMENT 1 — CUSTOMER -->
+    <div class="segment-block">
+      <span class="segment-label">Segment 1 — Customer (Cash / Debit Shopper)</span>
+
+      <p class="para" style="font-weight:600;color:var(--navy);margin-bottom:8px;">Demographics (study-relevant only)</p>
+      <ul class="criteria-list">
+        <li class="criteria-item">Age 25–65, UK resident</li>
+        <li class="criteria-item">Mix of gender — minimum 40% any one gender</li>
+        <li class="criteria-item">Mix of in-store primary vs. online primary shoppers (at least 3 in each group)</li>
+        <li class="criteria-item">No requirement on geographic location — remote delivery allows UK-wide recruitment</li>
+      </ul>
+
+      <p class="para" style="font-weight:600;color:var(--navy);margin-bottom:8px;margin-top:12px;">Qualifying Criteria</p>
+      <ul class="criteria-list">
+        <li class="criteria-item">Has shopped at Next (in-store or online) at least 4 times in the past 12 months using a debit card, cash, or non-Next credit card — not nextpay</li>
+        <li class="criteria-item">Has been shopping at Next for at least 2 years continuously</li>
+        <li class="criteria-item">Does not currently hold a nextpay or pay in 3 credit account with Next</li>
+        <li class="criteria-item">Is currently an active member of at least one retail loyalty programme (e.g. Boots Advantage Card, M&amp;S Sparks, Tesco Clubcard, Nectar, Costa Club)</li>
+        <li class="criteria-item">Has used a loyalty app on their smartphone to earn points or scan in-store at least once in the past 6 months</li>
+        <li class="criteria-item">Has made an in-store return at a Next store at least once in the past 24 months</li>
+      </ul>
+
+      <div class="screener-block">
+        <div class="screener-header">Screener Questions — Segment 1 · Customer</div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ1</div>
+          <div class="sq-text">How often have you shopped at Next — either in-store or online — in the past 12 months?</div>
+          <div class="sq-options">
+            <div class="sq-opt">I have not shopped at Next in the past 12 months <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">1–3 times <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">4–6 times <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">7–12 times <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">More than 12 times <span class="tag tag-accept">[Must Accept]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ2</div>
+          <div class="sq-text">How long have you been shopping at Next regularly?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Less than 1 year <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">1–2 years <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">2–5 years <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">5–10 years <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">More than 10 years <span class="tag tag-accept">[Must Accept]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ3</div>
+          <div class="sq-text">Which of the following do you use to pay for your Next purchases? Select all that apply.</div>
+          <div class="sq-options">
+            <div class="sq-opt">nextpay credit account <span class="tag tag-reject">[Reject — if selected alone or as primary]</span></div>
+            <div class="sq-opt">Pay in 3 (Next credit) <span class="tag tag-reject">[Reject — if selected alone or as primary]</span></div>
+            <div class="sq-opt">Debit card <span class="tag tag-accept">[Must Accept — if primary payment method]</span></div>
+            <div class="sq-opt">Non-Next credit card (Visa, Mastercard, Amex etc.) <span class="tag tag-accept">[Must Accept — if debit not selected]</span></div>
+            <div class="sq-opt">Cash <span class="tag tag-may">[May Accept]</span></div>
+            <div class="sq-opt">PayPal / Apple Pay / Google Pay (funded by debit) <span class="tag tag-may">[May Accept]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ4</div>
+          <div class="sq-text">Which of the following retail loyalty programmes are you currently an active member of? Select all that apply.</div>
+          <div class="sq-options">
+            <div class="sq-opt">Boots Advantage Card <span class="tag tag-accept">[Must Accept — if selected]</span></div>
+            <div class="sq-opt">M&amp;S Sparks <span class="tag tag-accept">[Must Accept — if selected]</span></div>
+            <div class="sq-opt">Tesco Clubcard <span class="tag tag-accept">[May Accept]</span></div>
+            <div class="sq-opt">Sainsbury's Nectar <span class="tag tag-may">[May Accept]</span></div>
+            <div class="sq-opt">H&amp;M Member <span class="tag tag-accept">[Must Accept — if selected]</span></div>
+            <div class="sq-opt">Costa Club / Pret Perks / other coffee loyalty <span class="tag tag-may">[May Accept]</span></div>
+            <div class="sq-opt">None of the above <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ5</div>
+          <div class="sq-text">In the past 6 months, have you used a retailer's or café's mobile app to scan a loyalty code or earn points in-store?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes, I do this regularly (weekly or more) <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">Yes, I have done this at least once <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">No, I have not done this <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">I don't have a smartphone <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ6</div>
+          <div class="sq-text">Have you returned an item to a Next store in the past 24 months?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">No <span class="tag tag-reject">[Reject — returns experience is a critical research area]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ7</div>
+          <div class="sq-text">Do you work, or have you worked in the past 2 years, for a retail company in a customer-facing role?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes, I currently work in retail customer-facing <span class="tag tag-reject">[Reject — conflicts with research perspective]</span></div>
+            <div class="sq-opt">Yes, I worked in retail customer-facing in the past 2 years <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">No <span class="tag tag-accept">[Must Accept]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="incentive-box">
+        <div class="incentive-label">Incentive — Segment 1</div>
+        <div class="incentive-text">£50 digital gift card (retailer of participant's choice — not Next, to avoid conflict of interest), delivered via email within 5 working days of session completion. Payment communicated at recruitment stage and confirmed in session confirmation email.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SEGMENT 2 — STORE ASSOCIATE -->
+    <div class="segment-block">
+      <span class="segment-label">Segment 2 — Store Associate</span>
+
+      <p class="para" style="font-weight:600;color:var(--navy);margin-bottom:8px;">Demographics (study-relevant only)</p>
+      <ul class="criteria-list">
+        <li class="criteria-item">Currently employed as a full-time or part-time store associate, supervisor, or team leader at a Next store in the UK or Ireland</li>
+        <li class="criteria-item">Primary role involves regular POS till operation — not warehouse, stock room, or head office only</li>
+        <li class="criteria-item">Mix of store sizes where possible (small high street, large out-of-town format)</li>
+        <li class="criteria-item">Mix of tenure — at least 2 participants with less than 12 months tenure; at least 3 with 2+ years tenure</li>
+      </ul>
+
+      <p class="para" style="font-weight:600;color:var(--navy);margin-bottom:8px;margin-top:12px;">Qualifying Criteria</p>
+      <ul class="criteria-list">
+        <li class="criteria-item">Has operated the POS till as their primary work activity at a Next store in the past 30 days</li>
+        <li class="criteria-item">Has processed a customer return at the till in the past 60 days</li>
+        <li class="criteria-item">Has introduced or explained an in-store promotion or new service to a customer at the till in the past 90 days</li>
+        <li class="criteria-item">Has not been involved in the planning or design of the Next loyalty programme in any professional capacity</li>
+        <li class="criteria-item">Is comfortable being interviewed remotely and has access to a stable internet connection for a video call</li>
+      </ul>
+
+      <div class="screener-block">
+        <div class="screener-header">Screener Questions — Segment 2 · Store Associate</div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ1</div>
+          <div class="sq-text">Are you currently employed as a store associate, team leader, or supervisor at a Next store in the UK or Ireland?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes, currently employed at Next in a store role <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">I work for Next but not in a store-facing role <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">No, I no longer work at Next <span class="tag tag-reject">[Reject]</span></div>
+            <div class="sq-opt">I have never worked at Next <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ2</div>
+          <div class="sq-text">In the past 30 days, how often has operating the POS till been part of your shift?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Every shift or almost every shift <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">More than half my shifts <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">Occasionally — less than half my shifts <span class="tag tag-may">[May Accept — limit to 2]</span></div>
+            <div class="sq-opt">I have not operated the till in the past 30 days <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ3</div>
+          <div class="sq-text">Have you processed a customer return at the till in the past 60 days?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes, multiple times <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">Yes, at least once <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">No <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ4</div>
+          <div class="sq-text">In the past 90 days, have you introduced or explained an in-store promotion, new service, or company initiative to a customer at the till?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes, this has been part of my role recently <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">Not in the past 90 days, but it has been part of my role in the past <span class="tag tag-may">[May Accept — limit to 2]</span></div>
+            <div class="sq-opt">No, this has not been part of my role <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ5</div>
+          <div class="sq-text">Have you been involved in planning, designing, or advising on the Next loyalty programme in any professional capacity?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes <span class="tag tag-reject">[Reject — knowledge bias]</span></div>
+            <div class="sq-opt">No <span class="tag tag-accept">[Must Accept]</span></div>
+          </div>
+        </div>
+
+        <div class="screener-q">
+          <div class="sq-num">SQ6</div>
+          <div class="sq-text">Are you comfortable participating in a remote video interview that will be recorded for internal research purposes only?</div>
+          <div class="sq-options">
+            <div class="sq-opt">Yes, I am comfortable with recording <span class="tag tag-accept">[Must Accept]</span></div>
+            <div class="sq-opt">I would prefer not to be recorded <span class="tag tag-may">[May Accept — note-taking only; limit to 2]</span></div>
+            <div class="sq-opt">No, I am not comfortable participating <span class="tag tag-reject">[Reject]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="incentive-box">
+        <div class="incentive-label">Incentive — Segment 2</div>
+        <div class="incentive-text">£35 digital gift card (retailer of participant's choice — not Next), delivered via email within 5 working days of session completion. Sessions conducted during or adjacent to working hours where possible — coordinator to confirm preferred timing with participants' store managers during recruitment. Payment communicated at recruitment stage and confirmed in session confirmation email.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ SECTION 5 — DISCUSSION GUIDE ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">05</span><span class="section-title">Discussion Guide</span></div>
+  <div class="section-body">
+    <div class="guide-placeholder">
+      Link to Discussion Guide — Customer (Segment 1): [To be generated by Discussion Guide agent]<br/><br/>
+      Link to Discussion Guide — Store Associate (Segment 2): [To be generated by Discussion Guide agent]
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6 — STAKEHOLDERS ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">06</span><span class="section-title">Stakeholders — DACSI Model</span></div>
+  <div class="section-body">
+    <table class="dacsi-table">
+      <thead><tr><th>Role</th><th>DACSI</th><th>Name</th><th>Responsibilities in This Study</th></tr></thead>
+      <tbody>
+        <tr><td>Digital Product Manager — Loyalty</td><td><strong>D</strong> · Decider</td><td>[TBC — Next contact]</td><td>Final sign-off on research plan, participant screener, and study deliverables. Determines how findings are prioritised for product development.</td></tr>
+        <tr><td>UX Research Lead — UXReactors</td><td><strong>A</strong> · Accountable</td><td>[TBC — Ascendion lead]</td><td>Overall study quality and delivery. Responsible for moderation, synthesis, and readout. Primary point of contact for Next during fieldwork.</td></tr>
+        <tr><td>UX Researcher / Moderator</td><td><strong>C</strong> · Contributor</td><td>[TBC — Ascendion]</td><td>Conducts moderated sessions. Synthesises notes and recordings into findings. Co-authors research readout.</td></tr>
+        <tr><td>Customer Experience Lead — Next</td><td><strong>S</strong> · Supporter</td><td>[TBC — Next contact]</td><td>Provides access to operational context, store contacts for Associate recruitment, and review of participant screener for accuracy.</td></tr>
+        <tr><td>Next Finance / nextpay Compliance Lead</td><td><strong>S</strong> · Supporter</td><td>[TBC — Next contact]</td><td>Reviews any questions that touch on the nextpay credit relationship for regulatory compliance before fieldwork begins.</td></tr>
+        <tr><td>Store Operations Manager — Next</td><td><strong>I</strong> · Informed</td><td>[TBC — Next contact]</td><td>Notified of study scope and Associate segment involvement. Provides scheduling support for Associate participants where needed. Receives summary findings.</td></tr>
+        <tr><td>Marketing / CRM Lead — Next</td><td><strong>I</strong> · Informed</td><td>[TBC — Next contact]</td><td>Receives final research readout. Not involved in study design or fieldwork.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION 7 — LOGISTICS ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">07</span><span class="section-title">Logistics</span></div>
+  <div class="section-body">
+    <div class="logistics-row"><div class="logistics-key">Session format</div><div class="logistics-val">Remote moderated video interview <span class="resp-tag resp-both">[Both]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Video platform</div><div class="logistics-val">Microsoft Teams or Zoom (to be confirmed with Next IT) — Ascendion to set up and host all sessions <span class="resp-tag resp-asc">[Ascendion]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Recording</div><div class="logistics-val">All sessions recorded with participant consent. Recordings stored on Ascendion secure drive. Shared with Next stakeholders on request, not by default <span class="resp-tag resp-asc">[Ascendion]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Scheduling</div><div class="logistics-val">Ascendion research coordinator manages calendar booking and participant reminders (48h and 2h before session) <span class="resp-tag resp-asc">[Ascendion]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Customer participant recruitment</div><div class="logistics-val">Recruitment via specialist panel provider (to be confirmed) using screener designed by Ascendion, reviewed by Next <span class="resp-tag resp-both">[Both]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Store Associate recruitment</div><div class="logistics-val">Next Store Operations to identify willing associates and share contact details with Ascendion. Ascendion to confirm scheduling directly with participants <span class="resp-tag resp-client">[Client — initial outreach]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Observer protocol</div><div class="logistics-val">Next stakeholders may observe sessions silently (camera off, microphone muted). Observer list provided to Ascendion 24h before each session <span class="resp-tag resp-client">[Client]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Note-taking</div><div class="logistics-val">Ascendion note-taker in every session. Notes structured to research question mapping template <span class="resp-tag resp-asc">[Ascendion]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Incentive delivery</div><div class="logistics-val">Ascendion research coordinator sends digital gift cards within 5 working days of session. Next to pre-approve incentive budget <span class="resp-tag resp-asc">[Ascendion — delivery] </span><span class="resp-tag resp-client">[Client — budget approval]</span></div></div>
+    <div class="logistics-row"><div class="logistics-key">Consent forms</div><div class="logistics-val">Recording consent and research participation consent collected digitally before session via Ascendion consent form link, sent with session confirmation <span class="resp-tag resp-asc">[Ascendion]</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 8 — DELIVERABLES ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">08</span><span class="section-title">Deliverables</span></div>
+  <div class="section-body">
+    <ul class="deliverable-list">
+      <li class="deliverable-item">Research Plan (this document)</li>
+      <li class="deliverable-item">Discussion Guide — Customer Segment</li>
+      <li class="deliverable-item">Discussion Guide — Store Associate Segment</li>
+      <li class="deliverable-item">Participant Screener — Customer Segment</li>
+      <li class="deliverable-item">Participant Screener — Store Associate Segment</li>
+      <li class="deliverable-item">Session Notes — per participant</li>
+      <li class="deliverable-item">Research Synthesis Report</li>
+      <li class="deliverable-item">Research Readout Presentation</li>
+      <li class="deliverable-item">User Personas (downstream — informed by this study)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ SECTION 9 — TIMELINE ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">09</span><span class="section-title">Timeline</span></div>
+  <div class="section-body">
+    <p class="para"><strong>Overall study duration:</strong> 5 weeks from kick-off to final deliverable delivery. Dependent on recruitment progress — Associate recruitment timeline dependent on Next Store Operations availability to identify and contact participants.</p>
+    <table class="timeline-table">
+      <thead><tr><th>Week</th><th>Milestone</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Week 1</strong></td><td>Research plan and screener finalised and approved; Discussion Guide drafts shared for review</td><td>Both</td></tr>
+        <tr><td><strong>Week 1–2</strong></td><td>Recruitment launched — Customer panel + Next Store Operations Associate outreach</td><td>Ascendion (Customer); Client (Associate initial contact)</td></tr>
+        <tr><td><strong>Week 2</strong></td><td>Discussion Guides finalised; session scheduling confirmed; consent forms sent</td><td>Ascendion</td></tr>
+        <tr><td><strong>Week 3–4</strong></td><td>Fieldwork — all 14–16 sessions conducted (up to 3 sessions per day maximum)</td><td>Ascendion</td></tr>
+        <tr><td><strong>Week 4</strong></td><td>Note review and synthesis begins; initial themes shared with Next stakeholders for sense-check</td><td>Ascendion</td></tr>
+        <tr><td><strong>Week 5</strong></td><td>Research Synthesis Report completed; Research Readout Presentation delivered to Next team</td><td>Ascendion</td></tr>
+        <tr><td><strong>Week 5</strong></td><td>Incentive payments processed and sent to all participants</td><td>Ascendion</td></tr>
+      </tbody>
+    </table>
+    <p class="para" style="margin-top:12px;font-style:italic;font-size:11.5px;color:var(--text-soft);">Note: All date ranges are relative to study kick-off date [TBC — pending Next sign-off]. Recruitment for the Store Associate segment is the primary timeline risk — if Next cannot identify willing associates within Week 1, fieldwork will shift by one week accordingly.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 10 — CHECKLIST ═══ -->
+<div class="section">
+  <div class="section-header"><span class="section-num">10</span><span class="section-title">Pre-Study Checklist</span></div>
+  <div class="section-body">
+    <div class="two-col-check">
+      <div class="checklist-col">
+        <div class="checklist-col-label">Ascendion's Responsibilities</div>
+        <div class="check-item">Research Plan shared with Next for review and sign-off</div>
+        <div class="check-item">Participant screeners finalised for both segments</div>
+        <div class="check-item">Discussion Guides drafted and circulated for review</div>
+        <div class="check-item">Customer panel briefing sent to recruitment provider</div>
+        <div class="check-item">Session calendar set up in scheduling tool</div>
+        <div class="check-item">Video platform meeting links created for all sessions</div>
+        <div class="check-item">Recording consent form prepared and tested</div>
+        <div class="check-item">Note-taking template prepared (mapped to research goals A–F)</div>
+        <div class="check-item">Loyalty concept stimulus card prepared for Customer sessions (Week 2)</div>
+        <div class="check-item">Observer joining instructions prepared for Next stakeholders</div>
+        <div class="check-item">Incentive gift card procurement confirmed with supplier</div>
+        <div class="check-item">Session confirmation emails drafted with participant instructions</div>
+        <div class="check-item">Backup session slots held in case of participant no-shows</div>
+      </div>
+      <div class="checklist-col">
+        <div class="checklist-col-label">Client (Next) Responsibilities</div>
+        <div class="check-item">Research Plan signed off by Digital Product Manager</div>
+        <div class="check-item">Discussion Guide reviewed by Next Finance / Compliance for credit-related questions</div>
+        <div class="check-item">Incentive budget approved by Next stakeholder</div>
+        <div class="check-item">Store Operations Manager briefed on Store Associate research involvement</div>
+        <div class="check-item">Store Operations to identify 12–14 willing Associate participants (to allow for no-shows) and share contact details with Ascendion</div>
+        <div class="check-item">Observer list confirmed (names + email addresses for meeting links)</div>
+        <div class="check-item">Video platform compatibility confirmed with Next IT (if Teams requires IT approval)</div>
+        <div class="check-item">Any NDA or confidentiality requirements confirmed and communicated to Ascendion before recruitment begins</div>
+        <div class="check-item">Next brand and communications guidelines shared if loyalty concept card must align with brand standards</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

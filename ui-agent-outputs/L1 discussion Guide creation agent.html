@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Discussion Guide — Next Loyalty Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1f3c;--navy-mid:#1a2e50;--navy-row:#1e3460;
+  --border:#dde4f0;--bg:#f0f4f9;--bg-white:#fff;--bg-alt:#f8fafc;
+  --text-dark:#0f172a;--text-mid:#334155;--text-soft:#64748b;
+  --text-white:#fff;--text-muted:rgba(255,255,255,0.6);
+  --indigo:#6c8eea;--green:#16a34a;--amber:#d97706;--purple:#7c3aed;
+  --customer-color:#6c8eea;--associate-color:#059669;
+  --font-head:'DM Sans',sans-serif;--font-body:'Inter',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+
+/* ── DOC HEADER ── */
+.doc-header{background:var(--navy);padding:24px 40px 20px;}
+.doc-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--navy-row);color:var(--indigo);border:1px solid rgba(108,142,234,0.3);padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.doc-title{font-family:var(--font-head);font-size:26px;font-weight:700;color:#fff;margin-bottom:4px;}
+.doc-sub{font-size:11px;color:var(--text-muted);}
+
+/* ── USER TYPE DIVIDER ── */
+.user-type-divider{padding:0 40px;margin:32px 0 0;}
+.user-type-bar{display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:10px 10px 0 0;}
+.user-type-bar.customer{background:var(--navy-mid);border-bottom:3px solid var(--customer-color);}
+.user-type-bar.associate{background:var(--navy-mid);border-bottom:3px solid var(--associate-color);}
+.user-type-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.user-type-icon.customer{background:var(--customer-color);}
+.user-type-icon.associate{background:var(--associate-color);}
+.user-type-info{display:flex;flex-direction:column;}
+.user-type-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:2px;}
+.user-type-name{font-family:var(--font-head);font-size:16px;font-weight:700;color:#fff;}
+.guide-meta{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap;}
+.guide-meta-item{font-size:10px;color:rgba(255,255,255,0.5);display:flex;flex-direction:column;}
+.guide-meta-item strong{color:rgba(255,255,255,0.85);font-weight:600;font-size:11px;}
+
+/* ── PAGE ── */
+.page{max-width:940px;margin:0 auto 0;padding:0 40px 60px;display:flex;flex-direction:column;gap:0;}
+
+/* ── GUIDE SECTION ── */
+.guide-section{background:var(--bg-white);border:1px solid var(--border);border-top:none;overflow:hidden;}
+.guide-section:last-of-type{border-radius:0 0 10px 10px;margin-bottom:0;}
+.guide-section-header{padding:12px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.guide-section-header.customer-section{background:#eef2ff;}
+.guide-section-header.associate-section{background:#ecfdf5;}
+.section-tag{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:3px;}
+.section-tag.customer-tag{color:#3730a3;background:#e0e7ff;border:1px solid #c7d2fe;}
+.section-tag.associate-tag{color:#065f46;background:#d1fae5;border:1px solid #a7f3d0;}
+.section-heading{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--navy);}
+.time-badge{margin-left:auto;font-size:10px;font-weight:700;color:var(--text-soft);background:var(--bg-alt);border:1px solid var(--border);border-radius:4px;padding:2px 8px;white-space:nowrap;}
+.guide-body{padding:20px 24px;display:flex;flex-direction:column;gap:16px;}
+
+/* ── SCRIPT BLOCK ── */
+.script-block{background:#fffbeb;border-left:3px solid var(--amber);border-radius:0 6px 6px 0;padding:12px 14px;}
+.script-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+.script-text{font-size:12.5px;color:var(--text-mid);line-height:1.75;font-style:italic;}
+
+/* ── QUESTION BLOCK ── */
+.q-block{display:flex;flex-direction:column;gap:6px;}
+.q-rq{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--indigo);margin-bottom:2px;}
+.q-text{font-size:13px;font-weight:600;color:var(--navy);line-height:1.5;}
+.q-probes{display:flex;flex-direction:column;gap:4px;margin-top:6px;padding-left:20px;border-left:2px solid var(--border);}
+.probe{font-size:12px;color:var(--text-mid);line-height:1.6;}
+.probe-label{font-weight:700;color:var(--indigo);}
+
+/* ── TRANSITION ── */
+.transition{background:#f8fafc;border:1px dashed var(--border);border-radius:6px;padding:8px 14px;font-size:12px;font-style:italic;color:var(--text-soft);}
+
+/* ── STIMULUS ── */
+.stimulus-block{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:12px 14px;}
+.stimulus-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.stimulus-text{font-size:12.5px;color:var(--text-mid);line-height:1.7;}
+
+/* ── NOTE ── */
+.note{background:#fafbff;border-left:3px solid var(--indigo);border-radius:0 4px 4px 0;padding:8px 12px;font-size:11px;color:var(--text-soft);font-style:italic;}
+
+/* ── DIVIDER ── */
+.h-div{height:1px;background:var(--border);}
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-tag">Discussion Guide</div>
+  <div class="doc-title">Next Loyalty Programme — Discussion Guide</div>
+  <div class="doc-sub">UXReactors 5D Pragmatic UX Framework · Moderated Remote Interviews · Customer + Store Associate</div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     USER TYPE 1 — CUSTOMER
+════════════════════════════════════════════ -->
+
+<div class="user-type-divider">
+  <div class="user-type-bar customer">
+    <div class="user-type-icon customer">C</div>
+    <div class="user-type-info">
+      <span class="user-type-label">User Type 1 of 2</span>
+      <span class="user-type-name">Customer — Cash / Debit Shopper (No nextpay Account)</span>
+    </div>
+    <div class="guide-meta">
+      <div class="guide-meta-item"><span>Study</span><strong>Next Loyalty Programme</strong></div>
+      <div class="guide-meta-item"><span>Duration</span><strong>60 minutes</strong></div>
+      <div class="guide-meta-item"><span>Method</span><strong>Moderated Remote Interview</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 1. INTRODUCTION & CONSENT -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">01</span>
+      <span class="section-heading">Introduction &amp; Consent</span>
+      <span class="time-badge">~5 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="script-block">
+        <div class="script-label">Moderator Script</div>
+        <div class="script-text">Hi [Participant Name], thank you so much for making time to speak with us today — I really appreciate it. My name is [Moderator Name], and I'm a researcher working with the team at [UXReactors / Ascendion]. Joining me today is [Note-taker Name], who will be taking notes so I can focus on our conversation. [If observer present: There may also be one or two colleagues from Next observing quietly — their cameras will be off and they won't be participating in our conversation.]<br/><br/>
+        Before we start, I want to explain what today's session is about. We're speaking with people who shop at Next to understand how they shop and what their experiences are like — particularly around how they feel about being recognised as a customer and the kinds of rewards or programmes that work for them in other contexts. We are not testing any product or design today, and there are absolutely no right or wrong answers. We're here to learn from you, so please feel free to say exactly what you think — including things that might feel critical or negative. That's genuinely the most useful thing you can share.<br/><br/>
+        With your permission, I'd like to record this session so I can focus on our conversation rather than taking notes myself. The recording will only be used by the research team — it won't be shared more widely. Can I confirm you're happy for us to record today?<br/><br/>
+        Do you have any questions before we begin?</div>
+      </div>
+      <div class="note">Note: Confirm recording consent verbally and via the consent form sent before the session. If participant is not comfortable being recorded, proceed without recording — note-taker leads documentation.</div>
+    </div>
+  </div>
+
+  <!-- 2. WARM UP -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">02</span>
+      <span class="section-heading">Participant Background &amp; Warm-Up</span>
+      <span class="time-badge">~5 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="q-block">
+        <div class="q-text">To get us started — can you tell me a little bit about yourself and how shopping fits into your week? I'm thinking about things like where you tend to shop, what kinds of things you buy most often, that kind of thing.</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Is shopping something you enjoy, or is it more of a task you get done when you need to?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> How does that split between shopping in-store and shopping online for you?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">And when it comes to Next specifically — how would you describe your relationship with Next as a shopper?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> How long have you been shopping there?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What tends to take you there — is it a regular thing, or more when you have something specific in mind?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CORE DISCUSSION -->
+
+  <!-- 3A — Shopping behaviour and loyalty foundations -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">03A</span>
+      <span class="section-heading">Shopping Behaviour &amp; What Drives Repeat Visits</span>
+      <span class="time-badge">~10 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="note">Maps to Research Goals A1, A2, A4 — FAFRQ: Who is the user? What drives their repeat behaviour?</div>
+      <div class="q-block">
+        <div class="q-rq">RQ A1</div>
+        <div class="q-text">When you decide to shop at Next rather than somewhere else — what's usually behind that decision?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Is that the same reason every time, or does it depend on what you're shopping for?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Has that reason changed over the time you've been shopping there?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there anything that would cause you to go to a competitor instead for something you'd normally buy at Next?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ A2</div>
+        <div class="q-text">How would you describe the way Next treats you as a customer — do you feel like they know who you are?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> What does that feel like when you're in the store, or when you're on the website?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Has there ever been a moment where you felt genuinely recognised or appreciated by Next as a customer?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> If you imagine what "being recognised" by a retailer you've shopped at for years would look like — what comes to mind?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ A4</div>
+        <div class="q-text">Thinking about the way you shop at Next — is there anything a loyalty programme would need to offer for you to actually change what you do? For example, buying something you wouldn't have otherwise, or choosing Next over somewhere else?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> What would that look like in practice?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Has a loyalty programme ever actually changed where or how much you spend somewhere? Tell me about that.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3B — Loyalty programme experience -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">03B</span>
+      <span class="section-heading">Loyalty Programme Experience at Other Retailers</span>
+      <span class="time-badge">~12 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="note">Maps to Research Goals A3, B1–B5 — FAFRQ: What tools and programmes does this user rely on? What makes them engage or lapse?</div>
+      <div class="q-block">
+        <div class="q-rq">RQ A3 / B1</div>
+        <div class="q-text">Tell me about the loyalty programmes you're currently part of — which ones do you actually use, and how?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> When you think about the one you use most consistently — what is it about that one that keeps you coming back to it?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Are there any that you signed up for but have basically stopped using? What happened there?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Has a loyalty programme ever actually changed where you shop — like choosing one place over another specifically to earn points?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ B2</div>
+        <div class="q-text">When you have points building up in a loyalty programme — how do you keep track of them, and how does that feel?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> What does it feel like when your balance goes up after a purchase?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there a point at which the balance starts to feel like something you'd not want to lose?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would make a balance feel unclear or untrustworthy to you?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ B3</div>
+        <div class="q-text">If you think about the choice between earning points that build over time versus getting a small discount straight away at the checkout — which feels more valuable to you, and why?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Does that depend on what you're buying or where you're shopping?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there something about saving up for a bigger reward that appeals — or does the wait put you off?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ B4</div>
+        <div class="q-text">Tell me about the last time you actually used points or a reward from a loyalty programme — what did you use them for, and what was that experience like?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Did it feel like a good use of them, or did you feel like you could have done better?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What makes a redemption moment feel worthwhile versus a bit disappointing?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ B5</div>
+        <div class="q-text">Have you ever been part of a loyalty programme that changed — maybe the earn rate changed, the rewards shifted, or the whole programme was restructured? What happened?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> How did you find out about the change, and what was your reaction?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would make a change like that feel acceptable versus like a reason to stop using the programme?</div>
+        </div>
+      </div>
+      <div class="transition">Based on what you've shared about the loyalty programmes you use — I'd like to shift to thinking specifically about what that might look like at Next...</div>
+    </div>
+  </div>
+
+  <!-- 3C — Enrolment drivers and barriers -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">03C</span>
+      <span class="section-heading">Enrolment Drivers, Trust &amp; Data Concerns</span>
+      <span class="time-badge">~15 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="note">Maps to Research Goals C1–C5 — FAFRQ: What are the user's biggest problems and concerns? What would unlock engagement?</div>
+      <div class="q-block">
+        <div class="q-rq">RQ C1</div>
+        <div class="q-text">If Next launched a loyalty programme tomorrow — what would need to be true about it for you to sign up straight away?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Is there a single thing that would be the deal-maker for you — the thing that made you think, yes, that's worth joining?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> And on the other side — is there anything that would cause you to hesitate or decide not to join?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> If you heard that the early access to the Next sale was available as a loyalty reward rather than needing a credit account — how would that land for you?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ C2</div>
+        <div class="q-text">What kind of reward would feel most meaningful to you personally — money off, early access to sales, something experiential, or being recognised differently as a customer?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Does that change depending on what you're buying at Next?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> If you think about the reward that has felt most satisfying from any programme you've been part of — what was it and why did it feel good?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ C3</div>
+        <div class="q-text">When you think about signing up for a new loyalty programme that would track your purchases — what goes through your mind about your data?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Are there things you'd be comfortable with them tracking, and things you'd be uncomfortable with?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Have you heard of anything happening with Next and customer data — returns monitoring or anything like that? What do you know about it, and what do you think about it?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would a retailer need to tell you — and where would they need to tell you — for you to feel confident about joining?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ C4</div>
+        <div class="q-text">If earning and tracking your loyalty points mainly happened through the Next app — what would need to be true about that experience for you to use it regularly?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> What makes you open a loyalty app at a till — and what would make you just reach for your card instead?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Where in the app would you expect to see your points balance — and how often would you expect it to update?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ C5</div>
+        <div class="q-text">Is there anyone you can think of in your life — family or friends — who you'd imagine couldn't use a loyalty programme that was app-only?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Tell me a bit about them — what's their situation with technology and shopping?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would they need for a loyalty programme to work for them?</div>
+        </div>
+      </div>
+      <div class="transition">Based on what you've said about how you'd want to join and what matters to you — I'd like to shift now to talk about what actually happens when you're in a Next store...</div>
+    </div>
+  </div>
+
+  <!-- 3D — In-store recognition -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">03D</span>
+      <span class="section-heading">In-Store Recognition &amp; the Point-of-Sale Interaction</span>
+      <span class="time-badge">~10 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="note">Maps to Research Goals D1–D3 — FAFRQ: What is the user's journey? Where do the pain points sit in-store?</div>
+      <div class="q-block">
+        <div class="q-rq">RQ D1</div>
+        <div class="q-text">When you're at the till in a Next store — can you walk me through what that interaction is usually like for you?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Has there ever been a moment at a till — at Next or anywhere else — where you felt like the person serving you actually knew you were a regular? What was that like?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> If a store associate at Next said "you've got 250 loyalty points — would you like to use them today?" — how would that land for you?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would they ideally know about you at the till — and what would feel like too much?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ D2</div>
+        <div class="q-text">If a store associate could see some information about you on their screen when you scanned your loyalty code — what would you be comfortable with them seeing, and what would you prefer they couldn't see?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> How would you feel if they could see how long you'd been a customer?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What about your purchase history — what you've bought, or how often you return things?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Where do you draw the line between feeling recognised and feeling monitored?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ D3</div>
+        <div class="q-text">If you had to scan your phone app at the till to earn points — what would need to happen for that to feel quick and easy enough that you'd actually do it every time?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Think of an app you already scan with in-store — how does that process work, and what would you compare it to?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there a point where the queue behind you would make you give up on the scan and just pay?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would need to happen on your screen after the scan for you to feel confident it had worked?</div>
+        </div>
+      </div>
+
+      <!-- Stimulus section -->
+      <div class="stimulus-block">
+        <div class="stimulus-label">Stimulus — Loyalty Programme Concept Card [~3 min]</div>
+        <div class="stimulus-text"><strong>Moderator instruction:</strong> Share screen with the one-page loyalty programme concept summary. Say: "I'd like to show you a summary of what Next's loyalty programme might look like — this is an early concept, nothing is final. I'm interested in your honest reaction — not whether you think it's well designed, just what it makes you think and feel."<br/><br/>
+        Allow participant to read silently for 30 seconds. Then ask:<br/><br/>
+        — What's your overall reaction to this?<br/>
+        — Is there anything here that would make you sign up immediately?<br/>
+        — Is there anything that would give you pause or put you off?<br/>
+        — Is anything missing that you'd expect to see?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. WRAP UP — CUSTOMER -->
+  <div class="guide-section">
+    <div class="guide-section-header customer-section">
+      <span class="section-tag customer-tag">04</span>
+      <span class="section-heading">Wrap-Up</span>
+      <span class="time-badge">~5 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="q-block">
+        <div class="q-text">We've covered a lot of ground today. Is there anything about your experience as a Next shopper, or your thoughts on loyalty programmes more generally, that we haven't touched on but that you think would be useful for us to know?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">If you could give the Next team one piece of advice about what a loyalty programme should do for a customer like you — what would it be?</div>
+      </div>
+      <div class="script-block">
+        <div class="script-label">Closing Script</div>
+        <div class="script-text">That's really everything I wanted to cover — thank you so much for your time and for sharing all of that with me. It's been genuinely useful. [Note-taker's name], do you have any follow-up questions?<br/><br/>
+        As a reminder, the recording will only be used by the research team. Your [£50 digital gift card] will be sent to your email address within 5 working days. If you have any questions at all, please feel free to get in touch with [coordinator email]. Thank you again — I really appreciate it.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /customer page -->
+
+
+<!-- ════════════════════════════════════════════
+     USER TYPE 2 — STORE ASSOCIATE
+════════════════════════════════════════════ -->
+
+<div class="user-type-divider" style="margin-top:40px;">
+  <div class="user-type-bar associate">
+    <div class="user-type-icon associate">S</div>
+    <div class="user-type-info">
+      <span class="user-type-label">User Type 2 of 2</span>
+      <span class="user-type-name">Store Associate — Next plc UK Store (POS Role)</span>
+    </div>
+    <div class="guide-meta">
+      <div class="guide-meta-item"><span>Study</span><strong>Next Loyalty Programme</strong></div>
+      <div class="guide-meta-item"><span>Duration</span><strong>45 minutes</strong></div>
+      <div class="guide-meta-item"><span>Method</span><strong>Moderated Remote Interview</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 1. INTRODUCTION & CONSENT — ASSOCIATE -->
+  <div class="guide-section">
+    <div class="guide-section-header associate-section">
+      <span class="section-tag associate-tag">01</span>
+      <span class="section-heading">Introduction &amp; Consent</span>
+      <span class="time-badge">~5 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="script-block">
+        <div class="script-label">Moderator Script</div>
+        <div class="script-text">Hi [Participant Name], thank you so much for joining us today — I really appreciate you making time for this. My name is [Moderator Name], and I'm a researcher working with [UXReactors / Ascendion] on behalf of Next. [Note-taker Name] is joining me and will be taking notes. [If observer: There's also one quiet observer from the Next team — they won't be part of our conversation.]<br/><br/>
+        I want to be clear about what this is and isn't. We're talking to people who work in Next stores because we want to understand what really happens at the till — the real experience, not the ideal version. I'm not here to evaluate your performance or how you do your job. I'm here to learn from your experience, because you know things about how the store actually works that no one sitting in an office does. So please be as honest as you like — the more real and specific you are, the more useful this is for us.<br/><br/>
+        [If consent to record given: With your permission I'd like to record this session — only for the research team's use, never shared more widely. You confirmed this before the session, but I just want to double-check you're still happy with that?]<br/><br/>
+        Any questions before we get started?</div>
+      </div>
+      <div class="note">Note: This segment requires particular care — associates may feel observed or assessed despite the disclaimer. Reinforce throughout that there are no right answers and their candid perspective is what's needed.</div>
+    </div>
+  </div>
+
+  <!-- 2. WARM UP — ASSOCIATE -->
+  <div class="guide-section">
+    <div class="guide-section-header associate-section">
+      <span class="section-tag associate-tag">02</span>
+      <span class="section-heading">Participant Background &amp; Warm-Up</span>
+      <span class="time-badge">~5 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="q-block">
+        <div class="q-text">Can you start by telling me a bit about your role at Next — how long you've been there, and what a typical shift looks like for you?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> How much of your time is on the till versus on the shop floor?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is that split consistent, or does it depend on the day or the season?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">What do you enjoy most about working with customers directly — and what do you find most challenging?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Is there a type of interaction that you feel you're really good at?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3E — POS workflow and current system -->
+  <div class="guide-section">
+    <div class="guide-section-header associate-section">
+      <span class="section-tag associate-tag">03E</span>
+      <span class="section-heading">POS Workflow, Current Systems &amp; Customer Interactions</span>
+      <span class="time-badge">~18 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="note">Maps to Research Goals E1–E4 — FAFRQ: Who is this user? What is their workflow? Where are the biggest problems in their day?</div>
+      <div class="q-block">
+        <div class="q-rq">RQ E1</div>
+        <div class="q-text">Walk me through what happens from the moment a customer comes to your till — what are you managing, step by step?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> At what points in that sequence do you feel like the system is helping you — and at what points does it slow you down or leave you without what you need?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there anything about the way the till system works right now that regularly frustrates you?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What does the screen show you about the customer you're serving right now?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ E2</div>
+        <div class="q-text">If you could know one thing about a customer that the till showed you right now — what would it be, and how would it change how you treated them?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Are there things you'd want to know that you feel confident you'd use in a positive way?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Are there things about a customer you would actively not want to know when you're serving them — things that might change the interaction in a way you'd be uncomfortable with?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> If you could see that a customer has been shopping at Next for 10 years — what, if anything, would you do differently?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ E3</div>
+        <div class="q-text">Tell me about a difficult customer interaction you've had at the till — what happened, and how did you handle it?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Was there a point in that interaction where having more information about the customer's history with Next would have made it easier for you?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Have you ever been in a situation where a customer was frustrated and it turned out there was context — like previous problems with deliveries or returns — that you had no way of knowing about beforehand? What happened?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What would have made that interaction go better from your side?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ E3 — Returns specifically</div>
+        <div class="q-text">Tell me about what happens when someone comes to the till for a return — what does that process look like from your end?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> How do you find the customer's order on the system — what do you use to look it up?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What happens when you can't find the order? How often does that happen, and how long does it take to resolve?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What's that experience like for the customer while it's happening — and for you?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ E4</div>
+        <div class="q-text">When you have a queue building behind a customer — how does that change what you do during the transaction?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> Is there anything you skip or do differently under queue pressure that you'd do more carefully if you had more time?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What's the point at which you feel you're choosing speed over doing the interaction properly?</div>
+        </div>
+      </div>
+      <div class="transition">Based on what you've told me about the till experience — I'd like to shift to talking about something new that's coming, and what it would mean for you specifically...</div>
+    </div>
+  </div>
+
+  <!-- 3F — Loyalty programme readiness -->
+  <div class="guide-section">
+    <div class="guide-section-header associate-section">
+      <span class="section-tag associate-tag">03F</span>
+      <span class="section-heading">Loyalty Programme Readiness &amp; Training Needs</span>
+      <span class="time-badge">~12 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="note">Maps to Research Goals F1–F4 — FAFRQ: What are this user's biggest problems in adopting new systems? What makes rollouts succeed or fail at the till?</div>
+      <div class="q-block">
+        <div class="q-rq">RQ F1</div>
+        <div class="q-text">Think back to the last time Next introduced something new that you had to explain to customers at the till — an initiative, a promotion, a new system. What was that experience like?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> How did you find out about it — and did you feel ready to explain it by the time customers started asking?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Was there a moment where a customer asked you something about it and you weren't sure of the answer? How did you handle that?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> What made that rollout go well or badly from your point of view?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ F2</div>
+        <div class="q-text">If Next was about to launch a loyalty programme and you needed to be able to explain it to a customer at the till from day one — what kind of preparation would actually make you feel ready?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> What format works best for you — a briefing, a video, something at the start of a shift, something written you can refer back to?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> How much time would you need — and when would it need to happen relative to the launch?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there anything that would make you feel more confident introducing it to a customer mid-transaction, even when there's a queue?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ F3</div>
+        <div class="q-text">If a loyalty indicator appeared on your till screen when a customer scanned their app — what would you want it to show you, and what would you want it not to show you?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> If you could see three things on screen — just three — what would they be?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> Is there anything about a customer that you'd never want to see on a loyalty screen — information that would make the interaction harder or feel uncomfortable?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> If the screen told you a customer had made a lot of returns — what would you do with that information?</div>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-rq">RQ F4</div>
+        <div class="q-text">Are there situations where you can imagine it would feel awkward or inappropriate to bring up the loyalty programme with a customer at the till?</div>
+        <div class="q-probes">
+          <div class="probe"><span class="probe-label">Probe:</span> What kind of interaction would make you decide to skip mentioning it entirely?</div>
+          <div class="probe"><span class="probe-label">Probe:</span> How would you want to handle those situations — would you want the flexibility to use your own judgment, or would you prefer a clear script that covers what to do?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. WRAP UP — ASSOCIATE -->
+  <div class="guide-section">
+    <div class="guide-section-header associate-section">
+      <span class="section-tag associate-tag">04</span>
+      <span class="section-heading">Wrap-Up</span>
+      <span class="time-badge">~5 min</span>
+    </div>
+    <div class="guide-body">
+      <div class="q-block">
+        <div class="q-text">Is there anything about what it's actually like to be at that till — or what you'd need from a loyalty programme to make it work from your side — that we haven't covered and that you think would be important for the team to understand?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">If you could give the people designing this loyalty programme one piece of advice about what would make it genuinely work at the till — what would it be?</div>
+      </div>
+      <div class="script-block">
+        <div class="script-label">Closing Script</div>
+        <div class="script-text">That's everything I wanted to cover — and honestly, what you've shared today is exactly the kind of insight we were hoping to get. Thank you so much for being so open and specific — it makes a real difference. [Note-taker's name], anything to add?<br/><br/>
+        [If recorded: The recording stays with the research team only.] Your [£35 digital gift card] will be sent to your email within 5 working days. If you have any questions, please reach out to [coordinator email]. Thanks again — genuinely appreciated.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /associate page -->
+
+</body>
+</html>

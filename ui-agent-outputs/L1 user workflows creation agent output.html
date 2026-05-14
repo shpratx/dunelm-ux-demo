@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>User Workflows — Next Loyalty Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1f3c;--navy-mid:#1a2e50;--navy-row:#1e3460;
+  --border:#dde4f0;--bg:#f0f4f9;--bg-white:#fff;--bg-alt:#f8fafc;
+  --text-dark:#0f172a;--text-mid:#334155;--text-soft:#64748b;
+  --text-white:#fff;--text-muted:rgba(255,255,255,0.6);
+  --indigo:#6c8eea;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --font-head:'DM Sans',sans-serif;--font-body:'Inter',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+
+/* DOC HEADER */
+.doc-header{background:var(--navy);padding:20px 32px 16px;}
+.doc-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--navy-row);color:var(--indigo);border:1px solid rgba(108,142,234,0.3);padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.doc-title{font-family:var(--font-head);font-size:26px;font-weight:700;color:#fff;margin-bottom:4px;}
+.user-type-bar{display:inline-block;font-size:11px;font-weight:600;color:var(--indigo);background:rgba(108,142,234,0.12);border:1px solid rgba(108,142,234,0.25);border-radius:4px;padding:4px 12px;}
+
+/* WORKFLOW PAGE */
+.workflow-page{display:grid;grid-template-columns:220px 1fr;min-height:600px;border-bottom:3px solid var(--navy);margin-bottom:0;}
+.workflow-page:last-child{border-bottom:none;}
+
+/* SIDEBAR */
+.sidebar{background:var(--navy-mid);padding:24px 18px;display:flex;flex-direction:column;gap:14px;border-right:2px solid var(--navy-row);}
+.scenario-label-tag{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);}
+.scenario-title{font-family:var(--font-head);font-size:15px;font-weight:700;color:#fff;line-height:1.3;}
+.scenario-desc{font-size:11px;color:rgba(255,255,255,0.65);line-height:1.65;}
+.goal-section{}
+.goal-heading{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:4px;}
+.goal-text{font-size:11px;color:rgba(255,255,255,0.8);line-height:1.55;}
+.sidebar-divider{border:none;border-top:1px solid rgba(255,255,255,0.1);margin:2px 0;}
+.variation-header{font-size:10.5px;font-weight:700;color:#fff;line-height:1.4;}
+.variation-header span{display:block;font-size:9px;font-weight:400;color:rgba(255,255,255,0.4);margin-top:3px;}
+.steps-block{}
+.steps-block-label{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:6px;}
+.steps-notation{font-size:10px;color:rgba(255,255,255,0.75);line-height:1.8;font-family:monospace;white-space:pre-wrap;}
+.legend{display:flex;flex-direction:column;gap:5px;}
+.legend-item{display:flex;align-items:center;gap:6px;}
+.legend-box{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.legend-box.unique{background:var(--indigo);}
+.legend-box.sub{background:rgba(108,142,234,0.3);border:1px solid var(--indigo);}
+.legend-arrow-icon{width:16px;height:2px;background:rgba(255,255,255,0.4);position:relative;flex-shrink:0;}
+.legend-label{font-size:9px;color:rgba(255,255,255,0.5);}
+.screen-count{margin-top:4px;}
+.screen-count-title{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:6px;}
+.screen-count table{width:100%;font-size:10px;border-collapse:collapse;}
+.screen-count td{color:rgba(255,255,255,0.65);padding:2px 0;}
+.screen-count td:last-child{text-align:right;color:#fff;font-weight:600;}
+.screen-count tr.total-row td{color:#fff;font-weight:700;border-top:1px solid rgba(255,255,255,0.15);padding-top:4px;}
+
+/* CANVAS */
+.canvas{background:var(--bg-alt);padding:20px 16px;overflow-x:auto;}
+.flow{display:flex;align-items:flex-start;gap:0;min-width:max-content;}
+
+/* SCREEN COLUMN */
+.screen-col{width:170px;flex-shrink:0;}
+.screen-box{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,0.07);}
+.screen-box.error-state{border-color:var(--red);border-width:2px;}
+.screen-box.sub-screen{border-style:dashed;border-color:var(--indigo);}
+.screen-num{font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text-white);background:var(--navy);padding:4px 10px;display:flex;justify-content:space-between;align-items:center;}
+.screen-num .err-badge{font-size:8px;background:var(--red);color:#fff;border-radius:3px;padding:1px 5px;}
+.screen-name{font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--navy);padding:8px 10px 4px;line-height:1.3;}
+.screen-details{padding:0 10px 10px;display:flex;flex-direction:column;gap:6px;}
+.detail-section{}
+.detail-heading{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:3px;}
+.detail-list{list-style:none;display:flex;flex-direction:column;gap:2px;}
+.detail-list li{font-size:9.5px;color:var(--text-mid);line-height:1.5;padding-left:10px;position:relative;}
+.detail-list li::before{content:'·';position:absolute;left:1px;color:var(--indigo);}
+.dp-text{color:var(--navy);}
+.do-text{color:var(--green);}
+.rq-text{color:var(--amber);}
+
+/* ARROW */
+.arrow-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:48px;flex-shrink:0;width:36px;}
+.arrow-label-text{font-size:8px;color:var(--text-soft);text-align:center;max-width:32px;line-height:1.3;margin-bottom:3px;}
+.arrow-h{display:flex;align-items:center;}
+.arrow-line{height:1.5px;background:var(--indigo);min-width:20px;}
+.arrow-head{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--indigo);}
+
+/* SCENARIO BREAK */
+.scenario-break{background:var(--navy);padding:10px 24px;display:flex;align-items:center;gap:12px;}
+.scenario-break-num{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);}
+.scenario-break-title{font-family:var(--font-head);font-size:14px;font-weight:700;color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-tag">User Workflows</div>
+  <div class="doc-title">Next Loyalty Programme</div>
+  <div class="user-type-bar">Customer (Clara — Cash/Debit · Nathan — nextpay Holder)</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENARIO 1 — LOYALTY ENROLMENT
+═══════════════════════════════════════════════════════ -->
+
+<div class="scenario-break">
+  <span class="scenario-break-num">Scenario 1</span>
+  <span class="scenario-break-title">Loyalty Programme Enrolment</span>
+</div>
+
+<!-- VARIATION 1 — SELF-SERVICE ONLINE -->
+<div class="workflow-page">
+  <aside class="sidebar">
+    <p class="scenario-label-tag">Scenario 1</p>
+    <h2 class="scenario-title">Loyalty Programme Enrolment</h2>
+    <p class="scenario-desc">A long-tenure Next customer who has never held a loyalty account discovers the programme and decides to sign up. She wants to join without being required to open a nextpay credit account, and needs to see a clear statement about how her data — including returns history — will be used before she commits.</p>
+    <div class="goal-section">
+      <p class="goal-heading">User Goal</p>
+      <p class="goal-text">Join the Next loyalty programme quickly and confidently, knowing her data will not be used against her, and start earning points immediately</p>
+    </div>
+    <div class="goal-section">
+      <p class="goal-heading">Business Goal</p>
+      <p class="goal-text">Convert long-tenure cash and debit customers into loyalty members and establish their digital identity within the programme</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <p class="variation-header">Workflow: Variation 1 — Self-Service Online Enrolment
+      <span>Customer discovers and joins via next.co.uk independently</span>
+    </p>
+    <div class="steps-block">
+      <p class="steps-block-label">Workflow Steps</p>
+      <p class="steps-notation">1.0 Loyalty Landing Page (Join Now)
+2.0 Programme Overview (Continue)
+3.0 Data Use Statement (I Understand — Continue)
+4.0 Enrolment Form (Submit)
+  {if email already registered} Er.1 Account Exists (Sign In / Merge)
+5.0 Confirmation &amp; QR Code (Go to Dashboard)
+6.0 Loyalty Dashboard (Start Earning)</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box unique"></div><span class="legend-label">Unique Screens</span></div>
+      <div class="legend-item"><div class="legend-box sub"></div><span class="legend-label">Sub Screens</span></div>
+      <div class="legend-item"><div class="legend-arrow-icon"></div><span class="legend-label">Process flow</span></div>
+    </div>
+    <div class="screen-count">
+      <p class="screen-count-title">Screen Count</p>
+      <table>
+        <tr><td>No. of Unique Screens</td><td>6</td></tr>
+        <tr><td>No. of Sub Screens</td><td>0</td></tr>
+        <tr><td>No. of Pop Ups</td><td>0</td></tr>
+        <tr><td>No. of Error States</td><td>1</td></tr>
+        <tr class="total-row"><td>Total No. of Screens</td><td>7</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="flow">
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">1.0</div>
+          <div class="screen-name">Loyalty Landing Page</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer understands the programme is available to all shoppers — no credit account required</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Programme headline and core benefits summary (earn points, early sale access, in-store recognition)</li>
+                <li>Explicit statement that no nextpay account is required to join</li>
+                <li>Earn rate explained in plain language</li>
+                <li>Sign up and sign in entry points</li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">DP</p>
+              <ul class="detail-list"><li class="dp-text">HMW make the "no credit account required" message the most prominent signal on this page so cash customers do not self-exclude before reading further?</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Join Now</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">2.0</div>
+          <div class="screen-name">Programme Overview</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer evaluates the full earn-and-redeem mechanic and decides it is worth joining</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Earn mechanic in one memorisable sentence (e.g. "Spend £1, earn X points")</li>
+                <li>Redemption options and threshold examples</li>
+                <li>Early access benefit explained — how it is earned, not just what it gives</li>
+                <li>Physical card option mentioned as an alternative to the app</li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">DO</p>
+              <ul class="detail-list"><li class="do-text">What if the overview included a personalised earn estimate based on typical Next spend amounts — "If you spend £50/month, you'd earn enough for early access in X weeks"?</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Continue</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">3.0</div>
+          <div class="screen-name">Data Use Statement</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer reads and accepts the plain-English data use statement before providing personal details</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Plain-language statement: "We track your purchases to give you rewards. We do not use your data to restrict your account."</li>
+                <li>Explicit separation from returns monitoring system</li>
+                <li>Marketing opt-in presented as a separate, optional choice — loyalty enrolment does not require it</li>
+                <li>Link to full terms (secondary — not the primary CTA)</li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">DP</p>
+              <ul class="detail-list"><li class="dp-text">HMW design this screen so it feels like a trust-building moment rather than a legal obstacle — increasing rather than reducing enrolment confidence?</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">RQ</p>
+              <ul class="detail-list"><li class="rq-text">Does seeing the returns data separation statement before the enrolment form measurably increase sign-up completion rate among customers who have previously abandoned?</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">I Understand</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">4.0</div>
+          <div class="screen-name">Enrolment Form</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer submits her details to create a loyalty account with a single unified identifier</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Email address (primary identifier) and mobile number (backup identifier for in-store lookup)</li>
+                <li>Option to link an existing Next online account</li>
+                <li>Option to request a physical loyalty card</li>
+                <li>Password creation or magic link sign-in option</li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">DP</p>
+              <ul class="detail-list"><li class="dp-text">HMW make mobile number an optional but actively encouraged field — communicating its value as a till-lookup backup without making it feel mandatory?</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Submit</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box error-state">
+          <div class="screen-num">Er.1 <span class="err-badge">Error</span></div>
+          <div class="screen-name">Account Already Exists</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer resolves the duplicate account situation without losing existing loyalty history or being blocked from completing enrolment</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Notification that the email is already associated with a Next account</li>
+                <li>Options: sign in to existing account, merge with another email, or continue with a different email</li>
+                <li>Explanation that accounts can be unified — no history will be lost</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Resolved</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">5.0</div>
+          <div class="screen-name">Confirmation &amp; QR Code</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer receives immediate proof of membership and the in-store scan tool she needs to start earning</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Confirmation of successful enrolment</li>
+                <li>Loyalty QR code displayed immediately and saved to app home screen</li>
+                <li>Current points balance (0) and earn rate reminder</li>
+                <li>Next step prompt: download the app or use at next checkout</li>
+              </ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">DO</p>
+              <ul class="detail-list"><li class="do-text">What if enrolment confirmation included a welcome bonus (e.g. 100 points for joining) applied immediately — creating the first visible balance and demonstrating that the programme is real and active?</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Go to Dashboard</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">6.0</div>
+          <div class="screen-name">Loyalty Dashboard</div>
+          <div class="screen-details">
+            <div class="detail-section">
+              <p class="detail-heading">Goal</p>
+              <ul class="detail-list"><li>Customer sees her loyalty home — balance, tier progress, and scan tool — as a permanent reference point</li></ul>
+            </div>
+            <div class="detail-section">
+              <p class="detail-heading">Description</p>
+              <ul class="detail-list">
+                <li>Points balance prominent at top</li>
+                <li>Tier progress indicator toward next milestone</li>
+                <li>QR scan shortcut as primary action</li>
+                <li>Recent transactions (empty state with first-earn prompt)</li>
+                <li>Account and preferences access</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- VARIATION 2 — IN-APP CHECKOUT PROMPT -->
+<div class="workflow-page">
+  <aside class="sidebar">
+    <p class="scenario-label-tag">Scenario 1</p>
+    <h2 class="scenario-title">Loyalty Programme Enrolment</h2>
+    <p class="scenario-desc">A long-tenure Next customer who has never held a loyalty account discovers the programme and decides to sign up. She wants to join without being required to open a nextpay credit account, and needs to see a clear statement about how her data — including returns history — will be used before she commits.</p>
+    <div class="goal-section">
+      <p class="goal-heading">User Goal</p>
+      <p class="goal-text">Join the Next loyalty programme quickly and confidently, knowing her data will not be used against her, and start earning points immediately</p>
+    </div>
+    <div class="goal-section">
+      <p class="goal-heading">Business Goal</p>
+      <p class="goal-text">Convert long-tenure cash and debit customers into loyalty members and establish their digital identity within the programme</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <p class="variation-header">Workflow: Variation 2 — Checkout-Triggered Enrolment
+      <span>Enrolment offered at the point of purchase — customer joins mid-transaction</span>
+    </p>
+    <div class="steps-block">
+      <p class="steps-block-label">Workflow Steps</p>
+      <p class="steps-notation">1.0 Basket Review (Proceed to Checkout)
+2.0 Checkout — Payment (Earn X points — Join Now)
+  (Skip) → 2.0 Checkout — Payment (Complete Purchase)
+3.0 Data Use Statement (Accept &amp; Join)
+4.1 Quick Enrolment Form (Confirm)
+5.0 Confirmation &amp; QR Code (Continue to Order Confirmation)
+6.1 Order Confirmation + Points Applied</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box unique"></div><span class="legend-label">Unique Screens</span></div>
+      <div class="legend-item"><div class="legend-box sub"></div><span class="legend-label">Sub Screens</span></div>
+      <div class="legend-item"><div class="legend-arrow-icon"></div><span class="legend-label">Process flow</span></div>
+    </div>
+    <div class="screen-count">
+      <p class="screen-count-title">Screen Count</p>
+      <table>
+        <tr><td>No. of Unique Screens</td><td>4</td></tr>
+        <tr><td>No. of Sub Screens</td><td>2</td></tr>
+        <tr><td>No. of Pop Ups</td><td>0</td></tr>
+        <tr><td>No. of Error States</td><td>0</td></tr>
+        <tr class="total-row"><td>Total No. of Screens</td><td>6</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="flow">
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">1.0</div>
+          <div class="screen-name">Basket Review</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer reviews her basket and proceeds to checkout</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Items, quantities, prices, and order total</li><li>Delivery options and Click &amp; Collect selection</li><li>Promotional code entry</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Proceed</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">2.0</div>
+          <div class="screen-name">Checkout — Payment</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer sees the earn preview for this basket and is invited to join before completing payment</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Order summary and payment method selection</li><li>Inline loyalty earn preview: "You'd earn X points (worth £Y) on this order — join the loyalty programme to claim them"</li><li>Join Now CTA alongside Skip option — neither blocks checkout completion</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DP</p><ul class="detail-list"><li class="dp-text">HMW present the earn preview so it creates genuine motivation to join without making the customer feel they are being manipulated into a sign-up at a vulnerable moment in the transaction?</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">RQ</p><ul class="detail-list"><li class="rq-text">Does showing the specific points value of the current basket at checkout increase enrolment conversion compared to a generic "join our loyalty programme" prompt?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Join Now</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">3.0</div>
+          <div class="screen-name">Data Use Statement</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer accepts the data use terms before completing enrolment — same trust gate as Variation 1</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Condensed plain-English statement optimised for checkout context</li><li>Returns data separation explicitly stated</li><li>Marketing opt-in as a separate checkbox</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Accept &amp; Join</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box sub-screen">
+          <div class="screen-num">4.1</div>
+          <div class="screen-name">Quick Enrolment Form</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer provides minimum required details to create her account without leaving the checkout flow</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Pre-populated with checkout email address</li><li>Mobile number (optional, encouraged as backup identifier)</li><li>One-tap confirm — no password required at this stage</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Confirm</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">5.0</div>
+          <div class="screen-name">Confirmation &amp; QR Code</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer receives membership confirmation and QR code before being returned to checkout</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Membership confirmed with QR code displayed</li><li>Points to be earned on this order shown — with note they will apply once order is placed</li><li>Continue to order confirmation CTA</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Continue</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box sub-screen">
+          <div class="screen-num">6.1</div>
+          <div class="screen-name">Order Confirmation + Points Applied</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer sees her first points earn alongside her order confirmation — making the programme real immediately</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Standard order confirmation content</li><li>Loyalty module showing points earned on this order and new running balance</li><li>Link to loyalty dashboard</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DO</p><ul class="detail-list"><li class="do-text">What if the first earn moment included an animated balance counter — visibly incrementing to the earned amount — to create the psychological "this is real and growing" sensation immediately?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- VARIATION 3 — IN-STORE ASSOCIATE-ASSISTED -->
+<div class="workflow-page">
+  <aside class="sidebar">
+    <p class="scenario-label-tag">Scenario 1</p>
+    <h2 class="scenario-title">Loyalty Programme Enrolment</h2>
+    <p class="scenario-desc">A long-tenure Next customer who has never held a loyalty account discovers the programme and decides to sign up. She wants to join without being required to open a nextpay credit account, and needs to see a clear statement about how her data — including returns history — will be used before she commits.</p>
+    <div class="goal-section">
+      <p class="goal-heading">User Goal</p>
+      <p class="goal-text">Join the Next loyalty programme quickly and confidently, knowing her data will not be used against her, and start earning points immediately</p>
+    </div>
+    <div class="goal-section">
+      <p class="goal-heading">Business Goal</p>
+      <p class="goal-text">Convert long-tenure cash and debit customers into loyalty members and establish their digital identity within the programme</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <p class="variation-header">Workflow: Variation 3 — Associate-Initiated In-Store Enrolment
+      <span>Store associate prompts and assists enrolment at the POS till</span>
+    </p>
+    <div class="steps-block">
+      <p class="steps-block-label">Workflow Steps</p>
+      <p class="steps-notation">1.0 POS Transaction Screen (Associate prompts loyalty)
+Pu.1 Loyalty Sign-Up Pop-Up (Customer provides email)
+  {if no smartphone} → 2.0 Physical Card Request (Issue Card)
+  {if has smartphone} → 2.1 App Download Prompt (Scan QR)
+3.0 POS Confirmation (Points Applied)
+Em.1 Welcome Email (Sent to customer)</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box unique"></div><span class="legend-label">Unique Screens</span></div>
+      <div class="legend-item"><div class="legend-box sub"></div><span class="legend-label">Sub Screens</span></div>
+      <div class="legend-item"><div class="legend-arrow-icon"></div><span class="legend-label">Process flow</span></div>
+    </div>
+    <div class="screen-count">
+      <p class="screen-count-title">Screen Count</p>
+      <table>
+        <tr><td>No. of Unique Screens</td><td>3</td></tr>
+        <tr><td>No. of Sub Screens</td><td>1</td></tr>
+        <tr><td>No. of Pop Ups</td><td>1</td></tr>
+        <tr><td>No. of Error States</td><td>0</td></tr>
+        <tr class="total-row"><td>Total No. of Screens</td><td>5 + Em.1</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="flow">
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">1.0</div>
+          <div class="screen-name">POS Transaction Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Associate completes payment and recognises the customer is not a loyalty member — prompts enrolment contextually</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Items scanned, total displayed, payment processed</li><li>Post-payment: loyalty status shows "Not a member" with associate prompt suggestion</li><li>Associate explains benefit in one sentence; offers to sign customer up before she leaves</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DP</p><ul class="detail-list"><li class="dp-text">HMW make the loyalty non-member indicator visible enough for the associate to act on without making it the dominant element during the payment transaction?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Associate Prompts</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box sub-screen">
+          <div class="screen-num">Pu.1</div>
+          <div class="screen-name">Loyalty Sign-Up Pop-Up</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer provides her email and is enrolled in under 60 seconds while still at the till</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Minimal form: email address and optional mobile number</li><li>One-line data use summary visible on screen</li><li>Customer confirms verbally — associate submits</li><li>Points from this transaction retroactively applied</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">RQ</p><ul class="detail-list"><li class="rq-text">Does a retroactive points apply for the current transaction (rather than only future transactions) meaningfully increase in-store enrolment conversion?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">No Smartphone</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">2.0</div>
+          <div class="screen-name">Physical Card Request</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer who does not use a smartphone receives a physical loyalty card as her primary earn mechanism</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Temporary card printed or issued immediately at till</li><li>Permanent card mailed to registered address</li><li>Instructions on using the card at any Next till for earn and redemption</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DO</p><ul class="detail-list"><li class="do-text">What if the temporary card printed at the till included a QR code linking to the loyalty account online — allowing card-first customers to optionally activate a digital account later at their own pace?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Card Issued</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">3.0</div>
+          <div class="screen-name">POS Confirmation</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Associate confirms enrolment success and communicates points earned to the customer before she leaves</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>POS shows enrolment confirmed and points applied from this transaction</li><li>Associate communicates the balance verbally</li><li>Receipt option includes loyalty summary</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCENARIO 2 — IN-STORE POINTS EARNING
+═══════════════════════════════════════════════════════ -->
+
+<div class="scenario-break">
+  <span class="scenario-break-num">Scenario 2</span>
+  <span class="scenario-break-title">In-Store Points Earning via App QR Scan</span>
+</div>
+
+<!-- VARIATION 1 — SELF-INITIATED APP SCAN -->
+<div class="workflow-page">
+  <aside class="sidebar">
+    <p class="scenario-label-tag">Scenario 2</p>
+    <h2 class="scenario-title">In-Store Points Earning</h2>
+    <p class="scenario-desc">A loyalty member makes a purchase at a Next store and wants to earn points on the transaction. She must be able to present her loyalty QR code at the till within 4 seconds of opening the app, see visible confirmation that points have been credited, and feel that the interaction is fast enough not to hold up the queue.</p>
+    <div class="goal-section">
+      <p class="goal-heading">User Goal</p>
+      <p class="goal-text">Earn points on an in-store purchase quickly and confidently, with visible proof that the points have been credited to her balance</p>
+    </div>
+    <div class="goal-section">
+      <p class="goal-heading">Business Goal</p>
+      <p class="goal-text">Capture in-store purchase data against a customer loyalty account — establishing cross-channel identity and driving habitual app engagement</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <p class="variation-header">Workflow: Variation 1 — Customer Self-Initiated App Scan
+      <span>Customer opens app, presents QR at till before payment</span>
+    </p>
+    <div class="steps-block">
+      <p class="steps-block-label">Workflow Steps</p>
+      <p class="steps-notation">1.0 App Home Screen (Open Scan)
+2.0 QR Code Screen (Customer presents to associate)
+  {if scan fails} Er.1 Scan Error (Retry / Use Card)
+3.0 Loyalty Confirmation Screen (Points earned shown)
+4.0 Payment Screen (Complete payment)
+5.1 Post-Purchase Balance Update</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box unique"></div><span class="legend-label">Unique Screens</span></div>
+      <div class="legend-item"><div class="legend-box sub"></div><span class="legend-label">Sub Screens</span></div>
+      <div class="legend-item"><div class="legend-arrow-icon"></div><span class="legend-label">Process flow</span></div>
+    </div>
+    <div class="screen-count">
+      <p class="screen-count-title">Screen Count</p>
+      <table>
+        <tr><td>No. of Unique Screens</td><td>4</td></tr>
+        <tr><td>No. of Sub Screens</td><td>1</td></tr>
+        <tr><td>No. of Pop Ups</td><td>0</td></tr>
+        <tr><td>No. of Error States</td><td>1</td></tr>
+        <tr class="total-row"><td>Total No. of Screens</td><td>6</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="flow">
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">1.0</div>
+          <div class="screen-name">App Home Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer reaches the QR scan in one tap from the app home screen — within 4 seconds of opening the app</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Points balance displayed prominently</li><li>QR Scan is the primary action — above the fold, reachable in one tap</li><li>Tier progress indicator and recent activity summary</li><li>Shop, offers, and account navigation secondary</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DP</p><ul class="detail-list"><li class="dp-text">HMW position the scan action so it is the first thing the customer's thumb reaches when she opens the app at the till — without making the dashboard feel scan-only?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Open Scan</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">2.0</div>
+          <div class="screen-name">QR Code Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer presents a large, high-contrast QR code for the associate to scan — fast, unambiguous, no navigation required</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Full-screen QR code with maximum contrast</li><li>Member name and tier indicator below the code</li><li>Points balance visible so customer knows her starting balance</li><li>Screen brightness auto-increases for scanner readability</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">RQ</p><ul class="detail-list"><li class="rq-text">At what ambient light level does the QR code fail to scan reliably — and does auto-brightness increase prevent scan failure in the majority of in-store lighting conditions at Next?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Associate Scans</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box error-state">
+          <div class="screen-num">Er.1 <span class="err-badge">Error</span></div>
+          <div class="screen-name">Scan Error</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer recovers from a failed scan without losing the transaction or holding up the queue</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Clear notification that scan did not register</li><li>Options: retry scan, enter loyalty number manually, use physical card</li><li>Option to claim points retrospectively after leaving the store</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Scan Success</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">3.0</div>
+          <div class="screen-name">Loyalty Confirmation Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer sees visible confirmation on her phone that the scan registered and points are pending — before she completes payment</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Confirmation: "Loyalty account linked to this transaction"</li><li>Points to be earned on this purchase (calculated from basket value)</li><li>Current balance and what it will be after earn</li><li>Ready to pay indicator</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DP</p><ul class="detail-list"><li class="dp-text">HMW design the confirmation screen so it communicates trust ("your points are secured") without requiring the customer to wait for payment to complete before feeling the earn is real?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Pay</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">4.0</div>
+          <div class="screen-name">Payment Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer completes payment by card, cash, contactless, or nextpay</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Payment method selection and processing</li><li>Points redemption option — apply available balance to reduce total</li><li>Transaction total with and without redemption displayed</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Payment Complete</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box sub-screen">
+          <div class="screen-num">5.1</div>
+          <div class="screen-name">Post-Purchase Balance Update</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer sees her updated points balance immediately after payment — completing the trust loop</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Push notification or in-app screen: "You earned X points — balance now Y"</li><li>Running total updated in real time</li><li>Progress toward next milestone updated</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DO</p><ul class="detail-list"><li class="do-text">What if the post-earn notification included a milestone proximity message — "You're X points away from your next early access window" — converting every earn moment into forward momentum?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- VARIATION 2 — PHYSICAL CARD -->
+<div class="workflow-page">
+  <aside class="sidebar">
+    <p class="scenario-label-tag">Scenario 2</p>
+    <h2 class="scenario-title">In-Store Points Earning</h2>
+    <p class="scenario-desc">A loyalty member makes a purchase at a Next store and wants to earn points on the transaction. She must be able to present her loyalty QR code at the till within 4 seconds of opening the app, see visible confirmation that points have been credited, and feel that the interaction is fast enough not to hold up the queue.</p>
+    <div class="goal-section">
+      <p class="goal-heading">User Goal</p>
+      <p class="goal-text">Earn points on an in-store purchase quickly and confidently, with visible proof that the points have been credited to her balance</p>
+    </div>
+    <div class="goal-section">
+      <p class="goal-heading">Business Goal</p>
+      <p class="goal-text">Capture in-store purchase data against a customer loyalty account — establishing cross-channel identity and driving habitual app engagement</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <p class="variation-header">Workflow: Variation 2 — Physical Card Earn
+      <span>Customer uses loyalty card instead of app — card presented at till</span>
+    </p>
+    <div class="steps-block">
+      <p class="steps-block-label">Workflow Steps</p>
+      <p class="steps-notation">1.0 POS Transaction Screen (Customer presents card)
+2.0 Card Scan Confirmation (Points linked)
+  {if card unreadable} Er.2 Card Error (Manual lookup by phone/email)
+3.0 Payment Screen (Complete payment)
+4.0 POS Receipt with Points Summary
+Em.2 Points Earned Notification Email</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box unique"></div><span class="legend-label">Unique Screens</span></div>
+      <div class="legend-item"><div class="legend-box sub"></div><span class="legend-label">Sub Screens</span></div>
+      <div class="legend-item"><div class="legend-arrow-icon"></div><span class="legend-label">Process flow</span></div>
+    </div>
+    <div class="screen-count">
+      <p class="screen-count-title">Screen Count</p>
+      <table>
+        <tr><td>No. of Unique Screens</td><td>4</td></tr>
+        <tr><td>No. of Sub Screens</td><td>0</td></tr>
+        <tr><td>No. of Pop Ups</td><td>0</td></tr>
+        <tr><td>No. of Error States</td><td>1</td></tr>
+        <tr class="total-row"><td>Total No. of Screens</td><td>5 + Em.2</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="flow">
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">1.0</div>
+          <div class="screen-name">POS Transaction Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Associate scans the physical loyalty card at the till alongside the items being purchased</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Items and total displayed as standard</li><li>Loyalty card scan prompt visible to associate</li><li>Card barcode or chip scanned via till scanner</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Card Scanned</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">2.0</div>
+          <div class="screen-name">Card Scan Confirmation</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Associate and customer both receive confirmation that the loyalty account has been linked to this transaction</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>POS screen shows: loyalty member confirmed, tier status, points balance, and points to be earned on this basket</li><li>Associate confirms verbally: "You've got X points — you're earning Y more today"</li><li>Redemption offer made if balance is redeemable</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DP</p><ul class="detail-list"><li class="dp-text">HMW ensure the associate verbal script for this confirmation moment is simple enough to deliver naturally in a busy queue without sounding scripted?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Pay</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">3.0</div>
+          <div class="screen-name">Payment Screen</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer completes payment with loyalty account already linked</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Standard payment flow — card, cash, contactless, nextpay</li><li>Optional points redemption applied if customer chose to redeem</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Complete</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">4.0</div>
+          <div class="screen-name">POS Receipt with Points Summary</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer receives physical or email receipt that confirms points earned — her only post-transaction evidence without an app</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Standard receipt with loyalty summary section: points earned today, running balance, and next milestone proximity</li><li>For card-only customers: balance check options listed (website, phone)</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DO</p><ul class="detail-list"><li class="do-text">What if the receipt included a QR code linking to the customer's online loyalty dashboard — creating a natural bridge for card-first customers to discover the digital account at their own pace?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- VARIATION 3 — MISSED SCAN RECOVERY -->
+<div class="workflow-page">
+  <aside class="sidebar">
+    <p class="scenario-label-tag">Scenario 2</p>
+    <h2 class="scenario-title">In-Store Points Earning</h2>
+    <p class="scenario-desc">A loyalty member makes a purchase at a Next store and wants to earn points on the transaction. She must be able to present her loyalty QR code at the till within 4 seconds of opening the app, see visible confirmation that points have been credited, and feel that the interaction is fast enough not to hold up the queue.</p>
+    <div class="goal-section">
+      <p class="goal-heading">User Goal</p>
+      <p class="goal-text">Earn points on an in-store purchase quickly and confidently, with visible proof that the points have been credited to her balance</p>
+    </div>
+    <div class="goal-section">
+      <p class="goal-heading">Business Goal</p>
+      <p class="goal-text">Capture in-store purchase data against a customer loyalty account — establishing cross-channel identity and driving habitual app engagement</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <p class="variation-header">Workflow: Variation 3 — Post-Transaction Missed Points Claim
+      <span>Customer forgot to scan at till — claims points retrospectively via app</span>
+    </p>
+    <div class="steps-block">
+      <p class="steps-block-label">Workflow Steps</p>
+      <p class="steps-notation">1.0 Loyalty Dashboard (Missed a scan?)
+2.0 Missed Points Claim Form (Submit receipt)
+  {if receipt valid} → 3.0 Claim Submitted Confirmation
+  {if receipt invalid / outside window} → Er.3 Claim Rejected (Contact Support)
+3.0 Claim Submitted Confirmation (Done)
+  Em.3 Points Credited Notification (auto-sent on approval)</p>
+    </div>
+    <hr class="sidebar-divider"/>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box unique"></div><span class="legend-label">Unique Screens</span></div>
+      <div class="legend-item"><div class="legend-box sub"></div><span class="legend-label">Sub Screens</span></div>
+      <div class="legend-item"><div class="legend-arrow-icon"></div><span class="legend-label">Process flow</span></div>
+    </div>
+    <div class="screen-count">
+      <p class="screen-count-title">Screen Count</p>
+      <table>
+        <tr><td>No. of Unique Screens</td><td>3</td></tr>
+        <tr><td>No. of Sub Screens</td><td>0</td></tr>
+        <tr><td>No. of Pop Ups</td><td>0</td></tr>
+        <tr><td>No. of Error States</td><td>1</td></tr>
+        <tr class="total-row"><td>Total No. of Screens</td><td>4 + Em.3</td></tr>
+      </table>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="flow">
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">1.0</div>
+          <div class="screen-name">Loyalty Dashboard</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer notices a recent transaction is missing points and initiates a retrospective claim</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Points balance and recent transaction list</li><li>"Missed a scan?" or "Missing points?" prompt — surfaced if the customer has a Next purchase within the claim window not linked to a loyalty scan</li><li>Claim missing points CTA</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DO</p><ul class="detail-list"><li class="do-text">What if the system proactively surfaced a missed scan prompt when it detects a linked Next purchase (via card matching or Click &amp; Collect order) that has no loyalty event attached — removing the need for the customer to initiate the claim herself?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Claim Points</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">2.0</div>
+          <div class="screen-name">Missed Points Claim Form</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer submits proof of purchase so the missing points can be credited</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Purchase date, store location, and approximate transaction value</li><li>Receipt upload (photo) or order number for online/Click &amp; Collect purchases</li><li>Claim eligibility window displayed (e.g. within 30 days of purchase)</li><li>Expected resolution time communicated upfront</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">DP</p><ul class="detail-list"><li class="dp-text">HMW design the claim form so it feels like a trusted self-service process rather than a bureaucratic appeal — maintaining the customer's sense that the programme is on her side?</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">RQ</p><ul class="detail-list"><li class="rq-text">What percentage of in-store loyalty scans are missed and result in a retrospective claim — and does the existence of a claim flow increase or decrease overall in-store scan compliance?</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">Submit</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box">
+          <div class="screen-num">3.0</div>
+          <div class="screen-name">Claim Submitted Confirmation</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer receives confirmation her claim is being processed and knows when to expect resolution</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Claim reference number displayed</li><li>Expected resolution time and next steps</li><li>What happens next: points credited automatically upon approval; email notification sent</li><li>Return to dashboard CTA</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-wrap"><p class="arrow-label-text">If Invalid</p><div class="arrow-h"><div class="arrow-line"></div><div class="arrow-head"></div></div></div>
+
+      <div class="screen-col">
+        <div class="screen-box error-state">
+          <div class="screen-num">Er.3 <span class="err-badge">Error</span></div>
+          <div class="screen-name">Claim Rejected</div>
+          <div class="screen-details">
+            <div class="detail-section"><p class="detail-heading">Goal</p><ul class="detail-list"><li>Customer understands why the claim could not be processed and has a clear path to escalate if she believes the rejection is incorrect</li></ul></div>
+            <div class="detail-section"><p class="detail-heading">Description</p><ul class="detail-list"><li>Clear reason for rejection (outside claim window, receipt unreadable, duplicate claim)</li><li>Contact customer support option</li><li>Instructions for future scans to avoid the issue recurring</li></ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

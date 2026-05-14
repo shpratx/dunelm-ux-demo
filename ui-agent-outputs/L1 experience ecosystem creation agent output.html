@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Experience Ecosystem — Next Loyalty Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1f3c;--navy-mid:#1a2e50;--navy-row:#1e3460;
+  --border:#dde4f0;--bg:#f2f5f9;--bg-white:#ffffff;--bg-alt:#f8fafc;
+  --text-dark:#0f172a;--text-mid:#334155;--text-soft:#64748b;
+  --text-white:#ffffff;--text-muted:rgba(255,255,255,0.55);
+  --indigo:#6c8eea;
+  --font-head:'DM Sans',sans-serif;--font-body:'Inter',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-dark);min-height:100vh;-webkit-font-smoothing:antialiased;}
+.header-bar{background:var(--navy);padding:28px 52px 24px;position:relative;overflow:hidden;}
+.header-bar::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(108,142,234,0.10);pointer-events:none;}
+.header-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--navy-row);color:var(--indigo);border:1px solid rgba(108,142,234,0.3);padding:4px 12px;border-radius:4px;margin-bottom:16px;}
+.header-title{font-family:var(--font-head);font-size:36px;font-weight:700;color:var(--text-white);line-height:1.15;margin-bottom:12px;position:relative;z-index:1;}
+.header-desc{font-size:13px;color:var(--text-muted);max-width:680px;line-height:1.7;margin-bottom:28px;}
+.header-meta{display:flex;gap:0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);flex-wrap:wrap;}
+.header-meta-item{padding-right:36px;margin-right:36px;border-right:1px solid rgba(255,255,255,0.10);}
+.header-meta-item:last-child{border-right:none;margin-right:0;padding-right:0;}
+.meta-label{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:4px;}
+.meta-value{font-size:13px;font-weight:600;color:rgba(255,255,255,0.88);}
+.page{max-width:1100px;margin:0 auto;padding:44px 52px 64px;display:flex;flex-direction:column;gap:48px;}
+.source-note{background:#e8f0fb;border-left:4px solid var(--indigo);border-radius:0 6px 6px 0;padding:12px 18px;font-size:12px;color:var(--navy-mid);line-height:1.6;}
+.section-heading{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.section-num{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-family:var(--font-head);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-heading h2{font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--navy);}
+.section-heading::after{content:'';flex:1;height:1px;background:#dde4f0;margin-left:4px;}
+.section-sub{font-size:12px;color:var(--text-soft);margin-bottom:16px;line-height:1.6;}
+.table-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.06);}
+table{width:100%;border-collapse:collapse;font-family:var(--font-body);font-size:12.5px;}
+thead tr{background:var(--navy-mid);}
+thead th{font-family:var(--font-head);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.72);padding:12px 18px;text-align:left;border-right:1px solid rgba(255,255,255,0.07);white-space:nowrap;}
+thead th:last-child{border-right:none;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:nth-child(odd) td{background:var(--bg-white);}
+tbody tr:nth-child(even) td{background:var(--bg-alt);}
+tbody td{padding:11px 18px;vertical-align:top;border-right:1px solid var(--border);color:var(--text-mid);line-height:1.6;}
+tbody td:last-child{border-right:none;}
+.td-name{font-family:var(--font-head);font-size:12.5px;font-weight:600;color:var(--navy);white-space:nowrap;}
+.td-verb{white-space:nowrap;}
+.verb-pill{display:inline-block;font-family:var(--font-head);font-size:11px;font-weight:600;color:#1e3460;background:#dce8f5;border:1px solid #9ab5d0;border-radius:20px;padding:3px 12px;white-space:nowrap;}
+.col-role{width:210px;}.col-rel{width:140px;}.col-obj{width:210px;}.col-desc{}.col-resp{}
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-tag">Experience Ecosystem</div>
+  <h1 class="header-title">Next Loyalty Programme — Experience Ecosystem Map</h1>
+  <p class="header-desc">Comprehensive mapping of all user roles, system objects, and their relationships within the Next Loyalty Programme — covering online, in-store, and app channels across the UK and Ireland retail estate.</p>
+  <div class="header-meta">
+    <div class="header-meta-item"><div class="meta-label">System</div><div class="meta-value">Next Loyalty Programme</div></div>
+    <div class="header-meta-item"><div class="meta-label">Industry</div><div class="meta-value">Fashion Retail</div></div>
+    <div class="header-meta-item"><div class="meta-label">Client</div><div class="meta-value">Next plc</div></div>
+    <div class="header-meta-item"><div class="meta-label">Channels</div><div class="meta-value">Web · App · In-Store · Click &amp; Collect</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="source-note">
+    Grounded in: Business Idea input (Next loyalty programme brief) and Global Project Context (Next plc — About the Business, Channels and Touchpoints). Domain knowledge applied for loyalty programme mechanics, retail operations, and cross-channel integration gaps. Items marked with * assumed from domain knowledge — validate with stakeholder.
+  </div>
+
+  <!-- TABLE 1 — USERS -->
+  <section>
+    <div class="section-heading"><div class="section-num">1</div><h2>Users</h2></div>
+    <p class="section-sub">All distinct user roles in the system — real-world job titles, not persona names. Each role must have at least one object interaction in Table 3.1.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="col-role">User Role</th><th class="col-resp">Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">Customer</td><td>Earns and redeems loyalty points across online and in-store channels; manages account and preferences via web and app</td></tr>
+          <tr><td class="td-name">Store Associate</td><td>Identifies loyal customers at point of sale, applies in-store benefits, recognises loyalty tier status during service interactions</td></tr>
+          <tr><td class="td-name">Store Manager</td><td>Oversees in-store loyalty performance, monitors staff adherence to loyalty recognition protocols, reviews store-level redemption data</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td>Designs loyalty campaigns, sets point-earning rules, manages early access events, monitors programme engagement and ROI</td></tr>
+          <tr><td class="td-name">CRM Analyst</td><td>Segments loyalty members by tier and behaviour, builds targeted communications, analyses churn and retention patterns</td></tr>
+          <tr><td class="td-name">Digital Product Manager</td><td>Owns the loyalty experience across app and web, prioritises feature delivery, manages cross-channel integration roadmap</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td>Configures programme rules, manages tier thresholds, resolves point disputes, controls promotional mechanics</td></tr>
+          <tr><td class="td-name">IT / Integration Engineer</td><td>Maintains data sync between online and in-store systems, manages API integrations, resolves cross-channel data discrepancies*</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td>Resolves loyalty point queries, processes manual adjustments, handles missed points claims and redemption issues</td></tr>
+          <tr><td class="td-name">Finance Analyst</td><td>Tracks loyalty liability on the balance sheet, monitors redemption rates, assesses programme cost and revenue impact</td></tr>
+          <tr><td class="td-name">Next Finance Manager</td><td>Manages integration of loyalty points with Next Finance credit accounts, assesses combined retention value*</td></tr>
+          <tr><td class="td-name">Third-Party Brand Partner</td><td>Accesses loyalty data relevant to hosted brands (Reiss, FatFace, Joules) operating on the Next Total Platform*</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TABLE 2 — OBJECTS -->
+  <section>
+    <div class="section-heading"><div class="section-num">2</div><h2>Objects</h2></div>
+    <p class="section-sub">All key entities in the system — always nouns. Never tools, verbs, or features. Every object must be touched by at least one role or object.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="col-obj">Object</th><th class="col-desc">Description</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">Loyalty Account</td><td>A customer's registered membership record in the loyalty programme, holding their points balance, tier status, and history</td></tr>
+          <tr><td class="td-name">Points Balance</td><td>The current accumulated total of loyalty points available to a customer for redemption</td></tr>
+          <tr><td class="td-name">Points Transaction</td><td>An individual earn or burn event recorded against a customer's loyalty account, linked to a purchase or redemption</td></tr>
+          <tr><td class="td-name">Loyalty Tier</td><td>A classification level (e.g. Member, Silver, Gold) that determines the benefits and recognition a customer receives</td></tr>
+          <tr><td class="td-name">Reward</td><td>A benefit made available to a customer upon reaching a threshold — including discounts, early sale access, or exclusive offers</td></tr>
+          <tr><td class="td-name">Redemption</td><td>The act of a customer converting loyalty points into a reward, discount, or benefit at checkout online or in-store</td></tr>
+          <tr><td class="td-name">Purchase</td><td>A completed transaction by a customer online (next.co.uk / app) or in-store that triggers a points earn event</td></tr>
+          <tr><td class="td-name">Customer Profile</td><td>The unified record of a customer's personal data, purchase history, preferences, and loyalty status accessible across channels</td></tr>
+          <tr><td class="td-name">Loyalty Campaign</td><td>A time-limited promotional mechanic designed to boost engagement — e.g. double points events, seasonal bonuses, referral rewards</td></tr>
+          <tr><td class="td-name">Early Access Event</td><td>A sale or product launch made available exclusively to loyalty members before the general public, redeemable via app or web</td></tr>
+          <tr><td class="td-name">In-Store Recognition Alert</td><td>A real-time notification or display surfaced to a store associate when a loyalty customer is identified at the point of sale</td></tr>
+          <tr><td class="td-name">App Notification</td><td>A push message sent to the customer's mobile device to communicate points earned, rewards available, or campaign updates</td></tr>
+          <tr><td class="td-name">Loyalty Dashboard</td><td>A management view providing programme-level reporting on membership, points liability, redemption rates, and tier distribution</td></tr>
+          <tr><td class="td-name">Segment</td><td>A grouped subset of loyalty members defined by behaviour, tier, spend, or recency — used to target communications and campaigns</td></tr>
+          <tr><td class="td-name">Communication</td><td>An outbound message to loyalty members (email, push, SMS) containing personalised loyalty updates, offers, or campaign details</td></tr>
+          <tr><td class="td-name">Programme Rules</td><td>The configured logic governing how points are earned, how tiers are assigned, and how rewards are unlocked and redeemed</td></tr>
+          <tr><td class="td-name">Point Dispute</td><td>A customer-raised claim that points were not correctly awarded or redeemed, requiring investigation and potential manual adjustment</td></tr>
+          <tr><td class="td-name">Manual Adjustment</td><td>A corrective change to a customer's points balance made by a customer service agent or programme administrator</td></tr>
+          <tr><td class="td-name">Integration Log</td><td>A technical record of data sync events between online and in-store systems, used to diagnose cross-channel discrepancies*</td></tr>
+          <tr><td class="td-name">Next Finance Account</td><td>A customer's credit account with Next Finance, linked to their loyalty profile to enable combined retention and spend tracking</td></tr>
+          <tr><td class="td-name">Click &amp; Collect Order</td><td>An online order placed for in-store collection, representing a cross-channel touchpoint where loyalty earning and recognition can occur</td></tr>
+          <tr><td class="td-name">Return</td><td>A product returned by a customer in-store or online, triggering a reversal or adjustment of points previously earned on that purchase</td></tr>
+          <tr><td class="td-name">Referral</td><td>A loyalty mechanic where an existing member introduces a new customer, triggering bonus points for one or both parties*</td></tr>
+          <tr><td class="td-name">Loyalty Report</td><td>A periodic financial and operational report on loyalty programme performance, costs, redemption liability, and revenue attribution</td></tr>
+          <tr><td class="td-name">Enrolment</td><td>The event of a new customer registering for the loyalty programme, via app, website, or in-store point of sale</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TABLE 3.1 — ROLE → OBJECT -->
+  <section>
+    <div class="section-heading"><div class="section-num">3.1</div><h2>Role → Object Interactions</h2></div>
+    <p class="section-sub">Standardised single action verbs only. No User→User rows. Every role must appear at least once. Every object must be touched.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="col-role">User Role</th><th class="col-rel">Relationship</th><th class="col-obj">Object</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Enrolment</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Loyalty Account</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Submits</span></td><td class="td-name">Redemption</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Receives</span></td><td class="td-name">Reward</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Purchase</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Receives</span></td><td class="td-name">App Notification</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Submits</span></td><td class="td-name">Point Dispute</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Click &amp; Collect Order</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Submits</span></td><td class="td-name">Return</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Referral</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Receives</span></td><td class="td-name">Communication</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Early Access Event</td></tr>
+          <tr><td class="td-name">Customer</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">Store Associate</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">In-Store Recognition Alert</td></tr>
+          <tr><td class="td-name">Store Associate</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">Store Associate</td><td class="td-verb"><span class="verb-pill">Processes</span></td><td class="td-name">Purchase</td></tr>
+          <tr><td class="td-name">Store Associate</td><td class="td-verb"><span class="verb-pill">Processes</span></td><td class="td-name">Redemption</td></tr>
+          <tr><td class="td-name">Store Associate</td><td class="td-verb"><span class="verb-pill">Processes</span></td><td class="td-name">Return</td></tr>
+          <tr><td class="td-name">Store Associate</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Enrolment</td></tr>
+          <tr><td class="td-name">Store Manager</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Loyalty Dashboard</td></tr>
+          <tr><td class="td-name">Store Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Store Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Redemption</td></tr>
+          <tr><td class="td-name">Store Manager</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Loyalty Campaign</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Early Access Event</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Loyalty Dashboard</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Communication</td></tr>
+          <tr><td class="td-name">Marketing Manager</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Segment</td></tr>
+          <tr><td class="td-name">CRM Analyst</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Segment</td></tr>
+          <tr><td class="td-name">CRM Analyst</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">CRM Analyst</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">CRM Analyst</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">CRM Analyst</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Communication</td></tr>
+          <tr><td class="td-name">Digital Product Manager</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Programme Rules</td></tr>
+          <tr><td class="td-name">Digital Product Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Loyalty Dashboard</td></tr>
+          <tr><td class="td-name">Digital Product Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">App Notification</td></tr>
+          <tr><td class="td-name">Digital Product Manager</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Integration Log</td></tr>
+          <tr><td class="td-name">Digital Product Manager</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Early Access Event</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Programme Rules</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Loyalty Tier</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td class="td-verb"><span class="verb-pill">Processes</span></td><td class="td-name">Point Dispute</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Manual Adjustment</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Loyalty Campaign</td></tr>
+          <tr><td class="td-name">Loyalty Programme Administrator</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Loyalty Account</td></tr>
+          <tr><td class="td-name">IT / Integration Engineer</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Integration Log</td></tr>
+          <tr><td class="td-name">IT / Integration Engineer</td><td class="td-verb"><span class="verb-pill">Manages</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">IT / Integration Engineer</td><td class="td-verb"><span class="verb-pill">Resolves</span></td><td class="td-name">Point Dispute</td></tr>
+          <tr><td class="td-name">IT / Integration Engineer</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Point Dispute</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Manual Adjustment</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Customer Service Agent</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Loyalty Account</td></tr>
+          <tr><td class="td-name">Finance Analyst</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">Finance Analyst</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Redemption</td></tr>
+          <tr><td class="td-name">Finance Analyst</td><td class="td-verb"><span class="verb-pill">Monitors</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Finance Analyst</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Manual Adjustment</td></tr>
+          <tr><td class="td-name">Next Finance Manager</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Next Finance Account</td></tr>
+          <tr><td class="td-name">Next Finance Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Loyalty Account</td></tr>
+          <tr><td class="td-name">Next Finance Manager</td><td class="td-verb"><span class="verb-pill">Reviews</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">Third-Party Brand Partner</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">Third-Party Brand Partner</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Segment</td></tr>
+          <tr><td class="td-name">Third-Party Brand Partner</td><td class="td-verb"><span class="verb-pill">Views</span></td><td class="td-name">Loyalty Campaign</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TABLE 3.2 — OBJECT → OBJECT -->
+  <section>
+    <div class="section-heading"><div class="section-num">3.2</div><h2>Object → Object Interactions</h2></div>
+    <p class="section-sub">State transitions and data flow between objects. Every link must have a standardised action verb. No unlabelled relationships.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="col-obj">Object</th><th class="col-rel">Relationship</th><th class="col-obj">Object</th></tr></thead>
+        <tbody>
+          <tr><td class="td-name">Purchase</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Points Transaction</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Points Balance</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Loyalty Tier</td></tr>
+          <tr><td class="td-name">Loyalty Tier</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Reward</td></tr>
+          <tr><td class="td-name">Loyalty Tier</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">In-Store Recognition Alert</td></tr>
+          <tr><td class="td-name">Enrolment</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Loyalty Account</td></tr>
+          <tr><td class="td-name">Loyalty Account</td><td class="td-verb"><span class="verb-pill">Tracks</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Loyalty Account</td><td class="td-verb"><span class="verb-pill">Tracks</span></td><td class="td-name">Loyalty Tier</td></tr>
+          <tr><td class="td-name">Loyalty Account</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">Redemption</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Redemption</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Return</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Return</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Loyalty Campaign</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Programme Rules</td></tr>
+          <tr><td class="td-name">Loyalty Campaign</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Communication</td></tr>
+          <tr><td class="td-name">Loyalty Campaign</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">App Notification</td></tr>
+          <tr><td class="td-name">Programme Rules</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Programme Rules</td><td class="td-verb"><span class="verb-pill">Assigns</span></td><td class="td-name">Loyalty Tier</td></tr>
+          <tr><td class="td-name">Programme Rules</td><td class="td-verb"><span class="verb-pill">Assigns</span></td><td class="td-name">Reward</td></tr>
+          <tr><td class="td-name">Segment</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Communication</td></tr>
+          <tr><td class="td-name">Segment</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Loyalty Campaign</td></tr>
+          <tr><td class="td-name">Customer Profile</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">In-Store Recognition Alert</td></tr>
+          <tr><td class="td-name">Customer Profile</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Segment</td></tr>
+          <tr><td class="td-name">Click &amp; Collect Order</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Click &amp; Collect Order</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">Manual Adjustment</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Points Balance</td></tr>
+          <tr><td class="td-name">Manual Adjustment</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Point Dispute</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Manual Adjustment</td></tr>
+          <tr><td class="td-name">Referral</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Referral</td><td class="td-verb"><span class="verb-pill">Creates</span></td><td class="td-name">Enrolment</td></tr>
+          <tr><td class="td-name">Next Finance Account</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Customer Profile</td></tr>
+          <tr><td class="td-name">Loyalty Account</td><td class="td-verb"><span class="verb-pill">Generates</span></td><td class="td-name">Loyalty Report</td></tr>
+          <tr><td class="td-name">Points Transaction</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Loyalty Dashboard</td></tr>
+          <tr><td class="td-name">Integration Log</td><td class="td-verb"><span class="verb-pill">Tracks</span></td><td class="td-name">Points Transaction</td></tr>
+          <tr><td class="td-name">Early Access Event</td><td class="td-verb"><span class="verb-pill">Updates</span></td><td class="td-name">Loyalty Campaign</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

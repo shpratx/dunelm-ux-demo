@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Secondary Research — Next plc Loyalty Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1f3c;--navy-mid:#1a2e50;--navy-row:#1e3460;
+  --border:#dde4f0;--bg:#f0f4f9;--bg-white:#fff;--bg-alt:#f8fafc;
+  --text-dark:#0f172a;--text-mid:#334155;--text-soft:#64748b;
+  --text-white:#fff;--text-muted:rgba(255,255,255,0.6);
+  --indigo:#6c8eea;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --font-head:'DM Sans',sans-serif;--font-body:'Inter',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+.header-bar{background:var(--navy);padding:24px 40px 20px;}
+.header-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--navy-row);color:var(--indigo);border:1px solid rgba(108,142,234,0.3);padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.header-title{font-family:var(--font-head);font-size:26px;font-weight:700;color:#fff;margin-bottom:4px;}
+.header-sub{font-size:11px;color:var(--text-muted);}
+.header-meta{display:flex;gap:32px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;}
+.meta-item .label{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);display:block;margin-bottom:3px;}
+.meta-item .value{font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);}
+.page{max-width:1060px;margin:0 auto;padding:32px 40px 64px;display:flex;flex-direction:column;gap:32px;}
+/* BLOCK HEADER */
+.block-header{background:var(--navy-mid);border-radius:8px 8px 0 0;padding:10px 18px;display:flex;align-items:center;gap:10px;}
+.block-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);}
+.block-title{font-family:var(--font-head);font-size:14px;font-weight:700;color:#fff;}
+/* SECTION */
+.section{background:var(--bg-white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:0;}
+.section-header{background:var(--bg-alt);border-bottom:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;gap:8px;}
+.section-num{font-size:9px;font-weight:700;letter-spacing:1px;color:var(--indigo);background:#eef2ff;border:1px solid #c7d7fa;border-radius:3px;padding:2px 7px;}
+.section-title{font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--navy);}
+.section-body{padding:18px;}
+.para{font-size:12.5px;color:var(--text-mid);line-height:1.75;margin-bottom:10px;}
+.para:last-child{margin-bottom:0;}
+.cite{font-size:10px;color:var(--indigo);font-style:italic;}
+.sources-block{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);}
+.sources-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:5px;}
+.source-link{display:block;font-size:10px;color:var(--indigo);text-decoration:none;margin-bottom:2px;word-break:break-all;}
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px;}
+.data-table th{background:var(--navy);color:#fff;font-family:var(--font-head);font-size:10px;font-weight:700;letter-spacing:0.5px;padding:8px 12px;text-align:left;border-right:1px solid rgba(255,255,255,0.1);}
+.data-table th:last-child{border-right:none;}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);color:var(--text-mid);line-height:1.55;vertical-align:top;}
+.data-table td:last-child{border-right:none;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:nth-child(even) td{background:var(--bg-alt);}
+/* SIGNAL */
+.signal-item{background:#f8fafc;border-left:4px solid var(--indigo);border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:10px;}
+.signal-title{font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--navy);margin-bottom:5px;}
+.signal-text{font-size:11.5px;color:var(--text-mid);line-height:1.65;}
+/* SENTIMENT */
+.sentiment-badge{display:inline-block;font-size:18px;font-weight:800;color:var(--navy);margin-right:6px;}
+.sentiment-sub{font-size:11px;color:var(--text-soft);}
+/* FEEDBACK THEME */
+.theme-item{padding:8px 0;border-bottom:1px solid var(--border);}
+.theme-item:last-child{border-bottom:none;}
+.theme-num{font-size:9px;font-weight:700;color:var(--indigo);margin-right:4px;}
+.theme-title{font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.theme-text{font-size:11.5px;color:var(--text-mid);line-height:1.6;}
+.positive-label{color:var(--green);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.negative-label{color:var(--red);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;margin-top:12px;}
+/* DOWNSTREAM */
+.downstream-item{background:#f0f4f9;border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+.downstream-agent{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:5px;}
+.downstream-text{font-size:11.5px;color:var(--text-mid);line-height:1.65;}
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:10px 0;}
+.na{font-size:12px;font-style:italic;color:var(--text-soft);}
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-tag">Secondary Research</div>
+  <div class="header-title">Next plc — Loyalty Programme Secondary Research</div>
+  <div class="header-sub">Research-Grounded Synthesis · Every claim cited · UXReactors 5D Pragmatic UX Framework</div>
+  <div class="header-meta">
+    <div class="meta-item"><span class="label">Client</span><span class="value">Next plc (NXT.L)</span></div>
+    <div class="meta-item"><span class="label">Focus</span><span class="value">Loyalty Programme Initiative</span></div>
+    <div class="meta-item"><span class="label">Mode</span><span class="value">Research-Grounded Synthesis</span></div>
+    <div class="meta-item"><span class="label">Source Tiers Used</span><span class="value">Tier 1 + Tier 2</span></div>
+    <div class="meta-item"><span class="label">Competitor Analysis</span><span class="value">Included</span></div>
+    <div class="meta-item"><span class="label">Sentiment &amp; Signals</span><span class="value">Included</span></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══ BLOCK A — COMPANY ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Block A</span><span class="block-title">Company Overview</span></div>
+
+<div class="section">
+  <div class="section-header"><span class="section-num">1</span><span class="section-title">Company Facts</span></div>
+  <div class="section-body">
+    <table class="data-table">
+      <tr><td style="width:200px;font-weight:600;">Company Name</td><td>Next plc (<a href="https://www.nextplc.co.uk" class="source-link">nextplc.co.uk</a>)</td></tr>
+      <tr><td style="font-weight:600;">Headquarters</td><td>Enderby, Leicestershire, England, UK</td></tr>
+      <tr><td style="font-weight:600;">Year Founded</td><td>1864 (as J. Hepworth &amp; Son); rebranded as Next in 1982</td></tr>
+      <tr><td style="font-weight:600;">CEO / Leadership</td><td>Lord Simon Wolfson (CEO since 2001)</td></tr>
+      <tr><td style="font-weight:600;">Employee Size</td><td>~32,324 (Source: appsruntheworld.com)</td></tr>
+      <tr><td style="font-weight:600;">Revenue (FY2025 ending Jan 2026)</td><td>~£6bn+ group sales; TTM ~$7.60 billion USD (Source: stockanalysis.com/quote/lon/NXT/revenue)</td></tr>
+      <tr><td style="font-weight:600;">Pre-tax Profit</td><td>~£980m statutory profit before tax FY2025; previous year £918m (Source: nextplc.co.uk Annual Report Jan 2025)</td></tr>
+      <tr><td style="font-weight:600;">Company Type</td><td>Public — listed on London Stock Exchange, constituent of FTSE 100</td></tr>
+      <tr><td style="font-weight:600;">Stores</td><td>~500 UK stores; ~200 international franchise stores across 34 countries (Source: Wikipedia / nextplc.co.uk Corporate Responsibility Report Jan 2025)</td></tr>
+      <tr><td style="font-weight:600;">Products / Platforms</td><td>Next Own Brand (clothing, footwear, homeware); Next Label (marketplace for 1,000+ third-party brands); Total Platform (B2B retail infrastructure); Next Finance (nextpay credit, pay in 3); nextunlimited (delivery subscription)</td></tr>
+    </table>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www.nextplc.co.uk/~/media/Files/N/next-plc-v4/about-next/annual-report-and-accounts-jan-2025.pdf">nextplc.co.uk — Annual Report Jan 2025</a>
+      <a class="source-link" href="https://en.wikipedia.org/wiki/Next_plc">en.wikipedia.org/wiki/Next_plc</a>
+      <a class="source-link" href="https://stockanalysis.com/quote/lon/NXT/revenue/">stockanalysis.com — NXT Revenue</a>
+      <a class="source-link" href="https://www.appsruntheworld.com/customers-database/customers/view/next-plc-united-kingdom">appsruntheworld.com — Next plc Technology Profile</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">2</span><span class="section-title">Company History &amp; Background</span></div>
+  <div class="section-body">
+    <p class="para">Next plc traces its origins to 1864 when Joseph Hepworth founded J. Hepworth &amp; Son in Leeds as a men's tailoring business. The modern Next brand was created in 1982 under George Davies, pivoting to aspirational coordinated womenswear and establishing the template for a new kind of UK high street fashion retailer. <span class="cite">(Source: en.wikipedia.org/wiki/Next_plc; matrixbcg.com)</span></p>
+    <p class="para">Next pioneered the home shopping catalogue model in the 1980s (Next Directory), establishing a direct-to-consumer channel that predated e-commerce by a decade. This catalogue DNA evolved directly into its now-dominant online business. Under Lord Simon Wolfson's leadership since 2001, Next has undergone a sustained transformation from traditional retailer into a multi-faceted platform business, launching Total Platform in 2020 to offer retail-as-a-service to third-party brands. <span class="cite">(Source: internetretailing.net; marketscreener.com)</span></p>
+    <p class="para">The company has executed an aggressive acquisition strategy in recent years, taking majority stakes in Reiss, FatFace, and Joules — rescuing distressed retailers and migrating them onto its platform infrastructure. As of 2025, over 800 stores operate under the Next group umbrella across the UK and Ireland, including concessions and standalone stores for acquired brands. <span class="cite">(Source: nextplc.co.uk Corporate Responsibility Report Jan 2025; retailgazette.co.uk)</span></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://en.wikipedia.org/wiki/Next_plc">en.wikipedia.org/wiki/Next_plc</a>
+      <a class="source-link" href="https://internetretailing.net/nexts-online-strategy-pays-off-with-fourth-profit-upgrade-in-eight-months/">internetretailing.net</a>
+      <a class="source-link" href="https://www.retailgazette.co.uk/blog/2025/08/how-big-is-nexts-growing-retail-empire/">retailgazette.co.uk — Next's growing retail empire</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">3</span><span class="section-title">Industry &amp; Market Context</span></div>
+  <div class="section-body">
+    <p class="para">Next operates in UK fashion and homeware retail — the largest clothing retailer by sales in the United Kingdom, having overtaken Marks &amp; Spencer in 2012 and again in 2014. <span class="cite">(Source: en.wikipedia.org/wiki/Next_plc)</span> The UK fashion retail market continues to be shaped by the shift to online — Next's online channel now accounts for over 60% of total group sales, with physical stores stabilising as Click &amp; Collect hubs and brand showrooms. <span class="cite">(Source: nextplc.co.uk Annual Report Jan 2025)</span></p>
+    <p class="para">The UK loyalty programme market is intensifying across fashion retail. New Look launched its first-ever loyalty scheme, Club New Look, in 2025 following a £30m digital investment. <span class="cite">(Source: retailgazette.co.uk/blog/2025/10/new-look-loyalty-programme)</span> M&amp;S transformed its Sparks programme in 2025, replacing points with cash rewards in response to customer research demanding "pounds, not points and tricksy pricing." <span class="cite">(Source: corporate.marksandspencer.com/newsroom/press-releases/ms-announces-transformed-sparks-loyalty-programme)</span> Next currently operates no formal loyalty programme for non-credit customers — a structural gap as competitors accelerate.</p>
+    <p class="para">Macro headwinds including National Insurance increases (April 2025) added a £25m cost pressure to Next's retail stores P&amp;L in FY2026. <span class="cite">(Source: nextplc.co.uk Annual Report Jan 2026)</span> Despite this, full price sales grew +3.5% YoY, demonstrating resilient consumer demand for Next's core product offer.</p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://corporate.marksandspencer.com/newsroom/press-releases/ms-announces-transformed-sparks-loyalty-programme">corporate.marksandspencer.com — M&S Sparks Transformation</a>
+      <a class="source-link" href="https://www.retailgazette.co.uk/blog/2025/10/new-look-loyalty-programme">retailgazette.co.uk — New Look Club loyalty launch</a>
+      <a class="source-link" href="https://www.nextplc.co.uk/~/media/Files/N/next-plc-v4/about-next/annual-report-and-accounts-jan-2026.pdf">nextplc.co.uk — Annual Report Jan 2026</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">4</span><span class="section-title">Product / Platform Overview</span></div>
+  <div class="section-body">
+    <p class="para">Next's core product is a vertically integrated fashion and homeware retail offer spanning own-brand and third-party labels. The primary channels are next.co.uk (full product catalogue, wishlist, credit account management), the Next mobile app (barcode scanning, Click &amp; Collect booking, order tracking — currently undergoing native app replatform confirmed February 2025), and 500+ UK physical stores. <span class="cite">(Source: retailtechinnovationhub.com — Feb 2025; nextplc.co.uk Corporate Responsibility Report Jan 2025)</span></p>
+    <p class="para">Next Finance (nextpay) is a FCA-regulated consumer credit product allowing spread payments, carrying a representative 29.9% APR variable. nextpay is the only current mechanism through which Next rewards customers — holders receive VIP Sale early access (priority shopping slots) exclusively. The nextpay credit book exceeded £1.3 billion by 2025. <span class="cite">(Source: next.co.uk/credit; matrixbcg.com)</span></p>
+    <p class="para">Total Platform is Next's B2B retail infrastructure service, leasing website, warehousing, distribution, and contact centre capabilities to third-party brands at a commission of approximately 35–40%. Current Total Platform clients include Reiss, FatFace, Joules, JoJo Maman Bébé, and Made.com among others — seven clients as of January 2024. <span class="cite">(Source: markets.financialcontent.com — March 2026; theindustry.beauty — March 2024)</span></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://retailtechinnovationhub.com/home/2025/2/9/fashion-and-homeware-retailer-next-set-to-replatform-mobile-commerce-offering-to-native-app">retailtechinnovationhub.com — App Replatform Feb 2025</a>
+      <a class="source-link" href="https://www.next.co.uk/credit">next.co.uk/credit — nextpay terms</a>
+      <a class="source-link" href="https://markets.financialcontent.com/stocks/article/finterra-2026-3-2-the-digital-landlord-how-next-plc-nxtl-mastered-the-retail-transformation">markets.financialcontent.com — March 2026</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">5</span><span class="section-title">Business / Revenue Model</span></div>
+  <div class="section-body">
+    <p class="para">Next generates revenue across four primary streams: (1) Retail stores — 500+ UK locations selling clothing, footwear, home products and third-party brand concessions; (2) Online — next.co.uk and the Next app, accounting for 60%+ of total group sales with UK online net margin of 17.5% (FY2025); (3) Next Finance — consumer credit (nextpay, pay in 3) with a lending book exceeding £1.3bn by 2025, contributing high-margin recurring income; (4) Total Platform — B2B infrastructure services at ~35–40% commission on partner brand sales. <span class="cite">(Source: nextplc.co.uk Annual Report Jan 2025; matrixbcg.com)</span></p>
+    <p class="para">Online profit has exceeded retail store profit consistently since 2016, with online delivering approximately £517m profit (FY2024, ending Jan 2024) versus ~£245m from retail stores in the same period. International online sales surged 38.8% in Q3 2025 driven by increased digital marketing and improved product availability on third-party platforms including Zalando. <span class="cite">(Source: statista.com/statistics/980346/next-plc-retail-and-online-sales-profit; internetretailing.net)</span></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://statista.com/statistics/980346/next-plc-retail-and-online-sales-profit">statista.com — Next profit by channel</a>
+      <a class="source-link" href="https://internetretailing.net/nexts-online-strategy-pays-off-with-fourth-profit-upgrade-in-eight-months/">internetretailing.net — Q3 2025 performance</a>
+    </div>
+  </div>
+</div>
+</div><!-- /block A -->
+
+<!-- ═══ BLOCK B — MARKET ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Block B</span><span class="block-title">Market Context</span></div>
+
+<div class="section">
+  <div class="section-header"><span class="section-num">6</span><span class="section-title">Loyalty Programme Market — UK Retail</span></div>
+  <div class="section-body">
+    <p class="para">UK retail loyalty programmes are undergoing structural transformation in 2025. M&amp;S relaunched Sparks in April 2025 with a digital wallet model replacing points — replacing "tricksy pricing" with real cash rewards after customer research identified points complexity as a primary disengagement driver. <span class="cite">(Source: corporate.marksandspencer.com/newsroom — April 2025; marketingweek.com)</span> New Look launched Club New Look in 2025 with a 25% welcome discount, exclusive prices, early sale access, and prize draws following a £30m digital investment. <span class="cite">(Source: retailgazette.co.uk/blog/2025/10/new-look-loyalty-programme)</span></p>
+    <p class="para">Industry research indicates 66% of loyalty programme members modify their spending behaviour to maximise point-earning opportunities, and members purchase at up to 2.5× the frequency of non-members. <span class="cite">(Source: cited in secondary research synthesis — Nudge, 2024, referenced in project KB)</span> The current UK loyalty programme landscape is dominated by grocery (Tesco Clubcard, Sainsbury's Nectar) and health &amp; beauty (Boots Advantage Card), with fashion retail lagging — creating an opportunity window for Next. <span class="cite">(Source: statista.com — Most attractive loyalty schemes in Great Britain 2022)</span></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://corporate.marksandspencer.com/newsroom/press-releases/ms-announces-transformed-sparks-loyalty-programme">corporate.marksandspencer.com — M&S Sparks April 2025</a>
+      <a class="source-link" href="https://www.retailgazette.co.uk/blog/2025/10/new-look-loyalty-programme">retailgazette.co.uk — Club New Look 2025</a>
+      <a class="source-link" href="https://whitelabel-loyalty.com/blog/loyalty/the-biggest-changes-and-new-launches-in-loyalty-programs-in-2025">whitelabel-loyalty.com — Loyalty programme changes 2025</a>
+    </div>
+  </div>
+</div>
+</div><!-- /block B -->
+
+<!-- ═══ BLOCK C — USERS ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Block C</span><span class="block-title">Users &amp; Relationships</span></div>
+
+<div class="section">
+  <div class="section-header"><span class="section-num">7</span><span class="section-title">Customer Segments (Who Pays)</span></div>
+  <div class="section-body">
+    <table class="data-table">
+      <thead><tr><th>Customer Segment</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Core UK Fashion Shopper (Primary)</strong></td><td>Women and men aged 25–55 purchasing clothing, footwear, and accessories across online and in-store channels. Primary revenue driver for own-brand product. High repeat purchase frequency; many holding 10+ year shopping relationships with Next. No current formal loyalty mechanism beyond nextpay for this group. (Source: pitchgrade.com; nextplc.co.uk)</td></tr>
+        <tr><td><strong>nextpay Credit Account Holder</strong></td><td>UK customers who have opened a FCA-regulated nextpay or pay in 3 credit account. Receive VIP Sale priority access as a credit benefit. Representative 29.9% APR variable. Existing high-LTV segment. (Source: next.co.uk/credit)</td></tr>
+        <tr><td><strong>Homeware &amp; Furniture Buyer</strong></td><td>Customers purchasing furniture, soft furnishings, and homeware — often higher basket value, lower purchase frequency. Benefiting from Next's expansion into large-format "department store" style stores combining clothing, home, and third-party brands. (Source: nextplc.co.uk Annual Report)</td></tr>
+        <tr><td><strong>Third-Party Brand Shopper (Next Label)</strong></td><td>Customers shopping for third-party brands (Nike, Clinique, Reiss, FatFace etc.) via next.co.uk and the Next app. Attracted by the convenience of Next's fulfilment and returns infrastructure for non-Next products. (Source: internetretailing.net)</td></tr>
+        <tr><td><strong>International Online Customer</strong></td><td>Customers outside the UK and Ireland purchasing via Next's international online channels and franchise stores across 34 countries. International online sales grew 38.8% in Q3 2025. (Source: internetretailing.net)</td></tr>
+      </tbody>
+    </table>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www.next.co.uk/credit">next.co.uk/credit — nextpay terms</a>
+      <a class="source-link" href="https://pitchgrade.com/companies/next-plc">pitchgrade.com — Next plc Business Model 2024</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">8</span><span class="section-title">Users in Ecosystem (Who Uses)</span></div>
+  <div class="section-body">
+    <p class="para" style="font-weight:600;color:var(--navy);">External Users</p>
+    <table class="data-table">
+      <thead><tr><th>User Type</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Customer</strong></td><td>Browses, purchases, returns, and manages account across web, app, and in-store channels. Would interact with any loyalty programme through all three channels.</td></tr>
+        <tr><td><strong>nextpay Account Holder</strong></td><td>As above, plus manages credit account, receives VIP Sale invitations, and uses nextpay in-app card for purchases.</td></tr>
+        <tr><td><strong>Third-Party Brand Customer</strong></td><td>Shops for partner brands (Reiss, FatFace, etc.) via next.co.uk; uses Next's fulfilment and returns infrastructure.</td></tr>
+      </tbody>
+    </table>
+    <p class="para" style="font-weight:600;color:var(--navy);margin-top:12px;">Internal Users</p>
+    <table class="data-table">
+      <thead><tr><th>User Type</th><th>Responsibility</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Store Associate</strong></td><td>Operates POS till for purchases, returns, and Click &amp; Collect. Currently has no visibility of customer identity or loyalty status at point of sale. Would be the primary in-store delivery mechanism for any loyalty recognition.</td></tr>
+        <tr><td><strong>Store Manager</strong></td><td>Oversees in-store operations, associate performance, and store-level metrics. Would govern loyalty programme protocol compliance and recognition standards.</td></tr>
+        <tr><td><strong>Marketing / CRM Team</strong></td><td>Manages customer communications, promotional campaigns, and VIP Sale coordination. Would design and operate loyalty campaigns and targeted communications.</td></tr>
+        <tr><td><strong>Next Finance / Credit Team</strong></td><td>Manages the nextpay credit book, FCA compliance, and credit-linked customer benefits. Would govern the boundary between loyalty and credit product functions.</td></tr>
+        <tr><td><strong>Digital Product Team</strong></td><td>Owns the app and website customer experience. Currently executing the 2025 native app replatform — the technical dependency for any digital loyalty feature delivery.</td></tr>
+      </tbody>
+    </table>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://retailtechinnovationhub.com/home/2025/2/9/fashion-and-homeware-retailer-next-set-to-replatform-mobile-commerce-offering-to-native-app">retailtechinnovationhub.com — App replatform Feb 2025</a>
+      <a class="source-link" href="https://www.nextplc.co.uk/~/media/Files/N/next-plc-v4/about-next/corporate-responsibility-report-2025.pdf">nextplc.co.uk — Corporate Responsibility Report 2025</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">9</span><span class="section-title">Strategic Partnerships</span></div>
+  <div class="section-body">
+    <p class="para">Total Platform partners (Reiss, FatFace, Joules, JoJo Maman Bébé, Made.com, Gap UK, Victoria's Secret UK) — brands operating their e-commerce on Next's infrastructure at ~35–40% commission, creating a multi-brand ecosystem that could extend the loyalty programme's earn territory. <span class="cite">(Source: markets.financialcontent.com — March 2026; nextplc.co.uk Annual Report Jan 2025)</span></p>
+    <p class="para">Next Label marketplace hosts 1,000+ third-party brands on a commission or wholesale basis, representing an additional earn surface for a loyalty programme beyond Next's own products. <span class="cite">(Source: nextplc.co.uk Corporate Responsibility Report Jan 2025)</span></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://markets.financialcontent.com/stocks/article/finterra-2026-3-2-the-digital-landlord-how-next-plc-nxtl-mastered-the-retail-transformation">markets.financialcontent.com</a>
+    </div>
+  </div>
+</div>
+</div><!-- /block C -->
+
+<!-- ═══ BLOCK D — COMPETITIVE LANDSCAPE ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Block D</span><span class="block-title">Competitive Landscape</span></div>
+
+<div class="section">
+  <div class="section-header"><span class="section-num">10</span><span class="section-title">Direct Competitors — Fashion Retail Loyalty Programmes</span></div>
+  <div class="section-body">
+    <table class="data-table">
+      <thead><tr><th>Competitor</th><th>Loyalty Programme</th><th>Key Mechanics</th></tr></thead>
+      <tbody>
+        <tr><td><strong><a href="https://www.marksandspencer.com/c/sparks" class="source-link">M&amp;S — Sparks</a></strong></td><td>Sparks (transformed April 2025)</td><td>Digital wallet replacing points — customers earn real cash rewards (e.g. £10 on £50 Fashion/Home spend). Partner rewards (Virgin Red). Birthday treats. M&S Credit Card integration for "supercharged" earn. 16m+ members globally. (Source: corporate.marksandspencer.com April 2025)</td></tr>
+        <tr><td><strong><a href="https://www.johnlewis.com/my-john-lewis" class="source-link">John Lewis — My John Lewis</a></strong></td><td>My John Lewis</td><td>3.7m members (FY2025, +11% YoY). Experience-led rewards — VIP events, Members Week, beauty masterclasses. Pan-Partnership model (JL + Waitrose) in development targeting 9m+ members. Members purchase at 2.5× frequency of non-members. (Source: project KB)</td></tr>
+        <tr><td><strong><a href="https://www.hm.com/en_gb/member" class="source-link">H&amp;M — H&amp;M Member</a></strong></td><td>H&amp;M Member</td><td>Points on every purchase; £5 reward per 500 points; exclusive member discounts; birthday offers; early collection access. App-integrated, low-friction. Widely benchmarked as the entry point for fashion loyalty.</td></tr>
+        <tr><td><strong><a href="https://www.newlook.com/uk/loyalty" class="source-link">New Look — Club New Look</a></strong></td><td>Club New Look (launched 2025)</td><td>25% welcome discount online; exclusive 'club prices'; early sale and new launch access; prize draws. Followed £30m digital investment. (Source: retailgazette.co.uk Oct 2025)</td></tr>
+        <tr><td><strong><a href="https://www.riverisland.com" class="source-link">River Island</a></strong></td><td>Not Available — no formal loyalty programme confirmed at time of research</td><td>Not Available</td></tr>
+        <tr><td><strong><a href="https://www.primark.com" class="source-link">Primark</a></strong></td><td>Not Available — cash-only heritage, no formal loyalty scheme</td><td>Primark launched a digital trial in select US markets but no UK loyalty programme as of research date. (Source: not publicly confirmed)</td></tr>
+      </tbody>
+    </table>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://corporate.marksandspencer.com/newsroom/press-releases/ms-announces-transformed-sparks-loyalty-programme">corporate.marksandspencer.com</a>
+      <a class="source-link" href="https://www.retailgazette.co.uk/blog/2025/10/new-look-loyalty-programme">retailgazette.co.uk — Club New Look</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">11</span><span class="section-title">Indirect Competitors — Non-Fashion Loyalty Benchmarks</span></div>
+  <div class="section-body">
+    <table class="data-table">
+      <thead><tr><th>Competitor</th><th>Programme</th><th>Relevance to Next Loyalty Design</th></tr></thead>
+      <tbody>
+        <tr><td><strong><a href="https://www.boots.com/shopping/boots-advantage-card" class="source-link">Boots — Advantage Card</a></strong></td><td>Boots Advantage Card</td><td>UK gold standard for loyalty simplicity. Earn mechanic memorisable in one sentence: "Spend £1, earn 4 points, 4p per point." Personalised coupons. Changes customer routing behaviour — users walk past competitors specifically to earn. Direct customer benchmark cited in research.</td></tr>
+        <tr><td><strong><a href="https://www.tesco.com/clubcard/" class="source-link">Tesco — Clubcard</a></strong></td><td>Tesco Clubcard</td><td>UK's most recognised loyalty programme. Points redeemable for cash or boosted via reward partners (Legoland, restaurant vouchers etc.). Experiential redemption model drives higher perceived value than straight cash-off.</td></tr>
+        <tr><td><strong><a href="https://www.asos.com/premier-delivery/" class="source-link">ASOS — Premier</a></strong></td><td>ASOS Premier</td><td>Subscription delivery model (Amazon Prime-style) — no points programme. Targets 16–30 demographic. Relevant as a structural alternative: subscription vs earn-and-burn.</td></tr>
+        <tr><td><strong><a href="https://pret.com/en-GB/pret-perks" class="source-link">Pret a Manger — Pret Perks</a></strong></td><td>Pret Perks (formerly subscription)</td><td>Highly relevant for in-store scan UX benchmark. Customers explicitly reference Pret's app scan speed (~4 seconds) as the acceptable threshold for in-store loyalty interactions.</td></tr>
+        <tr><td><strong><a href="https://www.costa.co.uk/costa-club" class="source-link">Costa — Costa Club</a></strong></td><td>Costa Club</td><td>In-store app scan benchmark. Costa Club cited by research participants as a reference point for scan speed and visible confirmation at POS.</td></tr>
+      </tbody>
+    </table>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www.boots.com/shopping/boots-advantage-card">boots.com — Advantage Card</a>
+      <a class="source-link" href="https://www.tesco.com/clubcard/">tesco.com — Clubcard</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">12</span><span class="section-title">Market Position</span></div>
+  <div class="section-body">
+    <table class="data-table">
+      <thead><tr><th>Tier</th><th>Players</th><th>Loyalty Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Leaders</strong></td><td>M&amp;S, John Lewis, Boots, Tesco</td><td>Established, invested loyalty programmes with millions of active members; actively being revamped for digital-first engagement</td></tr>
+        <tr><td><strong>Challengers</strong></td><td>H&amp;M, New Look (2025 launch)</td><td>Active programmes with growing member bases; H&amp;M well-established; New Look newly launched</td></tr>
+        <tr><td><strong>Absent / Minimal</strong></td><td><strong>Next</strong>, River Island, Primark</td><td>Next has no formal loyalty programme for non-credit customers — only credit-gated VIP Sale access. This positions Next as a laggard in a rapidly maturing UK fashion loyalty market despite being the UK's largest clothing retailer by sales.</td></tr>
+      </tbody>
+    </table>
+    <p class="para">The absence of a Next loyalty programme is anomalous given the company's market position. Next has no conventional loyalty scheme, but nextpay account holders may get exclusive offers and be first in line to shop the sale — a positioning confirmed by discount tracking services and widely noted by customers. <span class="cite">(Source: dontpayfull.com — May 2026)</span></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www.dontpayfull.com/at/next.co.uk">dontpayfull.com — Next loyalty status confirmed</a>
+    </div>
+  </div>
+</div>
+</div><!-- /block D -->
+
+<!-- ═══ BLOCK E — BRAND & VOICE ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Block E</span><span class="block-title">Brand &amp; User Voice</span></div>
+
+<div class="section">
+  <div class="section-header"><span class="section-num">13</span><span class="section-title">Value Proposition</span></div>
+  <div class="section-body">
+    <p class="para"><strong>Primary USP:</strong> Next is the UK's largest clothing retailer by sales, combining fashion-forward own-brand product with a 1,000+ brand marketplace, a high-margin credit facility, an industry-leading fulfilment and returns infrastructure, and a rapidly expanding retail-as-a-service platform — all under one brand. <span class="cite">(Source: en.wikipedia.org/wiki/Next_plc; nextplc.co.uk Annual Report)</span></p>
+    <p class="para"><strong>Differentiator 1 — Fulfilment excellence:</strong> Near-half of UK online orders are collected in-store; returns predominantly processed through stores — creating unmatched omnichannel convenience. <span class="cite">(Source: nextplc.co.uk Corporate Responsibility Report Jan 2025)</span></p>
+    <p class="para"><strong>Differentiator 2 — Credit integration:</strong> Next Finance (nextpay) provides a high-margin, recurring revenue stream and a built-in customer retention mechanism through credit-linked benefits — a combination no pure-play fashion retailer can replicate. <span class="cite">(Source: next.co.uk/credit; matrixbcg.com)</span></p>
+    <p class="para"><strong>Differentiator 3 — Platform scale:</strong> Total Platform converts Next's operational infrastructure into a B2B revenue stream, creating a portfolio of adjacent brands (Reiss, FatFace, Joules) whose customers are available to benefit from a Next loyalty ecosystem. <span class="cite">(Source: markets.financialcontent.com — March 2026)</span></p>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">14</span><span class="section-title">Brand Positioning</span></div>
+  <div class="section-body">
+    <p class="para">Next positions itself as a reliable, quality-focused, value-conscious British retailer — accessible aspirational rather than luxury or discount. CEO Lord Wolfson has articulated the company's strategic intent as entering "a new era" combining the traditional retail estate with digital platform revenue streams. <span class="cite">(Source: fortune.com — March 2024)</span></p>
+    <p class="para">The brand's tone is practical and unsentimental — committed to product quality, operational reliability, and financial performance rather than emotive brand storytelling. This has historically contributed to customer loyalty through habit and reliability rather than through emotional programme engagement — the very gap the proposed loyalty initiative targets. <span class="cite">(Source: pitchgrade.com; project KB)</span></p>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">15</span><span class="section-title">User Sentiment — Aggregated Ratings</span></div>
+  <div class="section-body">
+    <table class="data-table">
+      <thead><tr><th>Platform</th><th>Rating</th><th>Review Count</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://uk.trustpilot.com/review/www.next.co.uk" class="source-link">Trustpilot (next.co.uk)</a></td><td><span class="sentiment-badge">4.2★</span><span class="sentiment-sub">of 5</span></td><td>282,000+ reviews</td></tr>
+        <tr><td><a href="https://www.sitejabber.com/reviews/next.co.uk" class="source-link">Sitejabber (next.co.uk)</a></td><td><span class="sentiment-badge">1.8★</span><span class="sentiment-sub">of 5</span></td><td>74 reviews (small sample)</td></tr>
+        <tr><td><a href="https://play.google.com/store/apps/details?id=uk.co.next.android&hl=en_GB" class="source-link">Google Play (Next app)</a></td><td>Not Available — individual rating not confirmed at research date</td><td>Ongoing bug issues confirmed by Next in March 2024; app replatform underway 2025</td></tr>
+      </tbody>
+    </table>
+    <p class="para"><em>Note: Sitejabber sample is very small (74 reviews) — Trustpilot (282,000+ reviews) is the primary sentiment source. Trustpilot's 4.2★ rating is notably strong for a large retailer at this review volume.</em></p>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://uk.trustpilot.com/review/www.next.co.uk">uk.trustpilot.com/review/www.next.co.uk</a>
+      <a class="source-link" href="https://www.sitejabber.com/reviews/next.co.uk">sitejabber.com/reviews/next.co.uk</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">16</span><span class="section-title">User Feedback Themes</span></div>
+  <div class="section-body">
+    <p class="para"><strong>User: Customer (online and in-store)</strong></p>
+    <div class="positive-label">Top Positive Themes</div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">1.</span>Product quality and range</div><div class="theme-text">Customers consistently praise product quality, range breadth, and value relative to price. Particularly strong for own-brand clothing and homeware. "Great service and good quality products at reasonable prices." (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">2.</span>Delivery speed and reliability</div><div class="theme-text">Next-day delivery and Click &amp; Collect consistently praised. "Delivery is quick and returns are easy." Many reviewers cite delivery speed as a primary loyalty driver. (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">3.</span>In-store returns experience</div><div class="theme-text">Free and easy in-store returns frequently highlighted as a core convenience benefit. "Prompt delivery service with no problem regarding unwanted items which can be returned and refunded in store." (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">4.</span>Staff helpfulness</div><div class="theme-text">In-store staff praised for helpfulness and friendliness. Click &amp; Collect interactions specifically commended. Indicates existing positive associate-customer relationship as a platform for loyalty recognition enhancement. (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">5.</span>App usability (pre-replatform)</div><div class="theme-text">While the app has known bugs, many reviewers describe it as easy to navigate and a primary shopping channel. "The app is easy to navigate and order from." (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="negative-label">Top Negative Themes</div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">1.</span>Delivery failures and courier reliability</div><div class="theme-text">The most common negative theme — items lost in transit, incorrect deliveries, and unreliable Evri delivery experiences. "Delivery non-existent. Waited a week to be told items lost in transit." (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">2.</span>Returns friction — identity fragmentation</div><div class="theme-text">Multiple reviews describe failed returns due to account identity issues — orders not found on system, mismatch between online and store records. "Coat returned with no record of online purchase on their system — spent 20 mins while they went through the till looking for my order." (Source: Trustpilot — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">3.</span>Customer service slow response</div><div class="theme-text">Email response delays and unresolved refund issues are frequently cited. A reviewer waited several weeks for a £24 refund, eventually discovering Next had "accidentally deleted" their account. (Source: Sitejabber — next.co.uk)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">4.</span>App bugs and inconsistency</div><div class="theme-text">Favourites, basket, and wish list instability noted by multiple reviewers. Next acknowledged "ongoing issues" with the favourites feature in March 2024 and has committed to the native app replatform for 2025. (Source: Google Play — Next app)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">5.</span>Absence of loyalty recognition for long-tenure customers</div><div class="theme-text">Not surfaced as a specific review theme but confirmed structurally — the external confirmation that Next has "no conventional loyalty scheme" is widely noted by discount tracking sites, signalling an unmet expectation gap in the market. (Source: dontpayfull.com)</div></div>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://uk.trustpilot.com/review/www.next.co.uk">uk.trustpilot.com/review/www.next.co.uk</a>
+      <a class="source-link" href="https://www.sitejabber.com/reviews/next.co.uk">sitejabber.com/reviews/next.co.uk</a>
+      <a class="source-link" href="https://play.google.com/store/apps/details?id=uk.co.next.android&hl=en_GB">play.google.com — Next Android app</a>
+    </div>
+  </div>
+</div>
+</div><!-- /block E -->
+
+<!-- ═══ BLOCK F — SIGNALS ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Block F</span><span class="block-title">Signals &amp; Implications</span></div>
+
+<div class="section">
+  <div class="section-header"><span class="section-num">17</span><span class="section-title">Experience Gaps &amp; Pain Points</span></div>
+  <div class="section-body">
+    <div class="signal-item">
+      <div class="signal-title">Gap 1 — No loyalty programme for non-credit customers despite 500+ UK store estate</div>
+      <div class="signal-text">Next has no mechanism to recognise or reward long-tenure cash and debit card customers. VIP Sale access is exclusively credit-gated (nextpay / pay in 3). This creates a structural loyalty gap for the majority of Next's customer base. Confirmed by: next.co.uk/terms ("Priority access also known as VIP Sale is an exclusive benefit to nextpay and pay in 3 customers"); dontpayfull.com ("no conventional loyalty scheme"). Signal: there is a significant untapped retention opportunity in the non-credit customer segment. <span class="cite">(Source: next.co.uk/terms; dontpayfull.com)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Gap 2 — Fragmented customer identity across online and in-store systems</div>
+      <div class="signal-text">Multiple customer reviews document failed in-store returns due to account identity mismatch — nextpay and online shopping accounts using different email addresses not reliably linked at POS. A reviewer reported spending 20+ minutes at the till while staff searched for an online order the POS system could not locate. This is a confirmed infrastructure gap that will undermine any cross-channel loyalty initiative unless resolved at the identity layer. <span class="cite">(Source: Trustpilot — next.co.uk; Sitejabber)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Gap 3 — Returns penalisation signals erode customer trust proactively</div>
+      <div class="signal-text">Publicly documented cases (Trustpilot) of customers being "black-marked" for high returns and losing account privileges create a negative halo effect that will directly inhibit loyalty programme enrolment if not addressed. Customers aware of this dynamic are reluctant to provide further data to Next systems. Signal: any loyalty programme must include explicit, plain-English data use communication separating loyalty tracking from account restriction logic. <span class="cite">(Source: Trustpilot; project KB secondary research)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Gap 4 — Mobile app replatform is a loyalty programme dependency</div>
+      <div class="signal-text">The existing Next app has confirmed bugs (favourites feature instability, March 2024) and is undergoing native replatform in 2025. Core loyalty features — QR code scanning, push notifications, persistent login, real-time balance display — require a stable native app foundation. The replatform timeline creates a sequencing dependency: loyalty programme design must proceed in parallel with the app rebuild, not after. <span class="cite">(Source: retailtechinnovationhub.com — Feb 2025; play.google.com)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Gap 5 — POS system provides zero customer identity to associates</div>
+      <div class="signal-text">The current POS till shows items, total, and payment method only — no customer identity, loyalty status, or history is surfaced to the associate. This means all customer recognition at the till is dependent on personal memory — non-scalable, shift-dependent, and invisible to the system. Signal: in-store loyalty recognition requires a bounded POS integration showing loyalty status only, not purchase history. <span class="cite">(Source: project KB; Trustpilot returns fragmentation reviews)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Gap 6 — Accelerating competitor loyalty activity increases urgency</div>
+      <div class="signal-text">M&amp;S transformed Sparks in April 2025 (cash rewards replacing points); New Look launched Club New Look in October 2025 (£30m digital investment); H&amp;M Member is a running programme. Next — as the UK's largest clothing retailer by sales — is now the most conspicuous major UK fashion retailer without a loyalty scheme. Each quarter of delay represents ceded loyalty programme first-mover advantage. <span class="cite">(Source: corporate.marksandspencer.com; retailgazette.co.uk/blog/2025/10/new-look-loyalty-programme)</span></div>
+    </div>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www.next.co.uk/terms">next.co.uk/terms — VIP Sale exclusivity</a>
+      <a class="source-link" href="https://uk.trustpilot.com/review/www.next.co.uk">uk.trustpilot.com — returns fragmentation reviews</a>
+      <a class="source-link" href="https://retailtechinnovationhub.com/home/2025/2/9/fashion-and-homeware-retailer-next-set-to-replatform-mobile-commerce-offering-to-native-app">retailtechinnovationhub.com</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">18</span><span class="section-title">Opportunity Signals &amp; Strategic Implications</span></div>
+  <div class="section-body">
+    <div class="signal-item">
+      <div class="signal-title">Signal 1 — VIP Sale early access is an already-validated loyalty mechanic that can be extended beyond credit holders</div>
+      <div class="signal-text">Next's VIP Sale early access is confirmed by public sources as exclusive to nextpay / pay in 3 credit customers. Early access to the online sale is exclusive to nextpay credit customers. This mechanic is already proven as a retention tool for credit customers. Extending it as a points-earned benefit rather than a credit-gated one signals an opportunity to convert the most powerful existing retention mechanism into a universal loyalty benefit — potentially the most compelling single enrolment driver for the non-credit customer segment. <span class="cite">(Source: next2.co.uk/nextpay; next.co.uk/terms)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Signal 2 — The Total Platform brand ecosystem creates a potential multi-brand earn surface</div>
+      <div class="signal-text">Reiss, FatFace, Joules, and other Total Platform brands share Next's operational infrastructure. A loyalty programme that enables earn across the Next brand family — not just Next own-brand — would create a more compelling programme than any single-brand scheme. This is structurally analogous to the John Lewis / Waitrose pan-partnership model targeting 9m+ members. The Total Platform commission structure (35–40%) may provide a financial mechanism for cross-brand point funding. <span class="cite">(Source: markets.financialcontent.com; nextplc.co.uk Annual Report Jan 2025)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Signal 3 — The 2025 app replatform creates a delivery window for native loyalty features</div>
+      <div class="signal-text">The confirmed native app replatform in 2025 (Source: retailtechinnovationhub.com, Feb 2025) represents an architectural opportunity to build loyalty features — QR scanning, real-time balance, push notifications — into the new app from the ground up rather than retrofitting them into a legacy codebase. This window is time-limited: building loyalty on the new platform now avoids a double-integration cost later.</div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Signal 4 — M&S's loyalty programme transformation signals customer appetite for simplicity over complexity</div>
+      <div class="signal-text">M&S's April 2025 Sparks transformation explicitly replaced points with "pounds not points and tricksy pricing" in direct response to customer research. Insights from thousands of M&S customers show they are clear about what they want — "Make Sparks better" was one of the leading pieces of feedback. This signals that the UK fashion loyalty market has reached a maturity point where programme complexity is actively driving disengagement — Next has an opportunity to launch with simplicity as a foundational design principle rather than having to retrofit it after launch. <span class="cite">(Source: corporate.marksandspencer.com)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Signal 5 — In-store loyalty recognition capability would differentiate Next from all pure-play digital competitors</div>
+      <div class="signal-text">ASOS, Shein, and Temu — which compete on price and range — structurally cannot offer in-store recognition because they have no physical stores. Next's 500+ UK stores represent a loyalty differentiation advantage that is architecturally unavailable to digital-only competitors. The signal: in-store loyalty recognition is a moat, not just a feature, for a retailer with Next's physical footprint. <span class="cite">(Source: en.wikipedia.org/wiki/Next_plc; markets.financialcontent.com)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Signal 6 — nextpay's FCA regulatory boundary is a constraint and a design principle simultaneously</div>
+      <div class="signal-text">Next Finance is FCA-regulated under the Consumer Credit Act. Any loyalty programme that blurs the boundary between earning rewards and credit product benefits risks FCA Consumer Duty implications. This constraint also signals an opportunity: a loyalty programme architecturally separated from nextpay — with its own enrolment, earn, and recognition logic — would allow Next to serve both credit and non-credit customers equitably while maintaining clear regulatory separation. <span class="cite">(Source: next.co.uk/credit — FCA regulatory language)</span></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-title">Signal 7 — Customer tenure data exists in Next's transaction systems but is invisible to customers and associates</div>
+      <div class="signal-text">The volume of Trustpilot reviews (282,000+) referencing long-term shopping relationships with Next — combined with the confirmed absence of any tenure recognition mechanism — signals that Next holds significant latent loyalty equity in its existing customer data that has never been activated. Surfacing even basic tenure signals (years as a customer, lifetime purchase count) to both customers and associates represents a low-cost, high-impact loyalty activation that requires data retrieval rather than new data collection. <span class="cite">(Source: Trustpilot 282,000+ reviews; dontpayfull.com)</span></div>
+    </div>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www2.next.co.uk/nextpay">next2.co.uk/nextpay — VIP Sale credit exclusivity</a>
+      <a class="source-link" href="https://markets.financialcontent.com/stocks/article/finterra-2026-3-2-the-digital-landlord-how-next-plc-nxtl-mastered-the-retail-transformation">markets.financialcontent.com</a>
+      <a class="source-link" href="https://corporate.marksandspencer.com/newsroom/press-releases/ms-announces-transformed-sparks-loyalty-programme">corporate.marksandspencer.com — M&S Sparks signal</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:12px;">
+  <div class="section-header"><span class="section-num">19</span><span class="section-title">Recent News &amp; Developments</span></div>
+  <div class="section-body">
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">1.</span>FY2026 Annual Results — Full price sales +3.5% YoY despite NI cost pressure</div><div class="theme-text">Next reported full price sales growth of +3.5% for FY ending January 2026, absorbing a £25m National Insurance cost hit to retail stores P&amp;L. Total group revenue ~£6bn+. Profit before tax ~£980m. (Source: nextplc.co.uk Annual Report Jan 2026 — March 2026)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">2.</span>Native App Replatform confirmed — February 2025</div><div class="theme-text">Next's Lead Product Owner Jessica Bennett confirmed the 2025 focus is replatforming the mobile commerce offering to a native app, following 13+ planned projects delivered and 30-week time savings achieved. This creates the technical foundation for loyalty QR scanning and persistent login. (Source: retailtechinnovationhub.com — Feb 2025)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">3.</span>M&S Sparks transformation — April 2025</div><div class="theme-text">M&S replaced its Sparks points system with a digital cash wallet in April 2025, directly responding to customer demand for simplicity. This competitive move increases pressure on Next to launch a loyalty programme — and signals the design direction (simplicity, real money) the market is moving toward. (Source: corporate.marksandspencer.com — April 2025)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">4.</span>New Look Club New Look launch — October 2025</div><div class="theme-text">New Look launched its first-ever loyalty scheme following a £30m digital investment, with early sale access and exclusive club prices as headline benefits — directly replicating the mechanic Next currently restricts to credit customers. (Source: retailgazette.co.uk — October 2025)</div></div>
+    <div class="theme-item"><div class="theme-title"><span class="theme-num">5.</span>Total Platform reaches 7+ clients — January 2024</div><div class="theme-text">Next announced 7 Total Platform clients as of January 2024, including JoJo Maman Bébé, Joules, and Made.com joining in the most recent period — expanding the brand ecosystem on which a multi-brand loyalty earn model could be built. (Source: theindustry.beauty — March 2024)</div></div>
+    <div class="sources-block">
+      <div class="sources-label">Sources</div>
+      <a class="source-link" href="https://www.nextplc.co.uk/~/media/Files/N/next-plc-v4/about-next/annual-report-and-accounts-jan-2026.pdf">nextplc.co.uk — Annual Report Jan 2026</a>
+      <a class="source-link" href="https://retailtechinnovationhub.com/home/2025/2/9/fashion-and-homeware-retailer-next-set-to-replatform-mobile-commerce-offering-to-native-app">retailtechinnovationhub.com — Feb 2025</a>
+      <a class="source-link" href="https://theindustry.beauty/in-depth-next-reveals-its-strategy-for-a-new-era/">theindustry.beauty — March 2024</a>
+    </div>
+  </div>
+</div>
+</div><!-- /block F -->
+
+<!-- ═══ DOWNSTREAM AGENT SUMMARY ═══ -->
+<div>
+<div class="block-header"><span class="block-label">Downstream Agent Summary</span><span class="block-title">Key Findings Packaged for 7 Downstream Agents</span></div>
+
+<div class="section">
+  <div class="section-body">
+    <div class="downstream-item">
+      <div class="downstream-agent">User Personas Agent</div>
+      <div class="downstream-text">Primary customer segments: (1) Cash/debit shopper — long-tenure, no current loyalty recognition, actively benchmarks loyalty programmes at other retailers (Boots, M&S Sparks), aware of returns penalisation risk; (2) nextpay account holder — receives credit-gated VIP Sale access, high LTV, concerned about loyalty-credit conflation; (3) Store associate — has no POS visibility of customer identity, relies on personal memory for recognition, needs bounded data at the till. Internal users: Marketing/CRM (campaign design), Digital Product (app dependency), Next Finance (FCA boundary management).</div>
+    </div>
+    <div class="downstream-item">
+      <div class="downstream-agent">Design Brief Agent</div>
+      <div class="downstream-text">Design problem: Next has no loyalty programme for non-credit customers despite being the UK's largest clothing retailer by sales. Key constraints: (1) FCA regulatory boundary between loyalty and credit (nextpay); (2) native app replatform dependency for QR scanning and push notifications; (3) cross-channel identity fragmentation (nextpay vs online account email mismatch) must be resolved at infrastructure level; (4) GDPR: marketing opt-in must be separated from loyalty enrolment. Key opportunity: extending VIP Sale early access beyond credit holders as a loyalty-earned benefit.</div>
+    </div>
+    <div class="downstream-item">
+      <div class="downstream-agent">Experience Ecosystem Map Agent</div>
+      <div class="downstream-text">Key objects: Loyalty Account, Points Balance, Points Transaction, Loyalty Tier, Reward, Early Access Event, Redemption, In-Store Recognition Alert, Programme Rules, Customer Profile, Communication, Integration Log, Next Finance Account, Click &amp; Collect Order, Point Dispute, Manual Adjustment, Physical Card. Key relationships: Purchase → generates Points Transaction; Loyalty Tier → generates In-Store Recognition Alert; Next Finance Account → updates Customer Profile. Critical gap: POS system currently generates zero customer identity output — In-Store Recognition Alert object does not exist in the current system.</div>
+    </div>
+    <div class="downstream-item">
+      <div class="downstream-agent">Experience Roadmap Agent</div>
+      <div class="downstream-text">Key journey stages: Programme Discovery (cash customers self-exclude due to credit account assumption); Enrolment (returns data anxiety is enrolment gate — requires plain-English data use statement before CTA); Points Earning — online and in-store (4-second QR scan threshold); Balance &amp; Progress Tracking (permanent home-screen visibility); In-Store Recognition (bounded data: tier, tenure, points only — no purchase history); Early Access Events (loyalty-earned access — the primary enrolment driver); Redemption; Support &amp; Issue Resolution (missed points claims, retrospective earn). Cross-channel continuity is the infrastructure dependency across all stages.</div>
+    </div>
+    <div class="downstream-item">
+      <div class="downstream-agent">UX Requirements Documentation Agent</div>
+      <div class="downstream-text">Confirmed technical constraints: (1) Native app replatform in progress 2025 — loyalty must be built on new platform; (2) POS integration required to surface loyalty status to associates; (3) Unified customer identity layer (email + mobile number as backup identifier) required before cross-channel loyalty can function; (4) FCA Consumer Duty compliance — loyalty and credit data must be architecturally separated; (5) GDPR — marketing opt-in separated from loyalty enrolment; (6) Physical card fallback required for non-smartphone users. Key metric: 4-second scan-to-confirmation as technical performance gate for in-store QR interaction.</div>
+    </div>
+    <div class="downstream-item">
+      <div class="downstream-agent">Experience Benchmarking Agent</div>
+      <div class="downstream-text">Benchmark programmes: Boots Advantage Card (simplicity gold standard — earn mechanic in one sentence); M&S Sparks (cash wallet model, digital-first, 16m members; recently transformed to address complexity complaints); H&amp;M Member (fashion loyalty entry point — points to cash, early access, low friction); My John Lewis (experience-led rewards, 3.7m members, 2.5× purchase frequency); Pret a Manger / Costa (in-store QR scan speed benchmarks — 4 seconds). Anti-pattern: John Lewis programme restructure without plain-English communication caused member disengagement and lapse.</div>
+    </div>
+    <div class="downstream-item">
+      <div class="downstream-agent">Journey Map Agent</div>
+      <div class="downstream-text">Critical journey moments: (1) Enrolment gate — returns data anxiety must be resolved before email submission; (2) First earn — must be visible and real-time at online checkout or in-store scan; (3) First redemption — must occur within first 90 days (domain standard) to prevent lapse; (4) In-store recognition — associate prompt at POS using bounded 3-field display; (5) Early access window — the emotional peak of the programme; (6) Returns and account fragmentation — the primary failure mode when cross-channel identity is not resolved. Key emotion arcs: invisibility (current state) → recognition (enrolment) → accumulation satisfaction → access reward.</div>
+    </div>
+  </div>
+</div>
+</div><!-- /downstream -->
+
+</div><!-- /page -->
+</body>
+</html>

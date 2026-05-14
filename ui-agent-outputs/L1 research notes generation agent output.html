@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Research Notes — Next Loyalty Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1f3c;--navy-mid:#1a2e50;--navy-row:#1e3460;
+  --border:#dde4f0;--bg:#f0f4f9;--bg-white:#fff;--bg-alt:#f8fafc;
+  --text-dark:#0f172a;--text-mid:#334155;--text-soft:#64748b;
+  --indigo:#6c8eea;--amber:#d97706;--green:#059669;--red:#dc2626;
+  --font-head:'DM Sans',sans-serif;--font-body:'Inter',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-dark);-webkit-font-smoothing:antialiased;}
+
+/* HEADER */
+.doc-header{background:var(--navy);padding:22px 36px 18px;}
+.doc-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--navy-row);color:var(--indigo);border:1px solid rgba(108,142,234,0.3);padding:3px 10px;border-radius:4px;margin-bottom:10px;}
+.doc-title{font-family:var(--font-head);font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.doc-sub{font-size:11px;color:rgba(255,255,255,0.6);}
+.doc-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);}
+.meta-item .lbl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);display:block;margin-bottom:2px;}
+.meta-item .val{font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);}
+
+/* PAGE */
+.page{padding:28px 32px 72px;display:flex;flex-direction:column;gap:36px;}
+
+/* SEGMENT HEADER */
+.segment-header{background:var(--navy-mid);border-radius:8px;padding:14px 20px;display:flex;align-items:center;gap:12px;}
+.seg-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.seg-icon.customer{background:var(--indigo);}
+.seg-icon.associate{background:var(--green);}
+.seg-title{font-family:var(--font-head);font-size:15px;font-weight:700;color:#fff;}
+.seg-sub{font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;}
+.participant-pills{display:flex;gap:6px;margin-left:auto;}
+.pill{font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;border:1px solid;}
+.pill.p01{background:rgba(245,158,11,0.15);color:#fcd34d;border-color:rgba(245,158,11,0.3);}
+.pill.p02{background:rgba(8,145,178,0.15);color:#67e8f9;border-color:rgba(8,145,178,0.3);}
+.pill.p03{background:rgba(5,150,105,0.15);color:#6ee7b7;border-color:rgba(5,150,105,0.3);}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;box-shadow:0 1px 6px rgba(0,0,0,0.06);}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:900px;}
+
+/* COLUMN WIDTHS */
+col.col-q{width:240px;}
+col.col-p{width:auto;}
+
+/* HEADER ROW */
+thead tr{background:var(--navy);}
+thead th{padding:10px 14px;text-align:left;font-family:var(--font-head);font-size:10px;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:0.5px;border-right:1px solid rgba(255,255,255,0.08);}
+thead th:last-child{border-right:none;}
+
+/* SECTION ROW */
+.row-section{background:var(--navy-mid);}
+.row-section td{padding:8px 14px;font-family:var(--font-head);font-size:11px;font-weight:700;color:var(--indigo);letter-spacing:0.5px;border-right:1px solid rgba(255,255,255,0.06);}
+.row-section td:last-child{border-right:none;}
+
+/* QUESTION ROW */
+.row-q td{background:var(--bg-white);padding:11px 14px;vertical-align:top;border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.65;color:var(--text-mid);}
+.row-q td:last-child{border-right:none;}
+.row-q td:nth-child(even){background:var(--bg-alt);}
+.q-cell{font-weight:600;color:var(--navy);font-size:11.5px;line-height:1.5;}
+.q-cell .rq-tag{display:inline-block;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;color:var(--indigo);border:1px solid #c7d7fa;border-radius:3px;padding:1px 6px;margin-bottom:4px;}
+.resp{font-size:11.5px;color:var(--text-mid);line-height:1.7;}
+.aha{font-weight:700;color:var(--text-dark);background:#fef9c3;border-radius:2px;padding:0 2px;}
+.ts{font-size:9px;color:var(--text-soft);font-weight:600;margin-right:4px;}
+.skipped{font-size:10px;color:var(--text-soft);font-style:italic;}
+
+/* QUOTE ROW */
+.row-quote td{background:#fffbeb;padding:10px 14px;vertical-align:top;border-bottom:1px solid var(--border);border-right:1px solid #fde68a;}
+.row-quote td:first-child{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);}
+.row-quote td:last-child{border-right:none;}
+.quote-text{font-size:11.5px;font-style:italic;color:var(--navy-mid);line-height:1.7;}
+.quote-ts{font-size:9px;color:var(--text-soft);font-weight:600;margin-right:4px;}
+
+/* ADDITIONAL COMMENTS */
+.row-comments td{background:#f0fdf4;padding:10px 14px;vertical-align:top;border-bottom:1px solid var(--border);border-right:1px solid #bbf7d0;}
+.row-comments td:first-child{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);}
+.row-comments td:last-child{border-right:none;}
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-tag">Research Notes</div>
+  <div class="doc-title">Next Loyalty Programme — Consolidated Research Notes</div>
+  <div class="doc-sub">UXReactors 5D Pragmatic UX Framework · Extraction Only Mode · Mapped to Discussion Guide</div>
+  <div class="doc-meta">
+    <div class="meta-item"><span class="lbl">Study</span><span class="val">Next Loyalty Programme UX Research</span></div>
+    <div class="meta-item"><span class="lbl">Participants</span><span class="val">P01 Rachel M. · P02 Marcus T. · P03 Priya K.</span></div>
+    <div class="meta-item"><span class="lbl">Segments</span><span class="val">Customer (2) · Store Associate (1)</span></div>
+    <div class="meta-item"><span class="lbl">Method</span><span class="val">Moderated Remote Interviews</span></div>
+    <div class="meta-item"><span class="lbl">Sessions</span><span class="val">62 min · 58 min · 46 min</span></div>
+    <div class="meta-item"><span class="lbl">Mode</span><span class="val">Extraction Only — No interpretation, no enrichment</span></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════════
+     SEGMENT 1 — CUSTOMER
+══════════════════════════════════════════ -->
+<div>
+  <div class="segment-header">
+    <div class="seg-icon customer">C</div>
+    <div>
+      <div class="seg-title">Segment 1 — Customer (Cash / Debit Shopper)</div>
+      <div class="seg-sub">2 participants · 60-minute moderated remote interviews</div>
+    </div>
+    <div class="participant-pills">
+      <span class="pill p01">P01 Rachel M. · 41 · Birmingham · nextpay holder · 20yr tenure</span>
+      <span class="pill p02">P02 Marcus T. · 53 · Leeds · cash/debit · no nextpay · 15yr tenure</span>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:12px;">
+    <table>
+      <colgroup><col class="col-q"/><col class="col-p"/><col class="col-p"/></colgroup>
+      <thead>
+        <tr>
+          <th>Participant Name</th>
+          <th>P01 — Rachel M.</th>
+          <th>P02 — Marcus T.</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ── WARM UP ── -->
+        <tr class="row-section"><td colspan="3">WARM-UP — Background &amp; Shopping Context</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell">Tell me about yourself and how shopping fits into your week.</td>
+          <td class="resp"><span class="ts">00:04:20</span>Full-time worker, two kids (11 and 8). Does a lot of family shopping — clothes, homeware, household bits. Describes shopping as "organised" — knows what she needs, goes and gets it. Online more than in-store due to time constraints. Goes in-store when trying things on or buying homeware to check size.</td>
+          <td class="resp"><span class="ts">00:05:28</span>Secondary school teacher, 20 years. Leeds. Married, three kids — youngest 16, eldest at university. Describes shopping as "practical." Buys clothes and homeware. In-store primary, online when he knows the product already. Not a browser — "I know what I want, I buy it, I'm done."</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell">How would you describe your relationship with Next as a shopper?</td>
+          <td class="resp"><span class="ts">00:05:22</span>Has been shopping at Next for approximately 20 years — since early twenties. Clothes for herself, kids, homeware. Has a nextpay account, uses it regularly. Gets the VIP sale email and likes that. Describes Next as "reliable" and "functional more than anything emotional." Describes relationship as habit-based rather than emotionally driven.</td>
+          <td class="resp"><span class="ts">00:06:52</span>Approximately 15 years of regular Next shopping. Visits Merrion Centre and Birstall stores. Quality is reliable, not too expensive, "does what I need." <span class="aha">States unprompted: "I've been spending money in that store for over fifteen years and nobody has the faintest idea who I am."</span> Frames the relationship as "commerce" — transactional, no personal acknowledgement.</td>
+        </tr>
+
+        <!-- ── SECTION 3A ── -->
+        <tr class="row-section"><td colspan="3">03A — Shopping Behaviour &amp; What Drives Repeat Visits (Goals A1, A2, A4)</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ A1</div>When you decide to shop at Next rather than somewhere else — what's usually behind that decision?</td>
+          <td class="resp"><span class="ts">00:09:42</span>Primary driver: habit. Knows the sizing — can order online without trying on and know it will fit. Applies same logic to M&S. For kids' clothing and homeware specifically, Next is her default. Started as being about price-to-quality ratio in her twenties, now more "inertia" — no reason to leave. Returns have always been easy, quality consistent.</td>
+          <td class="resp"><span class="ts">00:11:35</span>Primary driver: consistency. Knows what he's going to get. "Quality is reliable enough that I don't have to think too hard." Values the efficiency — can go in, pick what he needs, leave without drama. Explicit that he doesn't enjoy spending extended time in a shop.</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ A2</div>How would you describe the way Next treats you as a customer — do you feel like they know who you are?</td>
+          <td class="resp"><span class="ts">00:11:28</span><span class="aha">States clearly: "No. Not at all." Notes she had never thought about it in those terms before. Gets emails about sales, gets the VIP sale email. But "nothing that would suggest they know it's me specifically, that I've been shopping with them for twenty years, that I buy for two kids and myself and the house." Describes it as "very transactional — they have my money, I have the things."</span></td>
+          <td class="resp"><span class="ts">00:12:22</span>Direct response: "No." Receives sale emails same as everyone else. No acknowledgement of 15-year history. Returns to the word "transactional." Notes he has never complained about the experience, but there is no acknowledgement of the history of it.</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ A2</div>What would "being recognised" by a long-tenure retailer look like to you?</td>
+          <td class="resp"><span class="ts">00:12:28</span>Describes it as not needing to be grand. "Not someone knowing my name or greeting me at the door." Framed as acknowledgement — "you've been coming here for twenty years, we know that, thank you." Even a simple anniversary email — "you've been shopping with us since 2005" — would feel meaningful. <span class="aha">States: "Not one 'thanks for being loyal to us' moment. In twenty years. That's the thing."</span></td>
+          <td class="resp"><span class="ts">00:13:28</span>Explicitly does not want to be greeted by name — would feel "unnerving." <span class="aha">Describes ideal in-store recognition: "Loyalty member, 340 points" on screen, associate says "you've got some points — do you want to put them against this?" States: "I'd feel like I exist in their system as a person rather than just a card number."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ A4</div>What would a loyalty programme need to offer for you to actually change your shopping behaviour?</td>
+          <td class="resp"><span class="ts">[mapped from 00:32:25]</span>Would need to see the earn rate immediately in plain language — not vague ("earn points on every purchase") but specific ("you're about to spend £80, you'll earn X points, worth Y"). Early sale access would be the hook but she already has it via nextpay, so would need something additional beyond what she currently receives.</td>
+          <td class="resp"><span class="ts">00:32:25</span><span class="aha">Names early sale access as the single thing that would make him sign up immediately. States: "If I can earn my way into the sale slot without having to take out a credit account, I'm signing up immediately." Explicitly connects this to a fairness issue — he's been shopping 15 years without access to something credit holders get by default.</span></td>
+        </tr>
+
+        <!-- ── SECTION 3B ── -->
+        <tr class="row-section"><td colspan="3">03B — Loyalty Programme Experience at Other Retailers (Goals A3, B1–B5)</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ A3/B1</div>Which loyalty programmes do you actively use and why?</td>
+          <td class="resp"><span class="ts">00:20:18</span>Boots Advantage Card — uses "religiously," scans every time automatically. Tesco Clubcard — weekly, same. M&S Sparks — has the card, more passive about it, doesn't always remember to use it. H&M — signed up but can't tell her current balance; "that's lapsed a bit."</td>
+          <td class="resp"><span class="ts">00:20:20</span>Tesco Clubcard — uses every week, "almost on autopilot." Boots Advantage Card — similarly. M&S Sparks — has it but finds it confusing, never sure if the earn is meaningful. My John Lewis — mostly stopped using it after a programme restructure. <span class="aha">States: "If I have to read a document to understand a loyalty scheme, I'm out."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ B1</div>What keeps you using Boots/Tesco consistently?</td>
+          <td class="resp"><span class="ts">00:21:18</span><span class="aha">On Boots: "It's simple. You spend a pound, you get four points, four points equals a penny. Done. I understand that." Adds that personalised coupons are relevant to what she actually buys — trusts that they know her purchase history through this.</span></td>
+          <td class="resp"><span class="ts">00:21:42</span>On Tesco: Simple, ubiquitous, applies to every shop. Boosted Clubcard vouchers — specifically the restaurant voucher example. <span class="aha">Describes going to "a nicer restaurant than I'd normally choose because of Tesco points." States this "upgraded my decision, not just discounted it."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ B1</div>Are there programmes that have lapsed for you? What happened?</td>
+          <td class="resp"><span class="ts">00:22:25</span>H&M: "I couldn't explain the earn mechanic to you right now." Didn't understand what she was earning toward at sign-up. Because she couldn't track it easily, stopped thinking about it. <span class="aha">States rule: "If you can't summarise it in one sentence, I'm probably not going to use it actively."</span></td>
+          <td class="resp"><span class="ts">00:20:20</span>John Lewis: Programme changed and the communication "was very corporate and didn't explain in plain language what the new deal was." Lapsed as a result. Frames this as a trust breakdown from poor communication, not the change itself.</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ B2</div>When points build up — how do you track them and what does that feel like?</td>
+          <td class="resp"><span class="ts">00:23:14</span>Checks Boots app "every couple of weeks." Describes it as "satisfying, genuinely." <span class="aha">States: "When I can see the balance growing — that creates loyalty. Because I've got something invested, something I'll lose if I stop shopping here." Acknowledges it influences where she shops.</span></td>
+          <td class="resp"><span class="ts">[inferred from 00:31:00]</span>Did not use the specific term but described a similar psychological mechanic when discussing what a loyalty programme should do — the idea of "building something" over time. States: "A loyalty programme should feel like you're building something. Like each visit is adding to something that matters."</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ B3</div>Points that build over time vs. instant discount at checkout — which feels more valuable?</td>
+          <td class="resp"><span class="ts">00:24:18</span>Points that build, clearly stated. Instant discount: "nice but you get it and it's gone. There's no story." <span class="aha">On accumulation: "When you've been building points for months, redeeming them feels like a reward that you earned. Not just a voucher they gave you." Uses Boots Christmas spend as example — saves all year, uses in December.</span></td>
+          <td class="resp"><span class="ts">00:23:05</span><span class="aha">States clearly: "Accumulation, definitely." Gives reason: "A loyalty programme should feel like you're building something. Like each visit is adding to something that matters. Instant discounts are nice but they don't create habit. They're just a price reduction. There's no story there, no ongoing relationship."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ B4</div>Last time you used points — what did you use them for and what was that like?</td>
+          <td class="resp"><span class="ts">[referenced at 00:24:18]</span>References Boots Christmas points use specifically — saves throughout the year and uses in December. Feels like "saving up." Describes as a "reward that you earned" as opposed to a discount given to you.</td>
+          <td class="resp"><span class="ts">00:21:42</span>Tesco restaurant voucher — converted points to a boosted restaurant voucher. Used it for dinner with wife at a restaurant they "wouldn't normally have gone to." <span class="aha">Key framing: the reward "upgraded my decision" — he chose a better restaurant than he'd have chosen without the voucher. The reward elevated what he did, not just reduced the cost of what he was already doing.</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ B5</div>Have you experienced a loyalty programme that changed its terms? What happened?</td>
+          <td class="resp"><span class="ts">[referenced indirectly]</span>Did not describe a specific programme change experience in depth. Referenced H&M as a lapse case due to complexity rather than a change specifically.</td>
+          <td class="resp"><span class="ts">00:20:20</span>John Lewis programme restructure — described as the primary lapse trigger. Communication was in "corporate language" without a plain-language explanation of what changed. <span class="aha">Frames the acceptable threshold: a change needs to be communicated in plain language, proactively, with a clear explanation of what the customer gains and loses. The failure was not the change itself — it was the opacity of the communication.</span></td>
+        </tr>
+
+        <!-- ── SECTION 3C ── -->
+        <tr class="row-section"><td colspan="3">03C — Enrolment Drivers, Trust &amp; Data Concerns (Goals C1–C5)</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C1</div>If Next launched a loyalty programme tomorrow — what would make you sign up straight away?</td>
+          <td class="resp"><span class="ts">00:32:25</span>Wants the earn rate in plain language immediately, with a specific calculation: "you're about to spend £80, you'll earn X points, which is worth Y towards your next purchase." <span class="aha">States the early sale access would be the hook but she already has it via nextpay. Adds: "Early access is the headline but it can't be the whole story. What do I get the other 363 days?"</span></td>
+          <td class="resp"><span class="ts">00:32:25</span><span class="aha">States without hesitation: "If I can earn my way into the sale slot without having to take out a credit account, I'm signing up immediately." Frames this as correcting a perceived inequality — cash customers currently excluded from early access despite long tenure.</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C1</div>Is there anything that would cause you to hesitate or decline?</td>
+          <td class="resp"><span class="ts">00:35:05</span>Returns monitoring — explicitly raised without being asked about it. <span class="aha">States: "I'm slightly nervous about saying that because I've heard some people get penalised for that." Describes concern about returns being used to restrict her account. Names this as a hard stop: "If I felt like the loyalty programme was a way of tracking my returns so they could use it against me, I wouldn't join it. Full stop."</span></td>
+          <td class="resp"><span class="ts">00:30:00</span><span class="aha">Returns monitoring raised proactively at the wrap-up — described as his most important remaining point. States: "If I'm worried that using a loyalty programme means they'll track my returns and use it against me, I'm not signing up."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C2</div>What type of reward feels most valuable — discount, access, experiential, recognition?</td>
+          <td class="resp"><span class="ts">00:33:52</span>Points accumulation over time, not instant discounts. Early access is the "headline" — but needs ongoing engagement between events. <span class="aha">States: "Early access is the headline but it can't be the whole story. What do I get the other 363 days?" Implies the points balance visibility serves this function — keeps the programme present between events.</span></td>
+          <td class="resp"><span class="ts">00:27:35</span>Access — specifically loyalty-earned early sale access. Contrasts this with money-off: "Money off is fine but it doesn't feel special." <span class="aha">States: "Loyalty-earned access feels qualitatively different to credit-gated access. One feels like a reward for loyalty. The other just feels like buy now, pay later with extra steps."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C3</div>What goes through your mind about data when signing up for a loyalty programme?</td>
+          <td class="resp"><span class="ts">00:35:05</span>Broadly fine with purchase tracking as a trade for rewards. Primary concern: returns data. <span class="aha">States: "I want them to know I'm a loyal customer. I don't want them to know what I bought. There's a difference between recognition and surveillance."</span></td>
+          <td class="resp"><span class="ts">00:30:00</span>Broadly accepts data tracking as a trade: "I give you my data, you give me something back." Hard boundary: returns monitoring. <span class="aha">States: "The programme has to feel like it's for me, not a way of monitoring me." References reports of Next account restrictions for high returns — describes this as "an extraordinary thing for a retailer to do to a loyal customer."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C3</div>What would the sign-up process need to communicate to make you feel comfortable?</td>
+          <td class="resp"><span class="ts">00:36:58</span><span class="aha">States clearly: "A clear statement. Something like 'we use your purchase data to calculate your loyalty points, we do not use it to monitor or restrict your account.' Not in the terms and conditions where nobody reads it. Right there at the point where you're filling in your details. Visible, before the button."</span></td>
+          <td class="resp"><span class="ts">00:31:20</span><span class="aha">States: "A clear statement about what's tracked and what it's used for. Not buried in terms and conditions — right there in the sign-up flow. Something like: we track your purchases to give you rewards. We do not use your data to restrict your account."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C4</div>If earning and tracking points happened mainly through the app — what would need to be true?</td>
+          <td class="resp"><span class="ts">00:38:05</span><span class="aha">Speed is the primary condition: "If it took more than about four or five seconds from opening the app to having the QR code on screen, I'd stop using it." Needs visible confirmation: "If it just vanished into a system I couldn't see, I'd stop trusting it." Names Costa and Boots as positive benchmarks for scan speed.</span></td>
+          <td class="resp"><span class="ts">00:24:05</span><span class="aha">Names Pret a Manger as the benchmark: "Four seconds or under. If it takes longer than that, I'll reach for my card instead." Explains the social pressure mechanism: queue behind you removes the motivation to persist with a slow scan.</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C4</div>Where in the app would you expect to see your points balance?</td>
+          <td class="resp"><span class="ts">00:39:25</span><span class="aha">States: "The first thing. When I open the app, I want to see my balance. Not have to go looking for it." Names Boots app as a positive benchmark. States: "Make it the first thing that opens in the app — a scan button on the home screen, not buried."</span></td>
+          <td class="resp"><span class="ts">[referenced at 00:32:10]</span>Did not address app home screen layout specifically. Focused primarily on scan speed and ease at the till rather than app navigation.</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ C5</div>Is there anyone in your life who couldn't use an app-only programme?</td>
+          <td class="resp"><span class="ts">[referenced indirectly]</span>Mentioned the need for the programme to work across ages when discussing accessibility. Did not give a specific named example. Did reference that a card option or a simple alternative would be needed.</td>
+          <td class="resp"><span class="ts">00:32:22</span><span class="aha">Names his 67-year-old father explicitly. "He wouldn't use an app. Don't build it in a way that excludes people who don't live on their phones." States: "There has to be a card option or something at the till. Otherwise you're saying older customers don't qualify. That feels wrong."</span></td>
+        </tr>
+
+        <!-- ── SECTION 3D ── -->
+        <tr class="row-section"><td colspan="3">03D — In-Store Recognition &amp; POS Interaction (Goals D1–D3)</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ D1</div>What is a till interaction at Next usually like for you?</td>
+          <td class="resp"><span class="ts">00:47:35</span>Describes it as "fine. Perfectly fine." Staff are generally nice. Processes items, pays, leaves. Sometimes asked about receipt. Sometimes mentions Click and Collect promotion. <span class="aha">Describes it as: "transactional, same as everything else."</span></td>
+          <td class="resp"><span class="ts">00:44:35</span>Describes it as: "scan the items, I pay, sometimes they ask about a bag, and I'm off. Perfectly efficient." No complaints about the experience. Explicitly states: "There's no warmth there that's specific to me. Which is fair enough — they don't have any data about me to work with."</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ D1</div>If an associate said "you've got 250 loyalty points — would you like to use them today?" — how would that feel?</td>
+          <td class="resp"><span class="ts">00:48:35</span><span class="aha">States: "That would be brilliant, actually. Just that. 'You've got points, do you want to use them?' I don't need more than that. Just acknowledging that I'm not a stranger. That would mean a lot." Notes this is "more than a lot of the grand gestures brands go for" — specific, useful, not creepy.</span></td>
+          <td class="resp"><span class="ts">00:45:35</span>Affirms this as exactly what he wants. Associates saying something brief about points would make him "feel like I exist in their system as a person." Notes he wants the interaction to be short — "I don't need a speech."</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ D2</div>What would you be comfortable with the associate seeing on screen when you scan?</td>
+          <td class="resp"><span class="ts">00:49:35</span><span class="aha">Comfortable: loyalty tier, points balance, membership length. Not comfortable: "Not what I've bought. Not my returns. Not my account details. Just the loyalty stuff. The fact that I'm a loyal customer and what I'm owed as a result of that. Nothing else." Note-taker observed she leaned forward and slowed her speech on this — strong non-verbal signal.</span></td>
+          <td class="resp"><span class="ts">00:45:35</span><span class="aha">States three data points acceptable: "Loyalty member — yes or no. Points balance. How long I've been a customer — even just a tier like '3+ years' or '10+ years.'" Adds: "Recognition yes. Selling, no. And definitely not my purchase history. That's not their business when they're processing a transaction."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ D3</div>What would need to be true about the in-store QR scan for you to do it every time?</td>
+          <td class="resp"><span class="ts">00:38:05</span>Speed is the primary gate — approximately four to five seconds from opening app to QR code visible. Also needs: visible confirmation on screen that the scan registered. <span class="aha">States: "If I have to open the app, navigate to a scan screen, wait for it to load — I'm not going to do that with a queue behind me."</span></td>
+          <td class="resp"><span class="ts">00:24:05</span>Four seconds or under — Pret a Manger is the benchmark. Queue pressure is the abandonment trigger. <span class="aha">States: "The moment I'm fumbling with the phone while someone's waiting behind me, I've lost the will to scan." Pret described as doing it right — "open the app, the QR is right there, done."</span></td>
+        </tr>
+
+        <!-- QUOTES ROW — CUSTOMER -->
+        <tr class="row-quote">
+          <td>KEY QUOTES</td>
+          <td>
+            <div class="quote-text"><span class="quote-ts">00:11:28</span>"No. Not at all. Nothing that would suggest they know it's me specifically, that I've been shopping with them for twenty years."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:51:12</span>"Recognise the tenure. Recognise that some of us have been coming back for years and years. Not just a number in a database — an actual human who has chosen Next repeatedly. Twenty years. Not one 'thanks for being loyal to us' moment. That's the gap."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:35:05</span>"I want them to know I'm a loyal customer. I don't want them to know what I bought. There's a difference between recognition and surveillance."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:36:58</span>"Not in the terms and conditions where nobody reads it. Right there at the point where you're filling in your details. Visible, before the button."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:33:52</span>"Early access is the headline but it can't be the whole story. What do I get the other 363 days?"</div>
+          </td>
+          <td>
+            <div class="quote-text"><span class="quote-ts">00:06:52</span>"I've been spending money in that store for over fifteen years and nobody has the faintest idea who I am."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:26:10</span>"So people who took out a credit account — which is a financial product, not a loyalty thing — get treated better as customers. And people like me who've been walking into stores for fifteen years and spending cash get... nothing. That genuinely bothers me."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:25:55</span>"If I can earn my way into the sale slot without having to take out a credit account, I'm signing up immediately. That's the unlock for me."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:23:05</span>"A loyalty programme should feel like you're building something. Like each visit is adding to something that matters. Instant discounts are nice but they don't create habit."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:20:20</span>"If I have to read a document to understand a loyalty scheme, I'm out."</div>
+          </td>
+        </tr>
+
+        <!-- ADDITIONAL COMMENTS -->
+        <tr class="row-comments">
+          <td>ADDITIONAL COMMENTS</td>
+          <td>
+            <strong>Account fragmentation (00:57:52):</strong> Participant raised unprompted that her nextpay account and online shopping account are registered with different email addresses and are not linked. Discovered this only when an in-store return failed — the order couldn't be found on the system. Had to manually locate confirmation email on her phone while staff waited. States: "Someone had to manually check my account number. That needs fixing before any loyalty programme can work properly."<br/><br/>
+            <strong>Session tone:</strong> Generally composed and analytical. Most animated and emphatic at two points: (1) the recognition gap — "not one 'thanks for being loyal to us' moment" and (2) the data/surveillance distinction. Note-taker observed visible shift in posture and speech pace at 00:49:35 on the POS data question.
+          </td>
+          <td>
+            <strong>Account identity (00:54:22):</strong> Participant raised infrastructure as a prerequisite for any loyalty programme. "There should be one account. One identifier — a phone number, a loyalty number, something that doesn't depend on me remembering which email address I registered with five years ago." References a personal experience of extended returns search at the till due to account mismatch.<br/><br/>
+            <strong>VIP Sale discovery (00:14:00):</strong> Participant discovered the VIP Sale credit exclusivity during this session. His reaction was the most emotionally charged moment of the interview — visibly more animated, voice louder. Note-taker flagged this as the strongest signal in the session.
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div><!-- /segment 1 -->
+
+<!-- ══════════════════════════════════════════
+     SEGMENT 2 — STORE ASSOCIATE
+══════════════════════════════════════════ -->
+<div>
+  <div class="segment-header">
+    <div class="seg-icon associate">S</div>
+    <div>
+      <div class="seg-title">Segment 2 — Store Associate</div>
+      <div class="seg-sub">1 participant · 45-minute moderated remote interview</div>
+    </div>
+    <div class="participant-pills">
+      <span class="pill p03">P03 Priya K. · 29 · Birmingham Bullring · 2.5 years tenure · Full-time POS</span>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:12px;">
+    <table>
+      <colgroup><col class="col-q"/><col class="col-p"/></colgroup>
+      <thead>
+        <tr>
+          <th>Participant Name</th>
+          <th>P03 — Priya K.</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ── WARM UP ── -->
+        <tr class="row-section"><td colspan="2">WARM-UP — Role &amp; Shift Context</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell">Tell me about your role and what a typical shift looks like.</td>
+          <td class="resp"><span class="ts">00:04:35</span>Full-time at Next Bullring, 2.5 years. Shifts typically 6–8 hours. Approximately half her time on the till, remainder on shop floor (folding, restocking, helping customers, Click and Collect). Describes till and floor as "quite different" — floor is conversational, till is "transactional and time-pressured."</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell">What do you enjoy most about the customer-facing side?</td>
+          <td class="resp"><span class="ts">00:05:52</span>Genuinely likes talking to people. Values regulars — describes an older woman who visits most Tuesdays and asks for her specifically. <span class="aha">States: "But that's just me — the systems don't help with that at all." Identifies that all recognition of regulars is built through personal memory and effort — not supported by any system.</span></td>
+        </tr>
+
+        <!-- ── SECTION 3E ── -->
+        <tr class="row-section"><td colspan="2">03E — POS Workflow, Current Systems &amp; Customer Interactions (Goals E1–E4)</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E1</div>Walk me through what happens from the moment a customer comes to your till.</td>
+          <td class="resp"><span class="ts">00:09:28</span>Sequence: Customer places items on counter or hands them over → scans barcodes (or manual lookup if tag missing) → gives total → payment (card, cash, nextpay) → asks about receipt → mentions any promotion if required → customer leaves. Estimates 2–3 minutes per customer on busy days, sometimes less.</td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E1</div>What does the screen show you about the customer during a transaction?</td>
+          <td class="resp"><span class="ts">00:10:52</span><span class="aha">States: "The items. The total. Payment method. That's it." Adds: "I care about the people who come in regularly. I just can't do anything meaningful about it because I'm invisible to their history and they're invisible to mine." States she has no way of knowing if a customer has shopped there for 20 years or if it's their first visit.</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E2</div>If you could know one thing about a customer from the till — what would it be?</td>
+          <td class="resp"><span class="ts">00:11:48</span><span class="aha">States: whether they're a regular. "Whether they've been coming here for a long time. Just... are they someone who's chosen us again and again? Because that would change how I spoke to them. I'd have a warmth in my voice that I'd mean rather than performing." Adds: "Right now every person I serve is a stranger by default, no matter how many times I've served them before."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E2</div>Are there things you'd actively not want to know at the till?</td>
+          <td class="resp"><span class="ts">00:31:55</span><span class="aha">Returns history named explicitly: "Definitely not that." States: "A loyalty indicator should make me treat people better, not give me reasons to be suspicious." Adds: "If I could see that someone returns a lot, I'd start treating that transaction differently in a negative way — even if I tried not to."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E3</div>Tell me about a difficult customer interaction — what happened?</td>
+          <td class="resp"><span class="ts">00:13:15</span><span class="aha">Describes a returns case: customer ordered online using one email, nextpay account registered with a different email. Search failed — tried three to four different email addresses. Customer stood at till for approximately 12 minutes. Queue built up. Customer had to get her phone out to find the original confirmation email. States: "She was probably a regular customer who'd spent a lot with us over the years and she had to prove herself to a system that didn't know who she was. That doesn't feel right to me." Describes customer as "exhausted" rather than angry.</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E3</div>Was there context — like previous service problems — that would have made a difficult interaction easier if you'd known about it?</td>
+          <td class="resp"><span class="ts">00:15:55</span><span class="aha">Describes customers who arrive already frustrated. "Sometimes it's because something has gone wrong before — a delivery problem or a previous return that didn't go smoothly." States: "If I'd known she'd had three delivery problems in the past month I'd have responded completely differently — with much more empathy upfront, without her having to earn it from me." Describes current state as: "I have to react to whatever energy they bring, with no context."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ E4</div>How does queue pressure change what you do during a transaction?</td>
+          <td class="resp"><span class="ts">00:17:28</span>Speeds up when queue builds — sometimes less thorough. Describes taking shortcuts on complex returns when queue pressure is high. <span class="aha">States: "The worst thing at a till is hesitating. If I'm unsure about something I lose the customer's confidence immediately." Describes preferring to handle uncertainty quickly and quietly rather than making the hesitation visible.</span></td>
+        </tr>
+
+        <!-- ── SECTION 3F ── -->
+        <tr class="row-section"><td colspan="2">03F — Loyalty Programme Readiness &amp; Training Needs (Goals F1–F4)</td></tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ F1</div>Think back to the last time Next introduced something new you had to explain to customers at the till.</td>
+          <td class="resp"><span class="ts">00:27:25</span>References Click and Collect promotion — had a script to encourage customers to use Click and Collect. Describes the script as "written for customers who were standing still with time to listen" — not for customers at the till who are paying and leaving. Describes it sounding "robotic," with customers sensing she was reading from something. <span class="aha">States: "It felt like the training was designed for a scenario that didn't exist in reality."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ F2</div>What kind of preparation would make you feel ready from day one of a loyalty programme launch?</td>
+          <td class="resp"><span class="ts">00:29:00</span><span class="aha">States clearly: "A ten-minute roleplay at the start of a shift. 'Customer asks about points, here's what you say.' That's what sticks." Explicitly rejects: 30-minute e-learning module, video training. Specifies what works: an actual practice conversation — "someone says the line, I say the response, I feel the words in my mouth." Also requests a reference card at the till for the first few weeks — "not because I'd read it mid-transaction, but knowing it's there means I won't panic if my mind goes blank."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ F3</div>If a loyalty indicator appeared on your screen — what would you want it to show?</td>
+          <td class="resp"><span class="ts">00:30:40</span><span class="aha">Names exactly three data points: (1) How long they've been a member — "even just a band, like '2+ years'" (2) How often they come in — "regular or occasional, I don't need a number" (3) Their points balance, so she can tell them what they've got. States: "I don't need their name — that would feel strange, like I'm pretending I know them. I just need to know they're loyal and what they're owed. That changes the whole interaction."</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell"><div class="rq-tag">RQ F4</div>Are there situations where introducing the loyalty programme would feel awkward?</td>
+          <td class="resp"><span class="ts">00:33:15</span>Named situations: customer clearly in a hurry; customer already frustrated about something; customer buying personal items. <span class="aha">States: "Give me the tools and the information and trust me to decide when to use them. Don't give me a script that has to be said regardless of context." Wants flexibility to use professional judgment.</span></td>
+        </tr>
+
+        <tr class="row-q">
+          <td class="q-cell">(New question) What's your honest reaction to a loyalty programme coming to Next?</td>
+          <td class="resp"><span class="ts">00:34:25</span><span class="aha">States: "Looking forward to it. Genuinely." Gives reason: "I want to know who my regulars are. I want to be able to say something meaningful to someone I've served thirty times without having to pretend I remember them from a previous visit." Describes the positive outcome: "If a screen can tell me 'this person has been a loyal customer for three years' — even without their name — I can respond to that with actual warmth. That's better for them and it's better for me. It makes the job feel more human."</span></td>
+        </tr>
+
+        <!-- QUOTES ROW — ASSOCIATE -->
+        <tr class="row-quote">
+          <td>KEY QUOTES</td>
+          <td>
+            <div class="quote-text"><span class="quote-ts">00:44:00</span>"Right now, every customer I serve has no history. They could have been in every week for ten years and I'd never know. That feels like a failure. It's a failure for them and it's a failure for me."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:13:30</span>"She was probably a regular customer who'd spent a lot with us over the years and she had to prove herself to a system that didn't know who she was. That doesn't feel right to me."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:18:15</span>"If I'd known she'd had three delivery problems in the past month I'd have responded completely differently — with much more empathy upfront, without her having to earn it from me."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:29:00</span>"A ten-minute roleplay at the start of a shift. 'Customer asks about points, here's what you say.' That's what sticks."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:31:00</span>"A loyalty indicator should make me treat people better, not give me reasons to be suspicious."</div>
+            <div class="quote-text" style="margin-top:6px;"><span class="quote-ts">00:43:28</span>"Trust the people at the till to do this well — if you give us the right information. We're not robots and we're not reading scripts."</div>
+          </td>
+        </tr>
+
+        <!-- ADDITIONAL COMMENTS — ASSOCIATE -->
+        <tr class="row-comments">
+          <td>ADDITIONAL COMMENTS</td>
+          <td>
+            <strong>App scan speed (00:41:22):</strong> Participant raised unprompted that the app scan must be fast or it will create new friction at the till. "If I'm waiting for someone's app to load while there's a queue, that's going to create friction that wasn't there before. Keep it quick or it won't get used." Echoes the same concern raised by both customer participants from the other side of the transaction.<br/><br/>
+            <strong>Physical card requirement (00:41:22):</strong> Raised proactively — describes a large volume of older customers who are loyal but unlikely to use a smartphone app. "There should be a card option, something simple at the till." Frames this as a service equity issue — older customers are often the most loyal and should not be excluded.<br/><br/>
+            <strong>Session tone:</strong> Confident and candid throughout. The most animated moment was her description of the 12-minute return search (00:13:15) — audible emotion in her voice when describing the customer's experience. Notably positive and forward-looking on the loyalty programme itself, in contrast to the frustrations described about current systems.
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div><!-- /segment 2 -->
+
+</div><!-- /page -->
+</body>
+</html>
