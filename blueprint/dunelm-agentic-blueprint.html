@@ -19,8 +19,10 @@
   --wf2:  #7048d4; --wf2-pastel: #f2eefb;
   --wf3:  #0f9587; --wf3-pastel: #e8f9f7;
   --wf4:  #c0534a; --wf4-pastel: #fdf0ef;
-  --wf5:  #3b6fd4; --wf5-pastel: #eef3fd;
+  --wf5:  #c47d0e; --wf5-pastel: #fdf4e3;
   --wf6:  #2e8b57; --wf6-pastel: #eaf7f0;
+  --wf7:  #1a7fa0; --wf7-pastel: #e3f4fa;
+  --wf8:  #8b2e6b; --wf8-pastel: #f8eaf4;
 
   --c-kb:       #1d7faa; --c-kb-bg:      #e4f5fb;
   --c-llm:      #6b3ecf; --c-llm-bg:     #f0eafa;
@@ -50,7 +52,7 @@ body { padding:36px 32px 80px; }
 .header-meta { text-align:right; font-size:12px; color:var(--text-muted); line-height:1.8; }
 
 /* FLOW */
-.flow-outer { overflow-x:auto; padding-bottom:20px; }
+.flow-outer { overflow-x:auto; padding-bottom:20px; display:flex; justify-content:center; }
 .flow {
   display:flex; flex-direction:row; align-items:flex-start;
   gap:0; position:relative; min-width:max-content;
@@ -81,7 +83,7 @@ body { padding:36px 32px 80px; }
 /* Mini series arrow between cards within a par-row */
 .mini-series-gap {
   flex-shrink:0; width:28px;
-  display:flex; align-items:flex-start; padding-top:48px; /* ~card header height so arrow sits at mid-header */
+  display:flex; align-items:flex-start; padding-top:48px;
   justify-content:center;
 }
 .mini-series-gap svg { width:28px; height:16px; overflow:visible; }
@@ -101,6 +103,8 @@ body { padding:36px 32px 80px; }
 .wf-c4 .wf-stripe,.wf-c4 .wf-badge { --wfc:var(--wf4); --wfp:var(--wf4-pastel); }
 .wf-c5 .wf-stripe,.wf-c5 .wf-badge { --wfc:var(--wf5); --wfp:var(--wf5-pastel); }
 .wf-c6 .wf-stripe,.wf-c6 .wf-badge { --wfc:var(--wf6); --wfp:var(--wf6-pastel); }
+.wf-c7 .wf-stripe,.wf-c7 .wf-badge { --wfc:var(--wf7); --wfp:var(--wf7-pastel); }
+.wf-c8 .wf-stripe,.wf-c8 .wf-badge { --wfc:var(--wf8); --wfp:var(--wf8-pastel); }
 .wf-stripe { background:var(--wfc); }
 
 .wf-card-header { padding:14px 14px 12px; border-bottom:1px solid var(--border); }
@@ -168,183 +172,261 @@ body { padding:36px 32px 80px; }
 <div class="flow" id="flow">
   <svg id="conn-svg" xmlns="http://www.w3.org/2000/svg"></svg>
 
-  <!-- ══ WF1 (series) ══ -->
+  <!-- ══ WF1: UX-Discover (series) ══ -->
   <div class="series-col" id="sec-wf1">
     <div class="wf-card wf-c1" id="wf1">
       <div class="wf-stripe"></div>
       <div class="wf-card-header">
         <div class="wf-badge">WF 1</div>
-        <div class="wf-name">L1-WF-inception-idea-epics-creator</div>
-        <div class="wf-desc">Workflow to create idea or a product vision into epics</div>
+        <div class="wf-name">UX-Discover</div>
+        <div class="wf-desc">Research, synthesise and analyse user and market context to ground design decisions</div>
       </div>
       <div class="agents-list">
+
         <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 inception requirements extractor</span><span class="agent-chevron">▼</span></button>
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">Secondary Research</span><span class="agent-chevron">▼</span></button>
           <div class="agent-params">
-            <div class="desc-text">Transform an idea ('use-case') or a product vision document into a comprehensive, categorized list of actionable requirements with traceability and compliance alignment.</div>
+            <div class="desc-text">Gather and synthesise secondary research from existing sources to establish market, competitor and user context for the business idea.</div>
             <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">SOURCE_DOCUMENT – idea / product vision</span></div></div>
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Business Idea</span></div></div>
               <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Requirements Traceability Matrix</span></div></div>
-              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Secondary Research Doc</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-secondary-research-gold-standard-examples</span><span class="chip kb">kb-secondary-research-evaluation-rubrix</span></div></div>
               <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
               <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
             </div>
           </div>
         </div>
+
         <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
         <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 inception requirements to epics generator</span><span class="agent-chevron">▼</span></button>
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">Experience Ecosystem</span><span class="agent-chevron">▼</span></button>
           <div class="agent-params">
-            <div class="desc-text">Transform input requirements into comprehensive, actionable epics with clear objectives, acceptance criteria, and traceability.</div>
+            <div class="desc-text">Map the broader experience ecosystem — stakeholders, touchpoints and competitive landscape — to frame design opportunities.</div>
             <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Requirements Traceability Matrix</span></div></div>
-              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA</span></div></div>
-              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span><span class="chip out">Features (Child work items of Epics)</span></div></div>
-              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L0-epics-best-practices</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Business Idea</span><span class="chip in">Secondary Research Doc</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Experience Ecosystem</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-ecosystem-gold-standard-examples</span><span class="chip kb">kb-ecosystem-evaluation-rubrix</span></div></div>
               <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
               <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
             </div>
           </div>
         </div>
+
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">Research Plan</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Define a structured research plan — objectives, methods and participant criteria — to guide primary user research activities.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Business Idea</span><span class="chip in">Secondary Research Doc</span><span class="chip in">Experience Ecosystem</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Research Plan</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-research-plan-gold-standard-examples</span><span class="chip kb">kb-research-plan-evaluation-rubrix</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A4</span><span class="agent-label">Discussion Guide</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Create a moderated discussion guide with targeted questions and prompts to uncover user needs and pain points during interviews.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Secondary Research Doc</span><span class="chip in">Research Plan</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Discussion Guide</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-discussion-guide-gold-standard-examples</span><span class="chip kb">kb-discussion-guide-evaluation-rubrix</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">Research Note Taking</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Capture structured notes from user interview transcripts, tagging observations against research themes and questions.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Secondary Research Doc</span><span class="chip in">Research Plan</span><span class="chip in">Discussion Guide</span><span class="chip in">User Interview Transcripts</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Research Notes</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-research-note-taking-gold-standard-examples</span><span class="chip kb">kb-research-note-taking-evaluation-rubrix</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A6</span><span class="agent-label">UX Research Intelligence</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Synthesise all research inputs into a comprehensive UX Research Synthesis Report with themes, insights and actionable recommendations.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Business Idea</span><span class="chip in">Secondary Research Doc</span><span class="chip in">Research Plan</span><span class="chip in">Discussion Guide</span><span class="chip in">Research Notes</span><span class="chip in">Experience Ecosystem</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">UX Research Synthesis Report</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-research-synthesis-gold-standard-examples</span><span class="chip kb">kb-research-synthesis-evaluation-rubrix</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
   <div class="gap-col" id="gap1"></div>
 
-  <!-- ══ PARALLEL GROUP: WF2a→WF2b→WF2c (series, top lane) + WF3 (bottom lane) ══ -->
+  <!-- ══ PARALLEL GROUP 1: Top lane WF2→WF3, Bottom lane WF4→WF5 ══ -->
   <div class="par-group" id="par1">
     <div class="par-group-label"></div>
 
-    <!-- TOP LANE: WF2a → WF2b → WF2c in series -->
-    <div class="par-row" id="wf2-row">
+    <!-- TOP LANE: WF2 → WF3 -->
+    <div class="par-row" id="top-row">
 
-      <!-- WF2a -->
-      <div class="wf-card wf-c2" id="wf2a">
+      <!-- WF2: UX-Define -->
+      <div class="wf-card wf-c2" id="wf2">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
           <div class="wf-badge">WF 2</div>
-          <div class="wf-name">L1-WF-UX-Discover</div>
-          <div class="wf-desc">WF Description: Short summary of what WF does</div>
+          <div class="wf-name">UX-Define</div>
+          <div class="wf-desc">Build user personas and experience roadmap from research synthesis to define the design direction</div>
         </div>
         <div class="agents-list">
-        <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 ux requirements agent</span><span class="agent-chevron">▼</span></button>
-          <div class="agent-params">
-            <div class="desc-text">Agent Desc</div>
-            <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Client Requirements</span></div></div>
-              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span><span class="chip out">Structured UX Requirements</span></div></div>
-              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L1-ux-requirements</span></div></div>
-              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
-              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Opus 4.6</span></div></div>
+
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">User Persona</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Generate rich, evidence-based user persona cards from research synthesis, capturing behaviours, goals and pain points.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">UX Research Synthesis Report</span><span class="chip in">Experience Ecosystem</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Persona Cards</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-user-persona-gold-standard-examples</span><span class="chip kb">kb-user-persona-evaluation-rubrix</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
             </div>
           </div>
-        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-        <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 experience ecosystem generator</span><span class="agent-chevron">▼</span></button>
-          <div class="agent-params">
-            <div class="desc-text">Agent Desc</div>
-            <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Client Requirements</span></div></div>
-              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span><span class="chip out">Structured UX Requirements</span></div></div>
-              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L1-ux-requirements</span></div></div>
-              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
-              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Opus 4.6</span></div></div>
+
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">Experience Roadmap</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Create scenario-based experience roadmaps that connect persona journeys to desired outcomes and design opportunities.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">UX Research Synthesis Report</span><span class="chip in">Experience Ecosystem</span><span class="chip in">Persona Cards</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Scenarios</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-experience-roadmap-gold-standard-examples</span><span class="chip kb">kb-experience-roadmap-evaluation-rubrix</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
             </div>
-          </div>  
           </div>
-        
-        </div>  
+
         </div>
-       
       </div>
 
-      <!-- series mini-arrow WF2a → WF2b -->
-      <div class="mini-series-gap" id="msg-2a2b">
+      <!-- Mini series arrow WF2 → WF3 -->
+      <div class="mini-series-gap">
         <svg viewBox="0 0 28 16" xmlns="http://www.w3.org/2000/svg" overflow="visible">
           <line x1="0" y1="8" x2="20" y2="8" stroke="#64748b" stroke-width="2"/>
           <polygon points="14,4 22,8 14,12" fill="#64748b"/>
         </svg>
       </div>
 
-      <!-- WF2b -->
-      <div class="wf-card wf-c2" id="wf2b">
-        <div class="wf-stripe"></div>
-        <div class="wf-card-header">
-          <div class="wf-badge">WF 3 *To be filled by Kalyan*</div>
-          <div class="wf-name">L1-WF-uiux-workflows</div>
-          <div class="wf-desc">Deep-dive UI/UX design workflows — agents to be configured</div>
-        </div>
-        <div class="agents-list">
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A4</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-        </div>
-      </div>
-
-      <!-- series mini-arrow WF2b → WF2c -->
-      <div class="mini-series-gap" id="msg-2b2c">
-        <svg viewBox="0 0 28 16" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-          <line x1="0" y1="8" x2="20" y2="8" stroke="#64748b" stroke-width="2"/>
-          <polygon points="14,4 22,8 14,12" fill="#64748b"/>
-        </svg>
-      </div>
-
-      <!-- WF2c -->
-      <div class="wf-card wf-c2" id="wf2c">
-        <div class="wf-stripe"></div>
-        <div class="wf-card-header">
-          <div class="wf-badge">WF 4 *To be filled by Kalyan*</div>
-          <div class="wf-name">L1-WF-uiux-workflows</div>
-          <div class="wf-desc">Deep-dive UI/UX design workflows — agents to be configured</div>
-        </div>
-        <div class="agents-list">
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A4</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-          <div class="agent"><button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">UI/UX Agent — Kalyan</span><span class="agent-chevron">▼</span></button><div class="agent-params"><div class="desc-text">Agent definition to be configured.</div><div class="param-grid"><div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip na">TBD</span></div></div><div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div></div></div></div>
-        </div>
-      </div>
-
-    </div><!-- /WF2 series row -->
-
-    <!-- BOTTOM LANE: WF3 -->
-    <div class="par-row" id="wf3-row">
+      <!-- WF3: UX-Design -->
       <div class="wf-card wf-c3" id="wf3">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
-          <div class="wf-badge">WF 5</div>
-          <div class="wf-name">L1-WF-inception-epics-to-story-decomposer</div>
-          <div class="wf-desc">Workflow to decompose epics to stories</div>
+          <div class="wf-badge">WF 3</div>
+          <div class="wf-name">UX-Design</div>
+          <div class="wf-desc">Translate personas and scenarios into detailed user workflows, screen flows and wireframe prompts</div>
         </div>
         <div class="agents-list">
+
           <div class="agent">
-            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 inception epics validator</span><span class="agent-chevron">▼</span></button>
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">User Workflows</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Reviews and validates epic requirements for completeness, clarity, business alignment, and compliance, providing actionable reports and audit traceability.</div>
+              <div class="desc-text">Define screen-by-screen user flows annotated with design principles, design outcomes and variation states for each scenario.</div>
               <div class="param-grid">
-                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs + Features</span></div></div>
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">UX Research Synthesis Report</span><span class="chip in">Experience Ecosystem</span><span class="chip in">Persona Cards</span><span class="chip in">Scenarios</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Screen-by-Screen Flows with DPs/DOs+Variations</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-user-workflows-gold-standard-examples</span><span class="chip kb">kb-user-workflows-evaluation-rubrix</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">Wireframes</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Convert screen flows into structured screen prompts ready for wireframe generation in Figma Make.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Screen-by-Screen Flows with DPs/DOs+Variations</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Screen Prompts</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool">Figma Make (Output Link)</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-global-project-context</span><span class="chip kb">kb-wireframes-gold-standard-examples</span><span class="chip kb">kb-wireframes-evaluation-rubrix</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /top-row -->
+
+    <!-- BOTTOM LANE: WF4 → WF5 -->
+    <div class="par-row" id="bot-row">
+
+      <!-- WF4: L1-WF-Inception-ideas-epics-creator -->
+      <div class="wf-card wf-c4" id="wf4">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 4</div>
+          <div class="wf-name">L1-WF-Inception-ideas-epics-creator</div>
+          <div class="wf-desc">Transform client requirements into a traceability matrix and decompose into JIRA epics</div>
+        </div>
+        <div class="agents-list">
+
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 inception requirements extractor</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Transform client requirements into a comprehensive, categorised Requirements Traceability Matrix with compliance alignment.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Client Requirements</span></div></div>
                 <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Validation report for each epic</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Requirements Traceability Matrix</span></div></div>
                 <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
                 <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
                 <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
@@ -352,17 +434,72 @@ body { padding:36px 32px 80px; }
               </div>
             </div>
           </div>
+
           <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 inception requirements to epics generator</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Transform the Requirements Traceability Matrix into comprehensive, actionable epics with clear objectives and acceptance criteria in JIRA.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Requirements Traceability Matrix</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Epics</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L0-epics-best-practices</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mini series arrow WF4 → WF5 -->
+      <div class="mini-series-gap">
+        <svg viewBox="0 0 28 16" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <line x1="0" y1="8" x2="20" y2="8" stroke="#64748b" stroke-width="2"/>
+          <polygon points="14,4 22,8 14,12" fill="#64748b"/>
+        </svg>
+      </div>
+
+      <!-- WF5: L1-WF-inception-epics-to-story-decomposer -->
+      <div class="wf-card wf-c5" id="wf5">
+        <div class="wf-stripe"></div>
+        <div class="wf-card-header">
+          <div class="wf-badge">WF 5</div>
+          <div class="wf-name">L1-WF-inception-epics-to-story-decomposer</div>
+          <div class="wf-desc">Validate epics, decompose them into user stories and generate test artefacts</div>
+        </div>
+        <div class="agents-list">
+
+          <div class="agent">
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 inception epics validator</span><span class="agent-chevron">▼</span></button>
+            <div class="agent-params">
+              <div class="desc-text">Review and validate epic requirements for completeness, clarity and business alignment, producing actionable validation reports.</div>
+              <div class="param-grid">
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Validation report (per epic)</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+                <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
           <div class="agent">
             <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 inception epics to story decomposer</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Transform validated epics into actionable, testable user stories with full traceability and compliance alignment.</div>
+              <div class="desc-text">Transform validated epics into actionable, testable user stories with full traceability and compliance alignment in JIRA.</div>
               <div class="param-grid">
-                <div class="param-row"><span class="param-label">Input 1</span><div class="chips"><span class="chip in">EPICs + Features</span></div></div>
-                <div class="param-row"><span class="param-label">Input 1 Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-                <div class="param-row"><span class="param-label">Input 2</span><div class="chips"><span class="chip in">Validation report for each epic</span></div></div>
-                <div class="param-row"><span class="param-label">Input 2 Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
-                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">User Stories (linked to EPIC)</span></div></div>
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics</span><span class="chip in">Validation Report</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">User Stories</span></div></div>
                 <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
                 <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-story-best-practices</span></div></div>
                 <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
@@ -370,15 +507,17 @@ body { padding:36px 32px 80px; }
               </div>
             </div>
           </div>
+
           <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
           <div class="agent">
-            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">L1 inception test creation agent</span><span class="agent-chevron">▼</span></button>
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">L1 inception test creation agent</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Generate comprehensive test scenarios, manual test cases, and automation-ready scripts from requirements or feature descriptions.</div>
+              <div class="desc-text">Generate comprehensive test scenarios, manual test cases and automation scripts from epics and user stories.</div>
               <div class="param-grid">
-                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs, Features, Stories, Validation report</span><span class="chip in">Optional – Discovery Reports</span></div></div>
-                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github (optional)</span></div></div>
-                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Test Scenarios</span><span class="chip out">Manual Test Cases</span><span class="chip out">Automated Test Cases</span></div></div>
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics</span><span class="chip in">User Stories</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Test Scenarios</span><span class="chip out">Manual Test Cases</span><span class="chip out">Automation Scripts</span></div></div>
                 <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip out-tool"><img src="xray_icon.png" alt="Xray">Xray</span><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
                 <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-test-scenario-standards</span><span class="chip kb">kb-L0-manual-testcase-standards</span><span class="chip kb">kb-L0-automated-testcase-standards</span></div></div>
                 <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
@@ -386,46 +525,33 @@ body { padding:36px 32px 80px; }
               </div>
             </div>
           </div>
+
         </div>
       </div>
-    </div><!-- /WF3 row -->
+
+    </div><!-- /bot-row -->
 
   </div><!-- /par1 -->
 
   <div class="gap-col" id="gap2"></div>
 
-  <!-- ══ WF4 (series) ══ -->
-  <div class="series-col" id="sec-wf4">
-    <div class="wf-card wf-c4" id="wf4">
+  <!-- ══ WF6: L1-WF-inception-design-architecture-generator (series) ══ -->
+  <div class="series-col" id="sec-wf6">
+    <div class="wf-card wf-c6" id="wf6">
       <div class="wf-stripe"></div>
       <div class="wf-card-header">
         <div class="wf-badge">WF 6</div>
         <div class="wf-name">L1-WF-inception-design-architecture-generator</div>
-        <div class="wf-desc">Ingests epics and stories to create or update design and architecture docs</div>
+        <div class="wf-desc">Ingest epics, stories and UX artefacts to produce discovery reports, architecture docs, HLD/LLD and OpenAPI specs</div>
       </div>
       <div class="agents-list">
+
         <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 epic and story readiness review agent</span><span class="agent-chevron">▼</span></button>
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 system discovery and assessment agent</span><span class="agent-chevron">▼</span></button>
           <div class="agent-params">
-            <div class="desc-text">Validate epics and user stories for completeness, clarity, and readiness, ensuring all required details are present for effective design and architecture handoff.</div>
+            <div class="desc-text">Conduct comprehensive discovery of the existing codebase to produce an Executive Summary, System Inventory and Architecture Map.</div>
             <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics + Features + User Stories</span></div></div>
-              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span></div></div>
-              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Validation Report</span></div></div>
-              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span></div></div>
-              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
-              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
-        <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 system discovery and assessment agent</span><span class="agent-chevron">▼</span></button>
-          <div class="agent-params">
-            <div class="desc-text">Conduct comprehensive discovery and assessment of existing technical systems and all related documentation, providing a clear, actionable report.</div>
-            <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Existing Codebases (UI, API)</span></div></div>
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Existing Codebase</span></div></div>
               <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
               <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Discovery Reports – 1. Executive Summary</span><span class="chip out">2. System Inventory</span><span class="chip out">3. Architecture Map</span></div></div>
               <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
@@ -435,63 +561,86 @@ body { padding:36px 32px 80px; }
             </div>
           </div>
         </div>
+
         <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
         <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">L1 inception technical architecture creation agent</span><span class="agent-chevron">▼</span></button>
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 inception technical architecture creation agent</span><span class="agent-chevron">▼</span></button>
           <div class="agent-params">
-            <div class="desc-text">Create or modify comprehensive technical, solution, and integration architecture documentation for a specified epic, ensuring alignment with enterprise standards and regulatory requirements.</div>
+            <div class="desc-text">Create comprehensive Technical and Solution Architecture documentation from epics, stories, wireframes and optional discovery reports.</div>
             <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs, Features, Stories, Validation report</span><span class="chip in">Optional – Discovery Reports</span></div></div>
-              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github (optional)</span></div></div>
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics</span><span class="chip in">User Stories</span><span class="chip in">Validation Report</span><span class="chip in">Optional – Discovery Reports</span><span class="chip in">UX Research Synthesis Report</span><span class="chip in">Wireframes</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
               <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Technical Architecture</span><span class="chip out">Solution Architecture</span></div></div>
               <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-openapi-3.0-standards</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-design-documents-standards</span></div></div>
               <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
               <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
             </div>
           </div>
         </div>
+
         <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
         <div class="agent">
-          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A5</span><span class="agent-label">L1 inception LLD generator agent</span><span class="agent-chevron">▼</span></button>
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A3</span><span class="agent-label">L1 inception lld generator agent</span><span class="agent-chevron">▼</span></button>
           <div class="agent-params">
-            <div class="desc-text">Generate a complete, validated High Level and Low-Level Design documents, ensuring all enterprise and compliance requirements are met.</div>
+            <div class="desc-text">Generate complete, validated High Level Design and Low Level Design documents ensuring enterprise and compliance requirements are met.</div>
             <div class="param-grid">
-              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">EPICs, Features, Stories, Validation report</span><span class="chip in">OpenAPI Specs</span><span class="chip in">Optional – Discovery Reports</span></div></div>
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Epics</span><span class="chip in">User Stories</span><span class="chip in">Wireframes</span><span class="chip in">Technical Architecture</span><span class="chip in">Solution Architecture</span></div></div>
               <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="jira_icon.png" alt="JIRA">JIRA</span><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
-              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">LLD</span><span class="chip out">HLD</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">HLD</span><span class="chip out">LLD</span></div></div>
               <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
-              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L0-openapi-3.0-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
               <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
               <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
             </div>
           </div>
         </div>
+
+        <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
+
+        <div class="agent">
+          <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A4</span><span class="agent-label">L1 inception api specification generator agent</span><span class="agent-chevron">▼</span></button>
+          <div class="agent-params">
+            <div class="desc-text">Generate complete OpenAPI 3.0 specification files from Technical Architecture, Solution Architecture, HLD, LLD and Wireframes.</div>
+            <div class="param-grid">
+              <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Technical Architecture</span><span class="chip in">Solution Architecture</span><span class="chip in">HLD</span><span class="chip in">LLD</span><span class="chip in">Wireframes</span></div></div>
+              <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">OpenAPI Specifications File</span></div></div>
+              <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+              <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L0-openapi-3.0-standards</span></div></div>
+              <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
+              <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
   <div class="gap-col" id="gap3"></div>
 
-  <!-- ══ PARALLEL GROUP 2: WF5 + WF6 ══ -->
+  <!-- ══ PARALLEL GROUP 2: WF7 + WF8 ══ -->
   <div class="par-group" id="par2">
     <div class="par-group-label"></div>
 
     <div class="par-row">
-      <div class="wf-card wf-c5" id="wf5">
+      <div class="wf-card wf-c7" id="wf7">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
           <div class="wf-badge">WF 7</div>
           <div class="wf-name">L1-WF-construction-frontend-code-generator</div>
-          <div class="wf-desc">Generate production-ready frontend code from UI-UX documents, wireframes, HLD, and LLD</div>
+          <div class="wf-desc">Generate production-ready frontend code from UI-UX documents, wireframes, HLD and LLD</div>
         </div>
         <div class="agents-list">
           <div class="agent">
             <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 construction frontend tech stack discovery agent</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Automatically discover and report all technologies, frameworks, and tools used in a frontend project by analysing codebases and technical documentation.</div>
+              <div class="desc-text">Automatically discover and report all technologies, frameworks and tools required for the frontend project from technical documentation and architecture artefacts.</div>
               <div class="param-grid">
-                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Wireframes, HLD, LLD</span><span class="chip in">Optional – Validation Report</span></div></div>
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Wireframes</span><span class="chip in">HLD</span><span class="chip in">LLD</span><span class="chip in">Technical Architecture</span><span class="chip in">Solution Architecture</span><span class="chip in">Optional – Discovery Reports</span></div></div>
                 <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
                 <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">UI Tech Stack Summary</span></div></div>
                 <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
@@ -503,13 +652,13 @@ body { padding:36px 32px 80px; }
           </div>
           <div class="agent-arrow"><div class="aa-line"></div><div class="aa-arrowhead"></div></div>
           <div class="agent">
-            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 construction frontend code generator agent</span><span class="agent-chevron">▼</span></button>
+            <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 construction frontend code generator</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Generate secure, production-ready frontend application code from specifications, with documentation and compliance features.</div>
+              <div class="desc-text">Generate secure, production-ready frontend application code from the UI tech stack summary, wireframes, HLD and LLD.</div>
               <div class="param-grid">
-                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">UI Tech Stack Summary</span></div></div>
-                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
-                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">UI Front End Code (React, for this demo)</span></div></div>
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">UI Tech Stack Summary</span><span class="chip in">Wireframes</span><span class="chip in">HLD</span><span class="chip in">LLD</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Front End Code</span></div></div>
                 <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
                 <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
                 <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
@@ -522,23 +671,23 @@ body { padding:36px 32px 80px; }
     </div>
 
     <div class="par-row">
-      <div class="wf-card wf-c6" id="wf6">
+      <div class="wf-card wf-c8" id="wf8">
         <div class="wf-stripe"></div>
         <div class="wf-card-header">
           <div class="wf-badge">WF 8</div>
           <div class="wf-name">L1-WF-construction-api-code-generator</div>
-          <div class="wf-desc">Generate API backend code from provided specifications</div>
+          <div class="wf-desc">Generate API backend code from provided technical architecture and specifications</div>
         </div>
         <div class="agents-list">
           <div class="agent">
             <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A1</span><span class="agent-label">L1 construction tech stack discovery agent</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Automatically discover, analyse, and document the technical architecture and technology stack of a given codebase to support code generation and modernisation.</div>
+              <div class="desc-text">Discover, analyse and document the technical architecture and technology stack from architecture documents and optional discovery reports to support API code generation.</div>
               <div class="param-grid">
-                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">OpenAPI Specs, HLD, LLD</span><span class="chip in">Optional – Validation Report</span></div></div>
+                <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">HLD</span><span class="chip in">LLD</span><span class="chip in">Technical Architecture</span><span class="chip in">Solution Architecture</span><span class="chip in">Open API Specs</span><span class="chip in">Optional – Discovery Reports</span></div></div>
                 <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
                 <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">Technical Architecture Discovery</span></div></div>
-                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
+                <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
                 <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span></div></div>
                 <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
                 <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
@@ -549,13 +698,13 @@ body { padding:36px 32px 80px; }
           <div class="agent">
             <button class="agent-toggle" onclick="toggleAgent(this)"><span class="agent-num">A2</span><span class="agent-label">L1 construction api code generator agent</span><span class="agent-chevron">▼</span></button>
             <div class="agent-params">
-              <div class="desc-text">Automatically generate secure, production-ready API code and documentation from provided specifications, supporting multiple languages and frameworks.</div>
+              <div class="desc-text">Automatically generate secure, production-ready API code from the Technical Architecture Discovery, adhering to enterprise standards and OpenAPI specifications.</div>
               <div class="param-grid">
                 <div class="param-row"><span class="param-label">Input</span><div class="chips"><span class="chip in">Technical Architecture Discovery</span></div></div>
-                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip na">NA (In Memory)</span></div></div>
-                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">API Code (in Python for this demo)</span></div></div>
+                <div class="param-row"><span class="param-label">Input Tool</span><div class="chips"><span class="chip in-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
+                <div class="param-row"><span class="param-label">Output</span><div class="chips"><span class="chip out">API Code</span></div></div>
                 <div class="param-row"><span class="param-label">Output Tool</span><div class="chips"><span class="chip out-tool"><img src="github_icon.png" alt="GitHub">Github</span></div></div>
-                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-openapi-3.0-standards</span><span class="chip kb">kb-L0-api-coding-standards</span><span class="chip kb">kb-L1-microservices-architecture</span></div></div>
+                <div class="param-row"><span class="param-label">Knowledge Bases</span><div class="chips"><span class="chip kb">kb-L0-agent-quality-standards</span><span class="chip kb">kb-L1-enterprise-architecture</span><span class="chip kb">kb-L0-openapi-3.0-standards</span><span class="chip kb">kb-L0-api-coding-standards</span></div></div>
                 <div class="param-row"><span class="param-label">Guardrail</span><span class="param-na">NA</span></div>
                 <div class="param-row"><span class="param-label">LLM</span><div class="chips"><span class="chip llm"><img src="claude_icon.svg" alt="Claude">Claude Sonnet 4.6</span></div></div>
               </div>
@@ -604,7 +753,6 @@ function mkLine(svg, x1,y1,x2,y2,color,dasharray) {
 }
 
 function mkArrow(svg, x1,y1,x2,y2,color) {
-  // horizontal line + arrowhead pointing right
   mkLine(svg, x1,y1, x2-ARROWHEAD+1,y2, color);
   const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
   p.setAttribute('points',`${x2-ARROWHEAD},${y2-ARROWHEAD/1.4} ${x2},${y2} ${x2-ARROWHEAD},${y2+ARROWHEAD/1.4}`);
@@ -620,78 +768,71 @@ function mkDot(svg,cx,cy,color) {
 }
 
 function drawConnectors() {
-  const svg  = document.getElementById('conn-svg');
+  const svg = document.getElementById('conn-svg');
   while(svg.firstChild) svg.removeChild(svg.firstChild);
 
   const flow = document.getElementById('flow');
   svg.setAttribute('width',  flow.scrollWidth);
   svg.setAttribute('height', flow.scrollHeight);
 
-  const wf1  = getRect(document.getElementById('wf1'));
-  const wf2a = getRect(document.getElementById('wf2a'));
-  const wf2b = getRect(document.getElementById('wf2b'));
-  const wf2c = getRect(document.getElementById('wf2c'));
-  const wf3  = getRect(document.getElementById('wf3'));
-  const wf4  = getRect(document.getElementById('wf4'));
-  const wf5  = getRect(document.getElementById('wf5'));
-  const wf6  = getRect(document.getElementById('wf6'));
-  const g1   = getRect(document.getElementById('gap1'));
-  const g2   = getRect(document.getElementById('gap2'));
-  const g3   = getRect(document.getElementById('gap3'));
+  const wf1 = getRect(document.getElementById('wf1'));
+  const wf2 = getRect(document.getElementById('wf2'));  // top lane, first card
+  const wf3 = getRect(document.getElementById('wf3'));  // top lane, last card
+  const wf4 = getRect(document.getElementById('wf4'));  // bottom lane, first card
+  const wf5 = getRect(document.getElementById('wf5'));  // bottom lane, last card
+  const wf6 = getRect(document.getElementById('wf6'));
+  const wf7 = getRect(document.getElementById('wf7'));
+  const wf8 = getRect(document.getElementById('wf8'));
+  const g1  = getRect(document.getElementById('gap1'));
+  const g2  = getRect(document.getElementById('gap2'));
+  const g3  = getRect(document.getElementById('gap3'));
 
-  // Y positions for the two parallel lanes (use WF2b midcard for the UX lane)
-  const wf2LaneY = wf2b.midY;
-  const wf3LaneY = wf3.midY;
+  // ── FORK 1: WF1 → WF2 (top lane) and WF4 (bottom lane) ──────────
+  const fk1X    = g1.midX;
+  const topLaneY = wf2.midY;
+  const botLaneY = wf4.midY;
+  const fk1Y    = (topLaneY + botLaneY) / 2;
 
-  // ── FORK 1: WF1 → WF2a (top lane) and WF3 (bottom lane) ───────
-  // The fork column X sits in the middle of gap1
-  const fk1X = g1.midX;
-  // The fork node Y sits halfway between the two lanes
-  const fk1Y = (wf2LaneY + wf3LaneY) / 2;
-
-  // 1a. Horizontal stem from WF1 right edge at its own midY → fk1X
+  // Horizontal stem from WF1 right edge to fork column
   mkLine(svg, wf1.right, wf1.midY, fk1X, wf1.midY, PAR_C);
-  // 1b. Vertical bridge from wf1.midY down/up to fk1Y (the fork node)
+  // Vertical bridge from wf1.midY to fork node centre
   mkLine(svg, fk1X, wf1.midY, fk1X, fk1Y, PAR_C);
-  // 1c. Vertical spine spanning both lanes
-  mkLine(svg, fk1X, wf2LaneY, fk1X, wf3LaneY, PAR_C);
-  // 1d. Fork dot at centre
+  // Vertical spine spanning both lanes
+  mkLine(svg, fk1X, topLaneY, fk1X, botLaneY, PAR_C);
   mkDot(svg, fk1X, fk1Y, PAR_C);
-  // 1e. Arrows to each lane
-  mkArrow(svg, fk1X, wf2LaneY, wf2a.left, wf2LaneY, PAR_C);
-  mkArrow(svg, fk1X, wf3LaneY, wf3.left,  wf3LaneY, PAR_C);
+  // Arrows into each lane
+  mkArrow(svg, fk1X, topLaneY, wf2.left, topLaneY, PAR_C);
+  mkArrow(svg, fk1X, botLaneY, wf4.left, botLaneY, PAR_C);
 
-  // ── JOIN 1: WF2c + WF3 → WF4 ───────────────────────────────────
+  // ── JOIN 1: WF3 (top) + WF5 (bottom) → WF6 ───────────────────────
   const jn1X = g2.midX;
-  const jn1Y = (wf2LaneY + wf3LaneY) / 2;
+  const jn1Y = (wf3.midY + wf5.midY) / 2;
 
-  // Lines from each lane right-edge → join column
-  mkLine(svg, wf2c.right, wf2LaneY, jn1X, wf2LaneY, PAR_C);
-  mkLine(svg, wf3.right,  wf3LaneY, jn1X, wf3LaneY, PAR_C);
+  // Lines from each lane's last card right edge to join column
+  mkLine(svg, wf3.right, wf3.midY, jn1X, wf3.midY, PAR_C);
+  mkLine(svg, wf5.right, wf5.midY, jn1X, wf5.midY, PAR_C);
   // Vertical spine connecting both incoming lines
-  mkLine(svg, jn1X, wf2LaneY, jn1X, wf3LaneY, PAR_C);
+  mkLine(svg, jn1X, wf3.midY, jn1X, wf5.midY, PAR_C);
   mkDot(svg, jn1X, jn1Y, PAR_C);
-  // Vertical bridge from join node to WF4's actual midY
-  mkLine(svg, jn1X, jn1Y, jn1X, wf4.midY, PAR_C);
-  // Arrow into WF4 left edge
-  mkArrow(svg, jn1X, wf4.midY, wf4.left, wf4.midY, PAR_C);
+  // Vertical bridge from join node to WF6 midY
+  mkLine(svg, jn1X, jn1Y, jn1X, wf6.midY, PAR_C);
+  // Arrow into WF6
+  mkArrow(svg, jn1X, wf6.midY, wf6.left, wf6.midY, PAR_C);
 
-  // ── FORK 2: WF4 → WF5 (top lane) and WF6 (bottom lane) ────────
-  const fk2X    = g3.midX;
-  const fk2topY = wf5.midY;
-  const fk2botY = wf6.midY;
-  const fk2Y    = (fk2topY + fk2botY) / 2;
+  // ── FORK 2: WF6 → WF7 (top) and WF8 (bottom) ────────────────────
+  const fk2X = g3.midX;
+  const fk2Y = (wf7.midY + wf8.midY) / 2;
 
-  // Horizontal stem from WF4 right edge
-  mkLine(svg, wf4.right, wf4.midY, fk2X, wf4.midY, PAR_C);
-  // Vertical bridge from wf4.midY to fork node
-  mkLine(svg, fk2X, wf4.midY, fk2X, fk2Y, PAR_C);
+  // Horizontal stem from WF6 right edge to fork column
+  mkLine(svg, wf6.right, wf6.midY, fk2X, wf6.midY, PAR_C);
+  // Vertical bridge from wf6.midY to fork node
+  mkLine(svg, fk2X, wf6.midY, fk2X, fk2Y, PAR_C);
   // Vertical spine spanning both output lanes
-  mkLine(svg, fk2X, fk2topY, fk2X, fk2botY, PAR_C);
+  mkLine(svg, fk2X, wf7.midY, fk2X, wf8.midY, PAR_C);
   mkDot(svg, fk2X, fk2Y, PAR_C);
   // Arrows to each lane
-  mkArrow(svg, fk2X, fk2topY, wf5.left, fk2topY, PAR_C);
-  mkArrow(svg, fk2X, fk2botY, wf6.left, fk2botY, PAR_C);
+  mkArrow(svg, fk2X, wf7.midY, wf7.left, wf7.midY, PAR_C);
+  mkArrow(svg, fk2X, wf8.midY, wf8.left, wf8.midY, PAR_C);
 }
 
 window.addEventListener('load',   () => setTimeout(drawConnectors, 150));
